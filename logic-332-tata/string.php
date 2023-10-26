@@ -90,5 +90,71 @@ function caesarCipher($s, $k) {
         }
     } 
     return $cipher;
-}echo caesarCipher('159357lcfd', 98);
+}echo caesarCipher('159357lcfd', 98) . "\n";
+
+function marsExploration($s) {
+    $sos = str_split($s, 3); $out = 0;
+    print_r($sos);
+    for($i = 0; $i < count($sos); $i++){
+        if($sos[$i] != "SOS"){
+            $word = $sos[$i];
+            $word = str_split($word, 1);
+            if($word[0] != "S"){$out++;}
+            if($word[1] != "O"){$out++;}
+            if($word[2] != "S"){$out++;}
+        }
+    }
+    return $out;
+
+} echo marsExploration("SOSOOSOSOSOSOSSOSOSOSOSOSOS") . "\n";
+
+function hackerrankInString($s) {
+    $str = "hackerrank";
+        $index = 0;
+        for ($i = 0; $i < strlen($s); $i++)
+        {
+            if ($str[$index] == $s[$i])
+                $index++;
+            if ($index == 10)
+                return "YES";
+        }
+        return "NO";
+} echo hackerrankInString("haacckkerrannkk") . "\n";
+
+function pangrams($s) {
+    $str = str_replace(" ", "", $s);
+    $str = strtolower($str);
+    $str = str_split($str, 1);
+    sort($str);
+    print_r($str);
+    $temp = "";
+    for($i = 0; $i < count($str); $i++){
+        if ($str[$i] != $temp){
+            $pang .= $str[$i];
+            $temp = $str[$i];
+        }
+    }
+    $lower_case = "abcdefghijklmnopqrstuvwxyz";
+    if($pang == $lower_case){
+        return "pangram";
+    } else{
+        return "not pangram";
+    }
+
+} echo pangrams("The Quick Brown Fox Jumps Over the Lazy dog");
+
+function twoStrings($s1, $s2){
+    $str1 = str_split($s1, 1);
+    $str2 = str_split($s2, 1);
+    for($i = 0; $i < count($str1); $i++){
+        for($i = 0; $i < count($str2); $i++){
+            if(strpos($str1[$i], $str2[$j])!==false){
+                return "YES";
+            }
+        }
+    }
+    return "NO";
+}
+
+
 ?>
