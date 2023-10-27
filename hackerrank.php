@@ -1,4 +1,5 @@
 <?php
+// Warmup
 // Solve me first
 function solveMeFirst($a, $b)
 {
@@ -289,6 +290,7 @@ $b = array_map('intval', preg_split('/ /', $b_temp, -1, PREG_SPLIT_NO_EMPTY));
 $result = compareTriplets($a, $b);
 fwrite($fptr, implode(" ", $result) . "\n");
 fclose($fptr);
+echo "\n";
 
 // Strings
 // CamelCase
@@ -314,13 +316,13 @@ echo "\n";
 
 // Strong password
 /*
-  * Complete the 'minimumNumber' function below.
-  *
-  * The function is expected to return an INTEGER.
-  * The function accepts following parameters:
-  *  1. INTEGER n
-  *  2. STRING password
-  */
+ * Complete the 'minimumNumber' function below.
+ *
+ * The function is expected to return an INTEGER.
+ * The function accepts following parameters:
+ *  1. INTEGER n
+ *  2. STRING password
+ */
 
 function minimumNumber($n, $password)
 {
@@ -367,13 +369,13 @@ echo "\n";
 
 // Caesar cipher
 /*
-  * Complete the 'caesarCipher' function below.
-  *
-  * The function is expected to return a STRING.
-  * The function accepts following parameters:
-  *  1. STRING s
-  *  2. INTEGER k
-  */
+ * Complete the 'caesarCipher' function below.
+ *
+ * The function is expected to return a STRING.
+ * The function accepts following parameters:
+ *  1. STRING s
+ *  2. INTEGER k
+ */
 
 function caesarCipher($s, $k)
 {
@@ -415,11 +417,11 @@ echo "\n";
 
 // Mars exploration
 /*
-  * Complete the 'marsExploration' function below.
-  *
-  * The function is expected to return an INTEGER.
-  * The function accepts STRING s as parameter.
-  */
+ * Complete the 'marsExploration' function below.
+ *
+ * The function is expected to return an INTEGER.
+ * The function accepts STRING s as parameter.
+ */
 
 function marsExploration($s)
 {
@@ -449,11 +451,11 @@ echo "\n";
 
 // HackerRank in a String!Page!
 /*
-  * Complete the 'hackerrankInString' function below.
-  *
-  * The function is expected to return a STRING.
-  * The function accepts STRING s as parameter.
-  */
+ * Complete the 'hackerrankInString' function below.
+ *
+ * The function is expected to return a STRING.
+ * The function accepts STRING s as parameter.
+ */
 
 function hackerrankInString($s)
 {
@@ -489,11 +491,11 @@ echo "\n";
 
 // Pangrams
 /*
-  * Complete the 'pangrams' function below.
-  *
-  * The function is expected to return a STRING.
-  * The function accepts STRING s as parameter.
-  */
+ * Complete the 'pangrams' function below.
+ *
+ * The function is expected to return a STRING.
+ * The function accepts STRING s as parameter.
+ */
 
 function pangrams($s)
 {
@@ -523,10 +525,10 @@ echo "\n";
 
 // Seperate the number
 /*
-  * Complete the 'separateNumbers' function below.
-  *
-  * The function accepts STRING s as parameter.
-  */
+ * Complete the 'separateNumbers' function below.
+ *
+ * The function accepts STRING s as parameter.
+ */
 
 function separateNumbers($s)
 {
@@ -581,35 +583,35 @@ for ($q_itr = 0; $q_itr < $q; $q_itr++) {
 echo "\n";
 
 /*
- Penjelasan logic nya:
- 
- 1. Pertama, memeriksa jika panjang string input $s kurang dari 2 karakter, maka langsung 
- mengeluarkan "NO". Karena dengan kurang dari 2 karakter, tidak mungkin membentuk urutan bertambah.
- 2. Selanjutnya, inisialisasi variabel $possible sebagai false yang akan digunakan untuk menandai 
- apakah urutan yang diharapkan ditemukan.
- 3. Buat loop yang akan mencoba panjang urutan yang berbeda, dimulai dari 1 hingga setengah panjang 
- string. Ini dilakukan dengan mengambil substring pertama dari panjang yang sesuai.
- 4. Setiap iterasi loop, mengambil substring pertama dari string input sebagai $firstNum dan sisa string 
- sebagai $remaining. Kemudian inisialisasi $nextNum dengan angka berikutnya yang diasumsikan.
- 5. Kemudian, memulai loop dalam loop yang mencoba mencocokkan urutan angka di dalam sisa string. 
- Ini dilakukan dengan mengambil angka berikutnya dalam bentuk string dan mencoba mencarinya di 
- sisa string menggunakan strpos.
- 6. Jika ditemukan, potong substring tersebut dari sisa string dan inkrementasi angka berikutnya. 
- Ini dilakukan hingga sisa string habis atau tidak ada lagi angka berikutnya yang cocok.
- 7. Jika semua angka berhasil diproses dan sisa string menjadi kosong, maka menandai $possible sebagai 
- true yang berarti urutan yang diharapkan ditemukan.
- 8. Setelah loop selesai, periksa apakah $possible adalah true atau false. Jika $possible adalah true, 
- maka akan mencetak "YES" diikuti dengan angka awal urutan yang ditemukan. Jika $possible adalah false, 
- maka mencetak "NO" untuk menandai bahwa urutan yang diharapkan tidak ditemukan.
- */
+Penjelasan logic nya:
+
+1. Pertama, memeriksa jika panjang string input $s kurang dari 2 karakter, maka langsung 
+mengeluarkan "NO". Karena dengan kurang dari 2 karakter, tidak mungkin membentuk urutan bertambah.
+2. Selanjutnya, inisialisasi variabel $possible sebagai false yang akan digunakan untuk menandai 
+apakah urutan yang diharapkan ditemukan.
+3. Buat loop yang akan mencoba panjang urutan yang berbeda, dimulai dari 1 hingga setengah panjang 
+string. Ini dilakukan dengan mengambil substring pertama dari panjang yang sesuai.
+4. Setiap iterasi loop, mengambil substring pertama dari string input sebagai $firstNum dan sisa string 
+sebagai $remaining. Kemudian inisialisasi $nextNum dengan angka berikutnya yang diasumsikan.
+5. Kemudian, memulai loop dalam loop yang mencoba mencocokkan urutan angka di dalam sisa string. 
+Ini dilakukan dengan mengambil angka berikutnya dalam bentuk string dan mencoba mencarinya di 
+sisa string menggunakan strpos.
+6. Jika ditemukan, potong substring tersebut dari sisa string dan inkrementasi angka berikutnya. 
+Ini dilakukan hingga sisa string habis atau tidak ada lagi angka berikutnya yang cocok.
+7. Jika semua angka berhasil diproses dan sisa string menjadi kosong, maka menandai $possible sebagai 
+true yang berarti urutan yang diharapkan ditemukan.
+8. Setelah loop selesai, periksa apakah $possible adalah true atau false. Jika $possible adalah true, 
+maka akan mencetak "YES" diikuti dengan angka awal urutan yang ditemukan. Jika $possible adalah false, 
+maka mencetak "NO" untuk menandai bahwa urutan yang diharapkan tidak ditemukan.
+*/
 
 // Gemstone
 /*
-  * Complete the 'gemstones' function below.
-  *
-  * The function is expected to return an INTEGER.
-  * The function accepts STRING_ARRAY arr as parameter.
-  */
+ * Complete the 'gemstones' function below.
+ *
+ * The function is expected to return an INTEGER.
+ * The function accepts STRING_ARRAY arr as parameter.
+ */
 
 function gemstones($arr)
 {
@@ -644,31 +646,89 @@ fclose($fptr);
 echo "\n";
 
 /*
- Penjelasan kode:
- 
- 1. Inisialisasi variabel $gemstoneCount ke 0. Variabel ini akan digunakan untuk menghitung jumlah 
- karakter batu permata.
- 2. Menggunakan array_map untuk mengubah setiap string dalam array menjadi array karakter dan menghapus 
- karakter duplikat dari setiap string. Hasilnya adalah array multidimensi yang berisi array karakter 
- unik untuk setiap string.
- 3. Menggunakan call_user_func_array untuk menjalankan fungsi array_intersect pada array multidimensi 
- yang dihasilkan pada langkah sebelumnya. array_intersect adalah fungsi yang digunakan untuk menemukan 
- elemen-elemen yang sama (interseksi) di antara satu atau lebih array. Dalam hal ini, kita menggunakan 
- call_user_func_array untuk menerapkan array_intersect pada semua array karakter yang dihasilkan 
- sebelumnya.
- 4. Hasil dari array_intersect adalah array karakter yang merupakan karakter batu permata, yaitu 
- karakter yang ada di semua string dalam array.
- 5. Menghitung jumlah karakter batu permata dengan menggunakan count($gemstones).
- 6. Mengembalikan nilai $gemstoneCount sebagai jumlah karakter batu permata yang sama di antara semua 
- string dalam array.
+Penjelasan kode:
+
+1. Inisialisasi variabel $gemstoneCount ke 0. Variabel ini akan digunakan untuk menghitung jumlah 
+karakter batu permata.
+2. Menggunakan array_map untuk mengubah setiap string dalam array menjadi array karakter dan menghapus 
+karakter duplikat dari setiap string. Hasilnya adalah array multidimensi yang berisi array karakter 
+unik untuk setiap string.
+3. Menggunakan call_user_func_array untuk menjalankan fungsi array_intersect pada array multidimensi 
+yang dihasilkan pada langkah sebelumnya. array_intersect adalah fungsi yang digunakan untuk menemukan 
+elemen-elemen yang sama (interseksi) di antara satu atau lebih array. Dalam hal ini, kita menggunakan 
+call_user_func_array untuk menerapkan array_intersect pada semua array karakter yang dihasilkan 
+sebelumnya.
+4. Hasil dari array_intersect adalah array karakter yang merupakan karakter batu permata, yaitu 
+karakter yang ada di semua string dalam array.
+5. Menghitung jumlah karakter batu permata dengan menggunakan count($gemstones).
+6. Mengembalikan nilai $gemstoneCount sebagai jumlah karakter batu permata yang sama di antara semua 
+string dalam array.
+*/
+
+// Making anagrams
+/*
+ * Complete the 'makingAnagrams' function below.
+ *
+ * The function is expected to return an INTEGER.
+ * The function accepts following parameters:
+ *  1. STRING s1
+ *  2. STRING s2
  */
+
+function makingAnagrams($s1, $s2)
+{
+    // Write your code here
+    // Inisialisasi array untuk menghitung kemunculan karakter dalam s1 dan s2
+    $charCount1 = [];
+    $charCount2 = [];
+
+    $alphabet = 'abcdefghijklmnopqrstuvwxyz';
+
+    $len1 = strlen($s1);
+    $len2 = strlen($s2);
+
+    for ($i = 0; $i < $len1; $i++) {
+        $char = $s1[$i];
+        $pos = strpos($alphabet, $char);
+        if ($pos !== false) {
+            $charCount1[$pos]++;
+        }
+    }
+
+    // Menghitung kemunculan karakter dalam s2 dan mengurangkan dari s1
+    for ($i = 0; $i < $len2; $i++) {
+        $char = $s2[$i];
+        $pos = strpos($alphabet, $char);
+        if ($pos !== false) {
+            $charCount2[$pos]++;
+        }
+    }
+
+    // Menghitung total karakter yang perlu dihapus
+    $deletions = 0;
+
+    for ($i = 0; $i < 26; $i++) {
+        $deletions += abs($charCount1[$i] - $charCount2[$i]);
+    }
+
+    return $deletions;
+}
+
+$fptr = fopen(getenv("OUTPUT_PATH"), "w");
+$s1 = rtrim(fgets(STDIN), "\r\n");
+$s2 = rtrim(fgets(STDIN), "\r\n");
+$result = makingAnagrams($s1, $s2);
+fwrite($fptr, $result . "\n");
+fclose($fptr);
+echo "\n";
+
 // Anagram
 /*
-  * Complete the 'anagram' function below.
-  *
-  * The function is expected to return an INTEGER.
-  * The function accepts STRING s as parameter.
-  */
+ * Complete the 'anagram' function below.
+ *
+ * The function is expected to return an INTEGER.
+ * The function accepts STRING s as parameter.
+ */
 
 function anagram($s)
 {
@@ -723,13 +783,13 @@ echo "\n";
 
 // Two string
 /*
-  * Complete the 'twoStrings' function below.
-  *
-  * The function is expected to return a STRING.
-  * The function accepts following parameters:
-  *  1. STRING s1
-  *  2. STRING s2
-  */
+ * Complete the 'twoStrings' function below.
+ *
+ * The function is expected to return a STRING.
+ * The function accepts following parameters:
+ *  1. STRING s1
+ *  2. STRING s2
+ */
 
 function twoStrings($s1, $s2)
 {
@@ -750,18 +810,13 @@ function twoStrings($s1, $s2)
 }
 
 $fptr = fopen(getenv("OUTPUT_PATH"), "w");
-
 $q = intval(trim(fgets(STDIN)));
 
 for ($q_itr = 0; $q_itr < $q; $q_itr++) {
     $s1 = rtrim(fgets(STDIN), "\r\n");
-
     $s2 = rtrim(fgets(STDIN), "\r\n");
-
     $result = twoStrings($s1, $s2);
-
     fwrite($fptr, $result . "\n");
 }
-
 fclose($fptr);
 echo "\n";
