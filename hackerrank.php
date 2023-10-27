@@ -12,7 +12,7 @@
         $_b = fgets($handle);
         $sum = solveMeFirst((int)$_a,(int)$_b);
         print ($sum);
-        fclose($handle);
+        // fclose($handle);
     
     /*  02. Time ConversionPage */
     /*
@@ -31,8 +31,8 @@
         $fptr = fopen(getenv("OUTPUT_PATH"), "w");    
         $s = rtrim(fgets(STDIN), "\r\n");
         $result = timeConversion($s);
-        fwrite($fptr, $result . "\n");
-        fclose($fptr);
+        // fwrite($fptr, $result . "\n");
+        // fclose($fptr);
     
     /*  03. Simple Array SumPage
     *
@@ -52,8 +52,8 @@
         $ar_temp = rtrim(fgets(STDIN));
         $ar = array_map('intval', preg_split('/ /', $ar_temp, -1, PREG_SPLIT_NO_EMPTY));
         $result = simpleArraySum($ar);
-        fwrite($fptr, $result . "\n");
-        fclose($fptr);
+        // fwrite($fptr, $result . "\n");
+        // fclose($fptr);
 
     /*  04. Diagonal DifferencePage */
     /*
@@ -76,17 +76,17 @@
 
         }
 
-        $fptr = fopen(getenv("OUTPUT_PATH"), "w");
-        $n = intval(trim(fgets(STDIN)));
-        $arr = array();
-        for ($i = 0; $i < $n; $i++) {
-        $arr_temp = rtrim(fgets(STDIN));
-        $arr[] = array_map('intval', preg_split('/ /', $arr_temp, -1, PREG_SPLIT_NO_EMPTY));
-        }
+        // $fptr = fopen(getenv("OUTPUT_PATH"), "w");
+        // $n = intval(trim(fgets(STDIN)));
+        // $arr = array();
+        // for ($i = 0; $i < $n; $i++) {
+        // $arr_temp = rtrim(fgets(STDIN));
+        // $arr[] = array_map('intval', preg_split('/ /', $arr_temp, -1, PREG_SPLIT_NO_EMPTY));
+        // }
 
-        $result = diagonalDifference($arr);
-        fwrite($fptr, $result . "\n");
-        fclose($fptr);
+        // $result = diagonalDifference($arr);
+        // fwrite($fptr, $result . "\n");
+        // fclose($fptr);
         
    /*  05. Plus MinusPage */
         
@@ -109,10 +109,10 @@
         echo  number_format($zero/$max, 6)."\n" ;
         }
 
-        $n = intval(trim(fgets(STDIN)));
-        $arr_temp = rtrim(fgets(STDIN));
-        $arr = array_map('intval', preg_split('/ /', $arr_temp, -1, PREG_SPLIT_NO_EMPTY));
-        plusMinus($arr);
+        // $n = intval(trim(fgets(STDIN)));
+        // $arr_temp = rtrim(fgets(STDIN));
+        // $arr = array_map('intval', preg_split('/ /', $arr_temp, -1, PREG_SPLIT_NO_EMPTY));
+        // plusMinus($arr);
 
     /*  06. StaircasePage */
         
@@ -149,9 +149,9 @@
             $maxSum = $totalValue - $maxValue;
             echo $maxSum . " " . $minSum;
         }
-        $arr_temp = rtrim(fgets(STDIN));
-        $arr = array_map('intval', preg_split('/ /', $arr_temp, -1, PREG_SPLIT_NO_EMPTY));
-        miniMaxSum($arr);
+        // $arr_temp = rtrim(fgets(STDIN));
+        // $arr = array_map('intval', preg_split('/ /', $arr_temp, -1, PREG_SPLIT_NO_EMPTY));
+        // miniMaxSum($arr);
 
     /*  08. Birthday Cake CandlesPage */
         /* Complete the 'birthdayCakeCandles' function below.
@@ -166,13 +166,13 @@
             $cnt = array_count_values($candles)[$a];
             return $cnt;
         }
-        $fptr = fopen(getenv("OUTPUT_PATH"), "w");
-        $candles_count = intval(trim(fgets(STDIN)));
-        $candles_temp = rtrim(fgets(STDIN));
-        $candles = array_map('intval', preg_split('/ /', $candles_temp, -1, PREG_SPLIT_NO_EMPTY));
-        $result = birthdayCakeCandles($candles);
-        fwrite($fptr, $result . "\n");
-        fclose($fptr);
+        // $fptr = fopen(getenv("OUTPUT_PATH"), "w");
+        // $candles_count = intval(trim(fgets(STDIN)));
+        // $candles_temp = rtrim(fgets(STDIN));
+        // $candles = array_map('intval', preg_split('/ /', $candles_temp, -1, PREG_SPLIT_NO_EMPTY));
+        // $result = birthdayCakeCandles($candles);
+        // fwrite($fptr, $result . "\n");
+        // fclose($fptr);
 
     /*  09. A Very Big SumPage */
         /* Complete the 'aVeryBigSum' function below.
@@ -192,13 +192,13 @@
         
             return $x;
         }
-        $fptr = fopen(getenv("OUTPUT_PATH"), "w");
-        $ar_count = intval(trim(fgets(STDIN)));
-        $ar_temp = rtrim(fgets(STDIN));
-        $ar = array_map('intval', preg_split('/ /', $ar_temp, -1, PREG_SPLIT_NO_EMPTY));
-        $result = aVeryBigSum($ar);
-        fwrite($fptr, $result . "\n");
-        fclose($fptr);
+        // $fptr = fopen(getenv("OUTPUT_PATH"), "w");
+        // $ar_count = intval(trim(fgets(STDIN)));
+        // $ar_temp = rtrim(fgets(STDIN));
+        // $ar = array_map('intval', preg_split('/ /', $ar_temp, -1, PREG_SPLIT_NO_EMPTY));
+        // $result = aVeryBigSum($ar);
+        // fwrite($fptr, $result . "\n");
+        // fclose($fptr);
     
     /*  10. Compare the Triplets */
         /* Complete the 'compareTriplets' function below.
@@ -224,14 +224,14 @@
             return [$aliceScore, $bobScore];
         }
 
-        $fptr = fopen(getenv("OUTPUT_PATH"), "w");
-        $a_temp = rtrim(fgets(STDIN));
-        $a = array_map('intval', preg_split('/ /', $a_temp, -1, PREG_SPLIT_NO_EMPTY));
-        $b_temp = rtrim(fgets(STDIN));
-        $b = array_map('intval', preg_split('/ /', $b_temp, -1, PREG_SPLIT_NO_EMPTY));
-        $result = compareTriplets($a, $b);
-        fwrite($fptr, implode(" ", $result) . "\n");
-        fclose($fptr);
+        // $fptr = fopen(getenv("OUTPUT_PATH"), "w");
+        // $a_temp = rtrim(fgets(STDIN));
+        // $a = array_map('intval', preg_split('/ /', $a_temp, -1, PREG_SPLIT_NO_EMPTY));
+        // $b_temp = rtrim(fgets(STDIN));
+        // $b = array_map('intval', preg_split('/ /', $b_temp, -1, PREG_SPLIT_NO_EMPTY));
+        // $result = compareTriplets($a, $b);
+        // fwrite($fptr, implode(" ", $result) . "\n");
+        // fclose($fptr);
         
         /* String */
     /* 01. CamelCasePage */
@@ -248,14 +248,77 @@
                 $count++;
                 return $count;
             }
-            $fptr = fopen(getenv("OUTPUT_PATH"), "w");
-            $s = rtrim(fgets(STDIN), "\r\n");
-            $result = camelcase($s);
-            fwrite($fptr, $result . "\n");
-            fclose($fptr);
+            // $fptr = fopen(getenv("OUTPUT_PATH"), "w");
+            // $s = rtrim(fgets(STDIN), "\r\n");
+            // $result = camelcase($s);
+            // fwrite($fptr, $result . "\n");
+            // fclose($fptr);
+
     /* 02. Strong PasswordPage */
+       /* Complete the 'minimumNumber' function below.
+          The function is expected to return an INTEGER.
+          The function accepts following parameters:
+           1. INTEGER n
+           2. STRING password
+       */
+
+            function minimumNumber($n, $password) {
+            // Return the minimum number of characters to make the password strong
+            $x=0;
+            if(!preg_match("/[0-9]/i", $password)){
+                var_dump('1'); 
+                $x++; 
+            }
+            if(!preg_match("/[A-Z]/", $password)){
+                var_dump('2'); 
+                $x++; 
+            }
+            if(!preg_match("/[a-z]/", $password)){
+                var_dump('3'); 
+                $x++; 
+            }
+            if(!preg_match("/[!@#$%^&*()--+]/", $password)){
+                var_dump('4'); 
+                $x++; 
+            }
+   
+            var_dump($x);
+            return max($x,6-$n);
+        }
+            // $fptr = fopen(getenv("OUTPUT_PATH"), "w");
+            // $n = intval(trim(fgets(STDIN)));
+            // $password = rtrim(fgets(STDIN), "\r\n");
+            // $answer = minimumNumber($n, $password);
+            // fwrite($fptr, $answer . "\n");
+            // fclose($fptr);
+
     /* 03. Caesar CipherPage */
+        /* Complete the 'caesarCipher' function below.
+           The function is expected to return a STRING.
+           The function accepts following parameters:
+            1. STRING s
+            2. INTEGER k
+    */
+   
+            function caesarCipher($s, $k) {
+            // Write your code here
+            $k = $k%26;
+            $o = 'abcdefghijklmnopqrstuvwxyz';
+            $a = substr($o, 0, $k);
+            $b = substr($o, $k);
+            $s = strtr( $s, $o, $b.$a);
+            return strtr( $s, strtoupper($o), strtoupper($b.$a));
+        }
+        // $fptr = fopen(getenv("OUTPUT_PATH"), "w");
+        // $n = intval(trim(fgets(STDIN)));
+        // $s = rtrim(fgets(STDIN), "\r\n");
+        // $k = intval(trim(fgets(STDIN)));
+        // $result = caesarCipher($s, $k);
+        // fwrite($fptr, $result . "\n");
+        // fclose($fptr);
+
     /* 04. Mars ExplorationPage */
+        
     /* 05. HackerRank in a String!Page */
     /* 06. PangramsPage */
     /* 07. Separate the NumbersPage */
