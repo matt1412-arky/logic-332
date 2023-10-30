@@ -1,0 +1,3 @@
+Pengertian Fungsi 
+
+1. sscanf () = digunakan untuk mem-parsing input dari string sesuai dengan format yang ditentukan.
