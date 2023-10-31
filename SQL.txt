@@ -1,0 +1,154 @@
+create database mahasiswa;
+
+create table jurusan (
+	id serial not null, --serial -> integer; bigserial -> biginter; (AUTO INCREMENT)
+	kode_jurusan varchar (5) not null primary key,
+	nama_jurusan varchar (50) not null,
+	status_jurusan varchar (100) not null
+);
+
+insert  into jurusan (kode_jurusan, nama_jurusan , status_jurusan)
+values
+('J001','Teknik Informatika', 'Aktif'),
+('J002','Management Infotmatika', 'Aktif'),
+('J003', 'Sistem Informasi', 'Non Akitf'),
+('J004', 'Sistem Komputer', 'Aktif'),
+('J005', 'Komputer Akutansi', 'Non Aktif');
+
+--unique key dipergunakan untuk menjaga beberapa kolom untuk tidak dapat diisi
+--dengan data yang sama (misal : 3 kolom diisi dengan data yang sama persis untuk
+--tiap kolom nya)
+alter table	jurusan add constraint jurusan_ukey unique (nama_jurusan, status_jurusan);
+--test unique constraint
+insert  into jurusan (kode_jurusan, nama_jurusan , status_jurusan)
+values ('J006', 'Teknik Informatika', 'Aktif');
+
+create table agama (
+	id serial not null,
+	kode_agama varchar(5) not null primary key,
+	deskripsi varchar(20) not null
+);
+
+insert into agama (kode_agama, deskripsi) values
+('A001', 'Islam'),
+('A002', 'Kristen'),
+('A003', 'Katolik'),
+('A004', 'Hindu'),
+('A005', 'Budha');
+
+create table mahasiswa (
+	id serial not null,
+	kode_mahasiswa varchar(5) not null primary key,
+	nama_mahasiswa varchar(100) not null,
+	alamat varchar(200) not null,
+	kode_agama varchar(5),
+	kode_jurusan varchar(5),
+	constraint mhs_agama_fkey foreign key (kode_agama) references agama (kode_agama),
+	constraint mhs_jurusan_fkey foreign key (kode_jurusan)
+	references jurusan(kode_jurusan)
+);
+
+insert into mahasiswa (
+	kode_mahasiswa,
+	nama_mahasiswa,
+	alamat,
+	kode_agama,
+	kode_jurusan
+) values 
+('M001', 'Budi Gunawan', 'Jl. Mawar, Bandung', 'A001', 'J001'),
+('M002', 'Rinto Raharjo', 'Jl. Kebagusan, Bandung', 'A002', 'J002'),
+('M003', 'Asep Saepudin', 'Jl. Sumatra , Ciamis', 'A001', 'J003'),
+('M004', 'M. Hafif Isbullah', 'Jl. Jawa, Jakarta Pusat', 'A001', 'J001'),
+('M005', 'Cahyono', 'Jl. Niagara, Surabaya', 'A003', 'J002');
+
+create table ujian (
+	id serial not null,
+	kode_ujian varchar(5) not null primary key,
+	nama_ujian varchar(50) not null,
+	status_ujian varchar(50)
+);
+
+insert into ujian (kode_ujian, nama_ujian, status_ujian) values
+('U001', 'Algoritma', 'Aktif'),
+('U002', 'Aljabar', 'Aktif'),
+('U003', 'Statistika', 'Non Aktif'),
+('U004', 'Etika Profesi', 'Non Aktif'),
+('U005', 'Bahasa Inggris', 'Aktif');
+
+create schema dosen;
+
+create table dosen.type_dosen (
+	id serial not null,
+	kode_typedosen varchar(5) not null primary key,
+	deskripsi varchar(20)
+);
+
+insert into dosen.type_dosen (kode_typedosen, deskripsi) values 
+('T001', 'Tetap'),
+('T002', 'Honorer'),
+('T003', 'Expertise');
+
+create table dosen.dosen ( 
+	id serial not null,
+	kode_dosen varchar(5) not null primary key,
+	nama_dosen varchar(100) not null,
+	kode_jurusan varchar(5) not null,
+	kode_typedosen varchar(5) not null,
+	constraint dosen_jurusan_fkey foreign key (kode_jurusan)
+	references public.jurusan (kode_jurusan),
+	constraint dosen_type_fkey foreign key (kode_typedosen)
+	references dosen.type_dosen (kode_typedosen)
+);
+
+alter table dosen.dosen drop constraint dosen_type_fkey; -- menghapus contstraint
+
+alter table dosen.dosen add constraint dosen_type_fkey foreign key (kode_typedosen)
+references dosen.type_dosen(kode_typedosen); -- menambah constraint
+
+
+
+insert into dosen.dosen (kode_dosen, nama_dosen, kode_jurusan, kode_typedosen)
+values
+('D001', 'Prof. Dr. Retno', 'J001', 'T002'),
+('D002', 'Prof. Roy', 'J001', 'T002'),
+('D003', 'Prof. Hendri', 'J001', 'T002'),
+('D004', 'Prof. Risma', 'J001', 'T002'),
+('D005', 'Prof. Amir, MM, MA', 'J001', 'T002');
+
+--Delete table ujian
+delete from ujian; -- menghapus semua data -> gunakan where clause untuk spesifikasi data
+--truncate table untuk mereset data dan structure table
+truncate table ujian restart identity; --restart identity untuk me-reset sequence (kembali) 
+
+create table nilai ( 
+	id serial not null primary key,
+	kode_mahasiswa varchar(5) not null,
+	kode_ujian varchar(5) not null,
+	nilai double precision not null
+);
+
+alter table nilai add constraint nilai_mhs_fkey foreign key (kode_mahasiswa)
+references mahasiswa(kode_mahasiswa);
+alter table nilai add constraint nilai_ujian_fkey foreign key (kode_ujian)
+references ujian(kode_ujian);
+
+insert into nilai (kode_mahasiswa, kode_ujian, nilai) values 
+('M004', 'U001', 90),
+('M001', 'U001', 88),
+('M002', 'U003', 85),
+('M004', 'U002', 95),
+('M005', 'U005', 70);
+
+--DATA QUERY LANGUAGE (DQL)
+--SELECT Clause
+select * from mahasiswa;-- (*) menandakan semua kolom
+select nama_mahasiswa, alamat from mahasiswa;-- Menampilkan spesifikasi beberapa kolom
+select mhs.nama_mahasiswa, mhs.kode_agama from mahasiswa mhs;-- mhs adalah alias dari nama tabel
+select nama_mahasiswa as mahasiswa, alamat as address from mahasiswa;-- as adalah alias dari kolom
+select mhs.nama_mahasiswa as mahasiswa, mhs.alamat as address from mahasiswa mhs;-- alias dari kolom
+--SELECT ORDER BY clause
+--Order by digunakan untuk melakukan sortir data berdasarkan kolom
+select nama_mahasiswa, alamat from mahasiswa order by nama_mahasiswa; --sort ascending by nama mahasiswa
+select nama_mahasiswa, alamat from mahasiswa order by alamat; --sort ascending by nama alamat
+select nama_mahasiswa, alamat from mahasiswa order by nama_mahasiswa, alamat; --sort ascending by all
+select nama_mahasiswa, alamat from mahasiswa order by nama_mahasiswa desc; --sort descending by nama mahasiswa

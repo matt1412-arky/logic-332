@@ -193,7 +193,6 @@
                 return $n . " Botol = " . $boce . " Cangkir\n";
             }
                 echo botolcangkir(3). "\n";
-                echo "\n";
      /*
             Soal no 7
             Berikut ini adalah record penjualan buah dalam bentuk string
@@ -207,43 +206,29 @@
                 Mangga:1
                 Pisang:3
      */
-            function create_sales_summary($sales_record) {
+            function penjualan($jual) {
 
-            $sales_list = explode(', ', $sales_record);
-            $sales_summary = array();
+            $data = explode(', ', $jual);
+            $hasil = array();
     
-        // Iterasi melalui elemen-elemen record penjualan
-        foreach ($sales_list as $item) {
-            // Pisahkan nama buah dan jumlah penjualannya
-            list($fruit, $quantity) = explode(':', $item);
-            $quantity = (int)$quantity;
+            foreach ($data as $item) {
+                list($fruit, $quantity) = explode(':', $item);
+                $quantity = (int)$quantity;
     
-            // Tambahkan jumlah penjualan ke dalam array
-            if (array_key_exists($fruit, $sales_summary)) {
-                $sales_summary[$fruit] += $quantity;
-            } else {
-                $sales_summary[$fruit] = $quantity;
+                if (array_key_exists($fruit, $hasil)) {
+                    $hasil[$fruit] += $quantity;
+                } else {
+                    $hasil[$fruit] = $quantity;
+                }
             }
+            ksort($hasil);
+            return $hasil;
         }
-    
-        // Urutkan jenis buah dalam urutan abjad
-            ksort($sales_summary);
-    
-            return $sales_summary;
-        }
-    
-        // String record penjualan
-        $sales_record = "Apel:1, Pisang:3, Jeruk:1, Apel:3, Apel:5, Jeruk:8, Mangga:1";
-    
-        // Buat summary penjualan
-        $summary = create_sales_summary($sales_record);
-    
-        // Tampilkan summary penjualan dalam urutan abjad
-        foreach ($summary as $fruit => $quantity) {
-            echo "$fruit:$quantity\n";
-        }
-    
-    
-            
-            
+           $record = "Apel:1, Pisang:3, Jeruk:1, Apel:3, Apel:5, Jeruk:8, Mangga:1";
+           $summary = penjualan($record);
+
+            foreach ($summary as $fruit => $quantity) {
+                 echo "$fruit:$quantity\n";
+             }
+
 ?>
