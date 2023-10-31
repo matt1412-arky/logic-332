@@ -1,0 +1,99 @@
+- \l untuk melihat list database yang sudah ada
+- CREATE DATABASE untuk membuat database
+- \c untuk konek ke database yang sudah dibuat maupun yang sudah ada
+- CREATE TABLE nama table (nama column beserta tipe data yang akan dibuat)); berfungsi untuk membuat table. Contoh:  CREATE TABLE profil (id int, nama varchar(20));.
+- \d untuk melihat table apa saja yang ada di dalam datbase.
+- \d nama table untuk melihat attribute apa saja di dalam table tsb, seperti nama column, type dari masing2 column, dkk. Contoh: \d profil.
+-  SELECT * FROM nama table untuk melihat column dan data dari masing2 column. Note: * ini artinya seluruh nama column dari teble tsb akan di pilih dan di tampilkan bisa juga diganti langsung dengan nama columnya langsung seperti SELECT nama FROM profil maka column nama dari table profil akan muncul di terminal. Contoh: SELECT * FROM profil;
+- INSERT INTO nama table (nama column) VALUES (konten/isi yang akan dimasukkan ke dalam column); berfungsi untuk memasukkan data ke dalam nama column yang akan disi. Contoh: INSERT INTO profil (id, nama) VALUES (1, 'Peter Parker'); atau bisa dimasukkan lebih dari 1 seperti berikut INSERT INTO profil (id, nama) VALUES (2, 'Captain Rogers'), (3, 'Black Widow');.
+- ALTER TABLE nama table ADD COLUMN nama column baru tipe data(limit yang akan dimasukkan); berfungsi untuk menambahkan column baru ke dalam table. Contoh: ALTER TABLE profil ADD COLUMN kota varchar(20);.
+- INSERT INTO profil (id, kota) VALUES (1, 'New York'); ini berfungsi untuk memasukkan data baru ke dalam nama kolom id dan kota jadi di dalam table tersebut akan ada 2 data yang memiliki id = 1 sehingga outputnya hanya akan ada data pada nama column id dan kota sedangkan yang lainnya kosong/null.
+- Jadi apabila ingin memasukkan data ke dalam column yang baru yang sebelumnya column lainnya sudah terisi data lebih baik menggunakan UPDATE nama table SET nama column baru='data' WHERE nama column yang sudah ada data='data'. Contoh: UPDATE profil SET kota = 'Cibinong' WHERE id=1;. Note: Ini berfungsi untuk masukkan data baru ke dalam column dan baris yang dipilih. 
+Apabila ingin memasukkan data baru ke dalam baris baru saja bisa menggunakan UPDATE nama table SET nama column baru='data';. Contoh: UPDATE profil SET kota = 'New York' maka seluruh column kota akan berisi data New York.
+- Apabila kita ingin mengubah/edit 1 data ke dalam column kota saja tpi dengan kondisi data pada table seperti dibawah ini:
+ id |      nama      |   kota   
+----+----------------+----------
+  3 | Black Widow    | New York 
+  1 | Peter Parker   | New York    
+  2 | Captain Rogers | New York
+  1 |      	     | New York 
+(4 rows)
+kita bisa mengubah/update data apabila salah satu kolom nya kosong/null dengan menggunakan seperti berikut: UPDATE profil SET kota='Cibinong' WHERE nama IS NULL; atau UPDATE profil SET kota='Cibinong' WHERE id=1 AND nama=''; sehinga table akan berubah menjadi:
+ id |      nama      |   kota   
+----+----------------+----------
+  3 | Black Widow    | New York 
+  1 | Peter Parker   | New York    
+  2 | Captain Rogers | New York
+  1 |      	     | Cibinong 
+(4 rows)
+- Kita juga dapat mengubah nama column yang ada dengan menggunakan kode ALTER TABLE nama table
+RENAME COLUMN nama column yang akan direnama TO nama column baru;. Contoh nya pada table dibawah:
+ id |      nama      |   kota   | senjata
+----+----------------+----------+----------
+  3 | Black Widow    | New York |
+  1 | Peter Parker   | Sukahati |
+  4 | David Banner   | Sukahati |
+  5 | Tony Stark     | Citayem  |
+  2 | Captain Rogers | New York | Tameng
+(5 rows)
+
+Apabila kita menggunakan kode ini ALTER TABLE profil
+RENAME COLUMN senjata TO strength; maka akan berubah menjadi:
+ id |      nama      |   kota   | strength
+----+----------------+----------+----------
+  3 | Black Widow    | New York |
+  1 | Peter Parker   | Sukahati |
+  4 | David Banner   | Sukahati |
+  5 | Tony Stark     | Citayem  |
+  2 | Captain Rogers | New York | Tameng
+(5 rows)
+- Kita bisa menambahkan Primary Key dengan cara:ALTER TABLE profil ADD CONSTRAINT profil_pkey ADD PRIMARY KEY (id);, apabila kita melakukan pengecekan melalui \d profil maka akan muncul tampilan seperti dibawah:
+
+                       Table "public.profil"
+  Column  |         Type          | Collation | Nullable | Default
+----------+-----------------------+-----------+----------+---------
+ id       | integer               |           | not null |
+ nama     | character varying(20) |           |          |
+ kota     | character varying(20) |           |          |
+ strength | integer               |           |          |
+Indexes:
+    "profil_pkey" PRIMARY KEY, btree (id)
+
+dan apabila tulisan "Indexes: "profil_pkey" PRIMARY KEY, btree (id)" muncul dan pada bagian nama column id berubah menjadi not null maka kita telah berhasil menambahkan primary key.
+- Untuk mengubah tipe data yang ada pada column pada contoh tabel dibawah:
+ id |      nama      |   kota   | strength
+----+----------------+----------+----------
+  3 | Black Widow    | New York |
+  1 | Peter Parker   | Sukahati |
+  4 | David Banner   | Sukahati |
+  5 | Tony Stark     | Citayem  |
+  2 | Captain Rogers | New York | Tameng
+(5 rows)
+
+Pertama kita harus mengubah isi data yang ada sesuai dengan tipe data yang kita ingin ubah contohnya kita ingin mengubah tipe ada dari strength menjadi integer maka kita perlu mengubah Tameng menjadi 1 atau angka sehingga table akan menjadi:
+ id |      nama      |   kota   | strength
+----+----------------+----------+----------
+  3 | Black Widow    | New York |
+  1 | Peter Parker   | Sukahati |
+  4 | David Banner   | Sukahati |
+  5 | Tony Stark     | Citayem  |
+  2 | Captain Rogers | New York |        1
+(5 rows)
+
+Kemudian kita ketik "ALTER TABLE profil ALTER COLUMN strength TYPE integer USING strength::integer;" dan saat kita mengecek kembali dengan menggunakan \d profil maka akan muncul:
+                       Table "public.profil"
+  Column  |         Type          | Collation | Nullable | Default
+----------+-----------------------+-----------+----------+---------
+ id       | integer               |           | not null |
+ nama     | character varying(20) |           |          |
+ kota     | character varying(20) |           |          |
+ strength | integer               |           |          |
+Indexes:
+    "profil_pkey" PRIMARY KEY, btree (id)
+
+ dan apabila pada type column strength sudah menjadi integer maka kita sudah berhasil mengubah tipe data pada column tsb.
+ 
+
+
+
+            
