@@ -4,14 +4,14 @@ from employee
 left join biodata on biodata_id = biodata.id;
 
 -- 2
-insert into biodata (first_name, last_name, dob, pob, address, marital_status) values 
-('Aries', 'Susilo', '1992-02-04', 'Bandung','Jl. Pohon Beringin, Bandung', false),
-('Aries', 'Jaya', '1992-02-07', 'Bandung','Jl. Pohon Asam Jawa, Bandung', false),
-('Jaya', 'Kusuma', '1993-06-04', 'Bandung','Jl. Pohon Bambu, Bandung', true);
-
-insert into employee(biodata_id, nip, status, salary) values 
-(7, 'NX006', 'Kontrak', 100000000),
-(8, 'NX007', 'Kontrak', 50000000);
+--insert into biodata (first_name, last_name, dob, pob, address, marital_status) values 
+--('Aries', 'Susilo', '1992-02-04', 'Bandung','Jl. Pohon Beringin, Bandung', false),
+--('Aries', 'Jaya', '1992-02-07', 'Bandung','Jl. Pohon Asam Jawa, Bandung', false),
+--('Jaya', 'Kusuma', '1993-06-04', 'Bandung','Jl. Pohon Bambu, Bandung', true);
+--
+--insert into employee(biodata_id, nip, status, salary) values 
+--(7, 'NX006', 'Kontrak', 100000000),
+--(8, 'NX007', 'Kontrak', 50000000);
 
 select 
 first_name||' '||last_name as fullname,
@@ -24,13 +24,15 @@ select concat(first_name,' ' ,last_name) as fullname, dob from biodata
 where dob between '1991-01-01' and '1991-12-31';
 
 -- 4
-select concat(first_name,' ' ,last_name) as fullname, dob, pob, address, marital_status, 
+select concat(first_name,' ' ,last_name) as fullname, dob, pob, address, marital_status,
 case when employee.status is null then 'Tidak Diterima' 
 	 when employee.status is not null then employee.status
 	 end status
 from biodata
 left join employee on biodata_id = biodata.id
-where biodata_id is null;
+where status is null;
+
+select * from employee;
 
 -- 5
 select
@@ -38,7 +40,7 @@ select
 	concat(first_name,' ' ,last_name) as fullname,
 	travel_type.name as travel_type, 
 	start_date,
-	sum(item_cost) + sum(travel_fee) as total_cost
+	sum(item_cost) as total_cost
 from travel_request
 left join employee on employee_id = employee.id
 left join biodata on employee.biodata_id = biodata.id
@@ -47,6 +49,8 @@ left join travel_settlement on travel_request_id = travel_request.id
 group by travel_request.id, fullname, travel_type, start_date
 order by travel_request.id
 ;
+
+select * from travel_settlement;
 
 -- 6
 select 
@@ -80,26 +84,52 @@ left join travel_type on travel_type_id = travel_type.id
 group by employee_id
 ;
 
+select * from travel_request;
 -- 9
-select 
-	concat(first_name,' ' ,last_name) as fullname,
-	position.name as position,
-	extract('year' from age(current_date, dob)) as umur,
-	count(family.status like 'anak') as jumlah_anak
-from employee_position
-left join employee on employee_id = employee.id
-left join biodata on employee.biodata_id = biodata.id
+--create or replace view my_child as
+--select
+--	biodata_id,
+--	first_name||' '||last_name as fullname,
+--	count(family.status) as jumlah_anak
+--from family
+--left join biodata on biodata_id = biodata.id
+--group by fullname, dob, family.status, family.biodata_id
+--having family.status ilike 'anak';
+--
+--drop view my_child;
+--
+--select * from my_child;
+--
+--select 
+--	first_name||' '||last_name as fullname,
+--	position.name as position,
+--	extract ('year' from (age(current_date, biodata.dob))) as age,
+--	case when jumlah_anak is not null then jumlah_anak
+--		 when jumlah_anak is null then '0'
+--	end jumlah_anak
+--from employee
+--left join biodata on employee.biodata_id = biodata.id
+--left join my_child on employee.biodata_id = my_child.biodata_id
+--left join employee_position on employee_position.employee_id = employee.id
+--left join position on employee_position.position_id = position.id;
+
+select
+	first_name||' '||last_name as fullname,
+	count(case when family.status ilike 'anak' then 1 end) as total_anak,
+	extract ('year' from age(current_date, biodata.dob)) as age,
+	position.name as position
+from employee
+left join biodata on employee.biodata_id = biodata.id 
 left join family on family.biodata_id = biodata.id
+left join employee_position on employee_position.employee_id = employee.id
 left join position on employee_position.position_id = position.id
-group by fullname, position, dob
-order by jumlah_anak desc
-;
+group by fullname, age, position;
 
 -- 10
 select
 	concat(first_name,' ' ,last_name) as fullname,
 	position.name as position,
-	extract('year' from age(current_date, dob)) as umur
+	extract('year' from (age(current_date, dob))) as umur
 from employee_position
 left join employee on employee_id = employee.id
 left join biodata on employee.biodata_id = biodata.id
@@ -132,17 +162,22 @@ group by marital_status
 
 -- 13
 select
-	employee.id,
-	biodata.first_name,
-	(sum(extract('day' from age(leave_request.end_date, leave_request.start_date))) + 
-	sum(extract('day' from age(travel_request.end_date, travel_request.start_date)))) as total
+	biodata.first_name, biodata.last_name,
+	(count(extract('days' from age(leave_request.end_date, leave_request.start_date))) + 
+	count(extract('days' from age(travel_request.end_date, travel_request.start_date)))) as total
 from employee
 left join leave_request on leave_request.employee_id = employee.id
 left join travel_request on travel_request.employee_id = employee.id
 left join biodata on biodata_id = biodata.id
-group by biodata.first_name, employee.id
+where extract('year' from (leave_request.start_date)) = '2020'
+and extract('year' from (travel_request.start_date)) = '2020'
+group by biodata.first_name, biodata.last_name, employee.id
 having first_name ilike 'raya%';
 
-select * from leave_request;
-	
-select * from position;
+
+--
+
+
+
+group by biodata_id 
+;

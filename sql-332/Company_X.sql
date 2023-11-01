@@ -1,7 +1,7 @@
 create database employee;
 
 create table biodata(
-	id serial int primary key,
+	id serial primary key,
 	first_name varchar(100) not null,
 	last_name varchar(100) not null,
 	dob date not null,
@@ -221,13 +221,15 @@ values
 (1, 'Tiket travel Do-Car berangkat', 165000),
 (1, 'Hotel', 750000),
 (1, 'Tiket travel Do-Car pulang', 165000),
-(1, 'Tiket Pesawat Berangkat', 750000),
-(1, 'Hotel', 650000),
-(1, 'Tiket Pesawat pulang', 1250000),
-(1, 'Tiket Pesawat Berangkat', 4750000),
-(1, 'Hotel', 6000000),
-(1, 'Tiket Pesawat pulang', 4250000);
+(2, 'Tiket Pesawat Berangkat', 750000),
+(2, 'Hotel', 650000),
+(2, 'Tiket Pesawat pulang', 1250000),
+(3, 'Tiket Pesawat Berangkat', 4750000),
+(3, 'Hotel', 6000000),
+(2, 'Tiket Pesawat pulang', 4250000);
 
 select * from travel_settlement ;
+
+drop database employee;
 
 
