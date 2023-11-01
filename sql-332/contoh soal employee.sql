@@ -162,17 +162,28 @@ group by marital_status
 
 -- 13
 select
-	biodata.first_name, biodata.last_name,
-	(count(extract('days' from age(leave_request.end_date, leave_request.start_date))) + 
-	count(extract('days' from age(travel_request.end_date, travel_request.start_date)))) as total
-from employee
-left join leave_request on leave_request.employee_id = employee.id
-left join travel_request on travel_request.employee_id = employee.id
-left join biodata on biodata_id = biodata.id
-where extract('year' from (leave_request.start_date)) = '2020'
-and extract('year' from (travel_request.start_date)) = '2020'
-group by biodata.first_name, biodata.last_name, employee.id
-having first_name ilike 'raya%';
+	first_name||' '||last_name as fullname,
+	sum(days) as total_days
+from 
+(
+	select 
+	employee_id,
+	extract('years' from end_date) as years,
+	extract('days' from age(end_date, start_date)) as days
+	from leave_request
+	union all
+	select 
+	employee_id,
+	extract('years' from end_date) as years,
+	extract('days' from age(end_date, start_date)) as days
+	from travel_request
+)
+left join employee on employee_id = employee.id 
+left join biodata on employee.biodata_id = biodata.id
+where first_name ilike '%raya'
+and years = 2020
+group by fullname
+;
 
 
 --
