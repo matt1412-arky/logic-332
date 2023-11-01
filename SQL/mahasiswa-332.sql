@@ -409,13 +409,57 @@ select
 	'TIDAK LULUS' as keterangan
 from view_nilai vn where nilai < 80;
 
+--POSTGRESQL TRANSACTION
+--======================================================================
+--postgresql transaction digunakan untuk konsistensi data yg masuk 
+--transaction reffered ke ACID
+--ATOMICITY meyakinkan transaksi selesai secara keseluruhan 
+--CONSISTENCY meyakinkan data yg masuk ke database adalah data yg valid
+--ISOLATION menjelaskan bahwa transaksi yg terintegrasi bisa dilihat oleh transaksi lain
+--DURABILITY meyakinkan semua transaksi yg sudah di commit akan tersimpan dalam database
+--======================================================================
+--clause yg digunakan untuk transaksi adalah:
+--1. untuk memulai transaksi BEGIN TRANSACTION; BEGIN WORK; BEGIN;
+--2. untuk commit transaksi COMMIT TRANSACTION; COMMIT WORK; COMMIT;
+--3. untuk membatalkan transaksi ROLLBACK TRANSACTION; ROLLBACK WORK; ROLLBACK;
 
+create table account(
+	id serial primary key,
+	name varchar(30) not null,
+	balance dec(15, 2) not null
+);
 
+insert into account (
+	name,
+	balance
+)
+values 
+('Peter', 10000),
+('Bruce', 10000);
 
+select * from account;
+truncate table account restart identity;
 
+begin; 
+	insert into account (
+		name,
+		balance
+	)
+	values 
+	('Megan', 15000);
+commit;
 
+--megan kirim uang ke bruce senilai 5000
+begin;
+	update account set balance=15000 where id=2;
+	update account set balance=10000 where id=3;
+commit;
 
-
+--peter pinjam uang 100 
+begin;
+	update account set balance=balance+100 where id=1;
+	update account set balance=balance-100 where id=2;
+rollback;
 
 
 
