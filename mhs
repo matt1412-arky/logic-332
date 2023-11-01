@@ -1,0 +1,126 @@
+--2
+ALTER TABLE dosen.dosen alter column nama_dosen SET DATA TYPE varchar (200) USING nama_dosen::varchar;
+
+
+--3
+select 
+	m.kode_mahasiswa,
+	m.nama_mahasiswa,
+	j.nama_jurusan,
+	a.deskripsi
+from mahasiswa m 
+join jurusan j on m.kode_jurusan = j.kode_jurusan
+join agama a on m.kode_agama = a. kode_agama
+where m.nama_mahasiswa='Budi Gunawan';
+
+
+--4
+select 
+	m.kode_mahasiswa,
+	m.nama_mahasiswa,
+	j.nama_jurusan,
+	j.status_jurusan
+from mahasiswa m 
+join jurusan j on m.kode_jurusan = j.kode_jurusan
+where j.status_jurusan='Non Aktif';
+
+
+--5
+select 
+	m.nama_mahasiswa,
+	n.nilai,
+	u.status_ujian
+from nilai n
+join ujian u on n.kode_ujian = u.kode_ujian
+join mahasiswa m on m.kode_mahasiswa=n.kode_mahasiswa where status_ujian like 'Aktif' and nilai>80;
+
+--6
+select
+	j.kode_jurusan,
+	j.nama_jurusan,
+	j.status_jurusan
+from jurusan j where nama_jurusan ilike '%sistem%';
+
+--7
+create or replace view view_jumlah_ujian as
+
+select 
+from ujian u 
+
+select
+	m.kode_mahasiswa, 
+	m.nama_mahasiswa, 
+	n.nilai,
+	u.nama_ujian, 
+	count(nilai) as jumlah_ujian 
+from nilai n 
+join mahasiswa m on m.kode_mahasiswa  = n.kode_mahasiswa
+join ujian u on u.kode_ujian = n.kode_ujian
+group by z having count (nilai) > 1;
+
+
+
+
+
+--8
+select 
+	m.kode_mahasiswa,
+	m.nama_mahasiswa,
+	j.nama_jurusan,
+	a.deskripsi,
+	dosen.dosen.nama_dosen,
+	j.status_jurusan,
+	dosen.type_dosen.deskripsi 
+from mahasiswa m 
+join jurusan j on m.kode_jurusan = j.kode_jurusan
+join agama a on m.kode_agama = a. kode_agama
+join dosen.dosen on dosen.dosen.kode_dosen = dosen.dosen.kode_dosen 
+join dosen.type_dosen on dosen.type_dosen.deskripsi = dosen.type_dosen.deskripsi  
+where j.status_jurusan='Aktif'
+and dosen.nama_dosen = 'Prof. Dr. Retno'
+and m.nama_mahasiswa='Budi Gunawan'
+and dosen.type_dosen.deskripsi = 'Honorer';
+
+
+--9
+create or replace view view_data as 
+select 
+	m.kode_mahasiswa,
+	m.nama_mahasiswa,
+	j.nama_jurusan,
+	a.deskripsi as kode_agama ,
+	dosen.dosen.nama_dosen,
+	j.status_jurusan,
+	dosen.type_dosen.deskripsi  
+from mahasiswa m 
+join jurusan j on m.kode_jurusan = j.kode_jurusan
+join agama a on m.kode_agama = a. kode_agama
+join dosen.dosen on dosen.dosen.kode_dosen = dosen.dosen.kode_dosen 
+join dosen.type_dosen on dosen.type_dosen.deskripsi = dosen.type_dosen.deskripsi  
+where j.status_jurusan='Aktif'
+and dosen.nama_dosen = 'Prof. Dr. Retno'
+and m.nama_mahasiswa='Budi Gunawan'
+and dosen.type_dosen.deskripsi = 'Honorer';
+
+
+--10
+select
+	m.kode_mahasiswa,
+	m.nama_mahasiswa,
+	m.alamat,
+	m.kode_agama,
+	m.kode_jurusan,
+	m.tanggal_lahir,
+	n.nilai
+from mahasiswa m 
+left join nilai n on n.kode_mahasiswa  = m.kode_mahasiswa;
+
+
+
+
+
+
+
+
+
+
