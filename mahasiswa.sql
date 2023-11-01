@@ -306,9 +306,105 @@ select
 m.kode_mahasiswa,
 m.nama_mahasiswa,
 j.kode_jurusan,
-j.
+j.nama_jurusan,
 u.nama_ujian,
 n.nilai
-from nilai n
-left join mahasiswa m on m.kode_mahasiswa = n.kode_mahasiswa 
-left join ujian u on u.kode_ujian = n.kode_ujian
+from mahasiswa m
+--left join mahasiswa m on m.kode_mahasiswa = n.kode_mahasiswa 
+left join jurusan j on m.kode_jurusan=j.kode_jurusan
+left join ujian u on u.kode_ujian = u.kode_ujian
+join nilai n on n.id = u.id
+
+--case when
+select 
+	nama_mahasiswa,
+	nama_jurusan,
+	nama_ujian,
+	nilai,
+	case when nilai > 69 and nilai <= 70 then 'D'
+		when nilai > 70 and nilai <= 80 then 'C'
+		when nilai > 80 and nilai <= 90 then 'B'
+		when nilai > 90 and nilai <= 100 then 'A'
+		end nilai_huruf
+from view_nilai;
+
+-- coalesce parameternya tidak terbatas
+--conalesce akan menghasilkan argument pertama yang tidak null jika semua argument = null coalesce akan return null
+select coalesce (1,2,3); -- hasil = 1
+select coalesce (2,1,3); -- hasil = 2
+select coalesce (1,null,2,null); -- hasil = 1
+select coalesce (null,1,2,3); -- hasil = 1
+select coalesce (null,null,null,5,5,7,5);
+
+-- select bebas
+select (1+5) as total;
+select 'lulus' as status;
+
+-- select hash
+select md5('password*123');
+select sha256('password*123');
+
+--union : mengabungkan 2 table dengan syarat jumlah kolomnya sama
+select 
+	nama_mahasiswa,
+	nama_jurusan,
+	nama_ujian,
+	nilai,
+	'Lulus' as keterangan
+from view_nilai vn where nilai >=80
+union all
+select 
+	nama_mahasiswa,
+	nama_jurusan,
+	nama_ujian,
+	nilai,
+	'Tidak lulus' as keterangan
+from view_nilai vn where nilai <=80;
+
+--POSTGRESQL TRANSACTION
+-- postgresql transction digunakan untuk konsistensi data yang masuk
+-- transaction reffered ke ACID
+-- ATOMICITY menyakinkan transaksi selesai secara keseluruhan
+-- CONSISTENCY meyakinkan data yang masuk kedalam database adalah data yang valid
+-- ISOLATION menjelaskan bahwa transaksi yang terintegrasi bisa dilihat oleh transaksi lainnya
+-- DURABILITY meyakinkan semua transaksi yang sudah di commit akan tersimpan dalam database
+
+-- clause yang digunakan untuk transaksi adalah :
+-- 1. untuk memulai transaksi BEGIN TRANSACTION; BEGIN WORK; BEGIN
+-- 2. untuk commit transaksi COMMIT TRANSACTION; COMMIT WORK; COMMIT;
+-- 3. untuk membatalkan transaksi ROLLBACK TRANSACTION; ROLLBACK WORK; ROLLBACK
+
+create table account (
+id serial primary key,
+nama varchar(30) not null,
+balance dec(15,2) not null
+);
+
+insert into account (nama, balance) values
+('Peter',10000),('Bruce',10000);
+
+begin;
+	insert into account (nama,balance) values ('Megan',15000);
+	select *from account;
+commit;
+
+--Megan mengirim uang ke Bruce senilai 15000
+begin;
+	update account set balance = 15000 where id = 2;
+	update account set balance = 10000 where id = 3;
+commit;
+
+--peter pinjam uang 100
+begin;
+	update account set balance=balance + 100 where id = 1;
+	update account set balance=balance - 100 where id = 2;
+	select * from account;
+rollback;
+select *from account;
+
+--subquery adalah inner query(nested query)
+-- syaratnya subquery hanya boleh menghasilkan 1 return data(kolom) jika dipakai dalam select, jika dipakai dalam expression (where) dibolehkan seperti biasa
+
+select 
+	m.nama_mahasiswa,
+	(select nama_jurursan from jurusan where kode_jurusan =m.kode_jurusan) as jurusan,
