@@ -2,39 +2,63 @@
 		select nip, concat(first_name,' ',last_name) as fullname, status, salary, (salary * 12) / 12 as average_per_year
 		from employee
 		left join biodata on biodata_id = biodata.id;
-		select * from employee;
 ﻿
 
 -- 02. Tambahkan 3 orang pelamar, dimana 2 di antaranya diterima sebagai karyawan kontrak
 --	   dan 1 nya lagi tidak diterima sebagai karyawan.
 --	   Lalu tampilkan semua biodata berupa fullname, nip, status karyawan dan salary
 		insert into biodata (first_name, last_name, dob, pob, address, marital_status) values 
-		('Osama', 'Ali', '1992-02-04', 'Jakarta','Jl. Condet, Jakarta', false),
-		('Roy', 'Siregar', '1992-02-07', 'Medan','Jl. Tambun, Bekasi', false),
-		('Bell', 'Clay', '1993-06-04', 'Bali','Jl. Kebon Agung, Surabaya', true);
+		('Osama', 'Ali', '1997-04-14', 'Jakarta','Jl. Condet, Jakarta', false),
+		('Roy', 'Siregar', '1998-07-21', 'Medan','Jl. Tambun, Bekasi', false),
+		('Bell', 'Clay', '2001-02-03', 'Bali','Jl. Kebon Agung, Surabaya', true);
 		
-		select
-		concat(first_name,' ',last_name) as fullname,
-		
-		e.status,
-		e.salary
+		insert into employee (biodata_id, nip, status, salary) values
+		(7, 'NX006', 'Kontrak', '10000000'),
+		(8, 'NX007', 'Kontrak', '11000000');
+			
+		select concat(first_name,' ',last_name) as fullname,
+		nip,
+		status,
+		salary
 		from employee
-		left join biodata  on biodata_id = biodata_id;
+		left join biodata on biodata_id = biodata.id;
 	
 	
-
-
 -- 03. Tampilkan fullname pelamar yang tanggal lahirnya antara 01-01-1991 s/d 31-12-1991
-
+		select concat(first_name,' ',last_name) as fullname, dob
+		from biodata
+		where dob >= '01-01-1991' and dob <= '31-12-1991';\
 
 
 -- 04. Tampilkan nama-nama pelamar yang tidak diterima sebagai karyawan
-
+		select concat(first_name,' ' ,last_name) as fullname,
+		dob,
+		pob,
+		address,
+		marital_status, 
+		case when employee.status is null then 'Tidak Diterima' 
+			 when employee.status is not null then employee.status
+			 end status
+		from biodata
+		left join employee on biodata_id = biodata.id
+		where biodata_id is null; 
 
 
 -- 05. Tampilkan nama karyawan, jenis perjalanan dinas, tanggal perjalanan dinas,
 --	   dan total pengeluarannya selama perjalanan dinas tersebut
-
+		select
+			travel_request.id,
+			concat(first_name,' ',last_name) as nama_karyawan,
+			travel_type.name as jenis_perjalanan, 
+			start_date as tanggal_perjalanan,
+			sum(item_cost) + sum(travel_fee) as total_pengeluaran
+		from travel_request
+		left join employee on employee_id = employee.id
+		left join biodata on employee.biodata_id = biodata.id
+		left join travel_type on travel_type_id = travel_type.id
+		left join travel_settlement on travel_request_id = travel_request.id
+		group by travel_request.id, nama_karyawan, jenis_perjalanan, tanggal_perjalanan
+		order by travel_request.id;
 
 
 -- 06. Tampilkan sisa cuti tahun 2020 yang dimiliki oleh karyawan
