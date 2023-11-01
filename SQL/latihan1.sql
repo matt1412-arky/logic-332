@@ -276,7 +276,7 @@ values
 (1, 'Hotel', 750000),
 (1, 'Tiket travel Do-Car pulang', 165000),
 (2, 'Tiket pesawat berangkat', 750000),
-(2, 'Hotel', 600000),
+(2, 'Hotel', 650000),
 (2, 'Tiket pesawat pulang', 1250000),
 (3, 'Tiket pesawat berangkat', 4750000),
 (3, 'Hotel', 6000000),
@@ -290,11 +290,239 @@ select
 	b.last_name,
 	e.nip,
 	e.salary,
-	(e.salary * 12) as annual_salary
+	(e.salary * 12) as annual_salary,
+	(e.salary * 12 /12) as rata_rata_gaji_tahunan
 from employee e 
 join biodata b on e.biodata_id = b.id;
 select * from view_no_1; 
 
 --2.
+insert into biodata (
+	first_name,
+	last_name,
+	dob,
+	pob,
+	address,
+	marital_status
+)
+values
+('Vina', 'Nurmadani', '2000-01-01', 'Bali', 'Jl. Raya Lama, Bali', FALSE),
+('Muhammad', 'Rian', '2000-01-02', 'Semarang', 'Jl. Berkah, Semarang', FALSE),
+('Ilham', 'Sangaji', '2000-03-03', 'Jakarta', 'Jl. Mawar, Bogor', FALSE);
 
+-- Menambahkan 3 pelamar ke tabel employee
+insert into employee (
+	biodata_id, 
+	nip, 
+	status, 
+	salary
+)
+values
+     --Pelamar pertama diterima sebagai karyawan kontrak
+    (7, 'NX006', 'Kontrak', 15000000),
+     --Pelamar kedua diterima sebagai karyawan kontrak
+    (8, 'NX007', 'Kontrak', 15000000);
+     --Pelamar ketiga tidak diterima, jadi tidak dimasukkan datanya 
+    
+drop view view_no_2; 
+create or replace view view_no_2 as   
+select 
+    b.first_name || ' ' || b.last_name as full_name,
+    e.nip,
+    e.status,
+    e.salary
+from employee e
+right join biodata b on e.biodata_id = b.id;
+select * from view_no_2;
+
+--3.
+drop view view_no_3; 
+create or replace view view_no_3 as 
+select
+	b.first_name || ' ' || b.last_name as full_name,
+	b.dob as tanggal_lahir_antara_01_01_1991_sampai_31_12_1991
+from biodata b
+where b.dob between '1991-01-01' and '1991-12-31';
+select * from view_no_3;
+
+--4. 
+drop view view_no_4; 
+create or replace view view_no_4 as 
+select
+	b.first_name || ' ' || b.last_name as full_name,	 
+	b.dob as tanggal_lahir,
+	b.pob,
+	b.address,
+	b.marital_status,
+	case 
+		when e.status is not null then e.status
+		when e.status is null then 'Tidak Diterima'
+	end
+	as employee_status
+from biodata b
+left join employee e on e.biodata_id = b.id;
+select * from view_no_4;
+
+--5. 
+drop view view_no_5; 
+create or replace view view_no_5 as 
+select
+	b.first_name || ' ' || b.last_name as nama_karyawan,
+	tt.nama as jenis_perjalanan_dinas,
+	tr.start_date as tanggal_perjalanan_dinas,
+	sum(ts.item_cost) + tt.travel_fee as total_pengeluaran_dinas
+from travel_settlement ts 
+join travel_request tr on ts.travel_request_id = tr.id 
+join master.travel_type tt on tr.travel_type_id = tt.id 
+join employee e on tr.employee_id = e.id
+join biodata b on e.biodata_id = b.id
+group by 
+	b.first_name,
+	b.last_name,
+	tt.nama,
+	tr.start_date,
+	tt.travel_fee 
+order by nama_karyawan;
+select * from view_no_5;
+
+--6. 
+drop view view_no_6; 
+create or replace view view_no_6 as 
+select
+	b.first_name || ' ' || b.last_name as nama_karyawan,
+	e.nip,
+	el.regular_quota as cuti_tersisa
+from employee_leave el  
+join employee e  on el.employee_id = e.id   
+join biodata b on e.biodata_id = b.id
+where el.period = 2020;
+select * from view_no_6;
+
+--7.
+drop view view_no_7; 
+create or replace view view_no_7 as 
+select
+	b.first_name || ' ' || b.last_name as nama_karyawan,
+	b.marital_status as status_karyawan,
+	extract ('year' from age(b.dob)) as umur
+from biodata b 
+order by umur;
+select * from view_no_7;
+
+--8.
+drop view view_no_8; 
+create or replace view view_no_8 as 
+select
+	b.first_name || ' ' || b.last_name as nama_karyawan,
+	sum(ts.item_cost) as total_item_cost,
+	sum(tt.travel_fee) as total_travel_fee,
+	(sum(ts.item_cost) - sum(tt.travel_fee)) as selisih 
+from travel_settlement ts 
+join travel_request tr on ts.travel_request_id = tr.id 
+join master.travel_type tt on tr.travel_type_id = tt.id 
+join employee e on tr.employee_id = e.id 
+join biodata b on e.biodata_id = b.id 
+group by b.first_name, b.last_name 
+order by nama_karyawan;
+select * from view_no_8;
+
+--9.
+drop view view_no_9; 
+create or replace view view_no_9 as 
+select
+	b.first_name || ' ' || b.last_name as fullname_karyawan,
+	case 
+		when p.nama is not null then p.nama
+		when p.nama is null then 'Tidak ada jabatan'
+	end as jabatan,
+	extract ('year' from age(b.dob)) as usia,
+	count( 
+		case 
+			when f.status like 'Anak%' then 1 
+		else null
+		end
+	) as jumlah_anak
+from employee e  
+left join biodata b on e.biodata_id = b.id
+left join employee_position ep on ep.employee_id = e.id  
+left join "family" f on f.biodata_id = b.id
+left join master."position" p on p.id = ep.position_id
+group by fullname_karyawan, jabatan, usia
+order by fullname_karyawan; 
+select * from view_no_9;
+
+--10.
+drop view view_no_10; 
+create or replace view view_no_10 as 
+select
+	b.first_name || ' ' || b.last_name as fullname_karyawan,
+	case 
+		when p.nama is not null then p.nama
+		when p.nama is null then 'Tidak ada jabatan'
+	end as jabatan,
+	extract ('year' from age(b.dob)) as usia
+from biodata b 
+full join employee e on e.biodata_id = b.id
+full join employee_position ep on ep.employee_id  = e.id  
+full join master."position" p on p.id = ep.position_id
+group by fullname_karyawan, jabatan, usia
+order by usia desc
+limit 3; 
+select * from view_no_10;
+
+--11.
+drop view view_no_11;
+create or replace view view_no_11 as
+select
+	p.nama as jabatan,
+	avg(salary) as rata_rata_gaji
+from employee_position ep
+left join master."position" p on p.id = ep.position_id
+left join employee e on e.id = ep.employee_id
+group by jabatan
+having p.nama = 'Staff'; 
+select * from view_no_11;
+
+--12.
+drop view view_no_12;
+create or replace view view_no_12 as 
+select
+	case
+		when b.marital_status is true then 'Menikah'
+		when b.marital_status is false then 'Tidak Menikah'
+	end as status_karyawan,
+	count(b.marital_status) as jumlah_orang
+from employee e 
+left join biodata b on e.biodata_id = b.id
+group by status_karyawan;
+select * from view_no_12;
+
+--13.
+create or replace view view_tr_dan_lr_libur_Raya as 
+select
+	b.first_name || ' ' || b.last_name as fullname_karyawan,
+	sum(extract ('days' from age(tr.end_date, tr.start_date))) as total_libur
+from employee e 
+left join biodata b on e.biodata_id = b.id 
+join travel_request tr on tr.employee_id = e.id
+group by b.first_name, b.last_name  
+having b.first_name like 'Raya%'
+union
+select
+	b.first_name || ' ' || b.last_name as fullname_karyawan,
+	sum(extract ('days' from age(lr.end_date, lr.start_date))) as total_libur
+from employee e 
+left join biodata b on e.biodata_id = b.id 
+join leave_request lr on lr.employee_id  = e.id
+group by b.first_name, b.last_name  
+having b.first_name like 'Raya%';
+
+drop view view_no_13;
+create or replace view view_no_13 as
+select
+	fullname_karyawan,
+	sum(total_libur) as total_libur
+from view_tr_dan_lr_libur_Raya
+group by fullname_karyawan;
+select * from view_no_13;
 

@@ -342,6 +342,39 @@ select
 from ujian u
 full outer join nilai n on n.kode_ujian = u.kode_ujian;
 
+--subquery adalah inner query (nested query)
+--syaratnya subquery hanya boleh menghasilkan 1 return data(kolom) jika dipakai dalam select 
+--jika dipakai dalam expression (where) dibolehkan seperti select biasa
+select 
+	m.nama_mahasiswa,
+	(select 
+		nama_jurusan 
+		from jurusan 
+		where kode_jurusan = m.kode_jurusan) 
+	as jurusan,
+	(select 
+		deskripsi 
+		from agama 
+		where kode_agama = m.kode_agama) 
+	as agama
+from mahasiswa m;
+
+select
+	n.id,
+	n.kode_mahasiswa,
+	n.kode_ujian,
+	n.nilai
+from nilai n
+where nilai in (select nilai from nilai where id <= 3);
+
+--PAGINATION
+--limit menampilkan data dari baris pertama sebanyak number di kanan limit
+--offset tidak menampilkan data(diatas) mulai dari baris number di kanan offset
+select * from nilai limit 2;
+select * from nilai offset 2;
+--offset dan limit bisa digunakan untuk mengambil data (misal dari data ke 3 sebanyak 2 data)
+select * from nilai offset 2 limit 2;
+
 --table view 
 drop view view_nilai;
 create or replace view view_nilai as
