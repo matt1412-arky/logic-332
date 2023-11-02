@@ -391,11 +391,13 @@ create or replace view view_no_6 as
 select
 	b.first_name || ' ' || b.last_name as nama_karyawan,
 	e.nip,
-	el.regular_quota as cuti_tersisa
+	el.regular_quota - count(lr.employee_id) as cuti_tersisa
 from employee_leave el  
 join employee e  on el.employee_id = e.id   
 join biodata b on e.biodata_id = b.id
-where el.period = 2020;
+join leave_request lr on lr.employee_id = el.employee_id 
+where el.period = 2020
+group by nama_karyawan, e.nip, el.regular_quota;
 select * from view_no_6;
 
 --7.
