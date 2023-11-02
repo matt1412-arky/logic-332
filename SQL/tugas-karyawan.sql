@@ -65,7 +65,7 @@ left join employee on employee_id = employee.id
 left join biodata on employee.biodata_id = biodata.id
 where period = 2020;
 
--- 07. Urutkan nama-nama karyawan dan statusnya, diurutkan dari yang paling tua ke yang paling muda 11
+-- 07. Urutkan nama-nama karyawan dan statusnya, diurutkan dari yang paling tua ke yang paling muda
 -- Jawaban No 7 --
 select 
 	concat(first_name,' ' ,last_name) as nama_karyawan,
@@ -75,7 +75,7 @@ from employee
 left join biodata on biodata_id = biodata.id
 order by umur desc;
 
--- 08. Tampilkan selisih antara total item cost dengan total travel fee untuk masing-masing karyawan 12
+-- 08. Tampilkan selisih antara total item cost dengan total travel fee untuk masing-masing karyawan
 -- Jawaban No 8 --
 select 
 	employee_id,
@@ -129,7 +129,7 @@ select
 --     (tabel: menikah x orang, tidak menikah x orang)
 -- Jawaban No 12 --
 select
-	count(marital_status) as status_pernikahan,
+	count(marital_status) as jumlah__pernikahan,
 	case when marital_status = true then 'Menikah'
 		 when marital_status = false then 'Belum Menikah'
 	end status
@@ -143,13 +143,34 @@ group by marital_status;
 select
 	employee.id,
 	biodata.first_name,
-	(count(extract('day' from age(leave_request.end_date, leave_request.start_date))) + 
-	count(extract('day' from age(travel_request.end_date, travel_request.start_date)))) as total
+	(count(extract('day' from age(leave_request.end_date, leave_request.start_date))) +
+	count(extract('day' from age(travel_request.end_date, travel_request.start_date)))) - 1 as total
 from employee
 left join leave_request on leave_request.employee_id = employee.id
 left join travel_request on travel_request.employee_id = employee.id
 left join biodata on biodata_id = biodata.id
-where extract(year from (leave_request.end_date)) = 2020  and 
-extract(year from (travel_request.end_date)) = 2020
 group by biodata.first_name, employee.id
 having first_name ilike 'raya%';
+
+--select
+--	first_name||' '||last_name as fullname,
+--	sum(days) as total_days
+--from 
+--(
+--	select 
+--	employee_id,
+--	extract('years' from end_date) as years,
+--	extract('days' from age(end_date, start_date)) as days
+--	from leave_request
+--	union all
+--	select 
+--	employee_id,
+--	extract('years' from end_date) as years,
+--	extract('days' from age(end_date, start_date)) as days
+--	from travel_request
+--)
+--left join employee on employee_id = employee.id 
+--left join biodata on employee.biodata_id = biodata.id
+--where first_name ilike '%raya'
+--and years = 2020
+--group by fullname;
