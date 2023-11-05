@@ -1,0 +1,17 @@
+Devi memesan sebuah tas secara online, dan barang akan dikirimkan dalam waktu 7 hari kerja. Dari info hari dan tanggal pemesanan Devi, serta info hari nasional, maka pada hari dan tanggal berapakah pesanan Devi akan sampai? Jika barang akan tiba di bulan berikutnya, tambahkan keterangan (tanggal x di bulan berikutnya)
+contraint :
+- Asumsikan ada 31 hari dalam 1 bulan.
+- jika dibulan itu tidak ada hari libur nasional, tulis 0
+- dibulan berikutnya tidak ada hari libur nasional
+
+contoh :
+input :
+- Tanggal dan hari pemesanan : 25 sabtu
+- hari libur nasional 26, 29
+
+output
+tanggal 5 di bulan berikutnya
+
+anda akan menggunting - gunting tali sepanjang z meter menjadi beberapa buah tali sepanjang x meter. berapakah kali sedikitnya anda akan menggunting tali tersebut?
+contoh z =4, x =1
+cukup menggunting 2 kali ( pertama, tali 4 meter dibagi menjadi 2 sama rata, akan didapatkan masing - masing 2m. kemudian kedua tali 2m itu dipotong bersama sama rata, akan dihasilkan 4 tali masing masing panjang 1m)

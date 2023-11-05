@@ -76,4 +76,117 @@ for ($i = 0; $i < $n; $i++) {
 }
 
 print_r($z);
+
+// jim jumping path
+$path = '----o--o---o---';
+$action = 'wwwwjwwjwwwjwww';
+
+function jim_jump($path, $action){
+    $jim = 15;
+    $jump = 2;
+    
+    $len_path = strlen($path);
+    $len_act = strlen($action);
+    if($len_path != $len_act){
+        return 'panjang tidak sama';
+    }
+
+    for($i = 0; $i < strlen($path); $i++){
+        switch(true){
+            case $path[$i] == 'o' && $action[$i] != 'j': return 'jim mati'; break;
+            case $path[$i] == 'o' && $action[$i] == 'j': $jim -= $jump; break;
+        }
+    }
+    return $jim;
+} echo jim_jump($path, $action) . "\n";
+
+// persamaan index abjad
+$string = 'abcdzzz';
+$array = [1,2,2,4,4,26,26];
+function match_alphabet_index($string, $array){
+    $alphabet = (range('a','z'));
+    // constraint
+        $alph = range('A', 'Z');
+        for($i = 0; $i < count($alph); $i++){
+            $char = $alph[$i];
+            if(strpos($string, $char) !== false){
+                return "Error Uppercase Detected";
+            }
+        }
+        if(count($array) > 100){
+            return "Error Array Count 100";
+        }
+    // constraint end
+
+    print_r($alphabet);
+    for($i = 0; $i < count($alphabet); $i++){
+        for($j = 0; $j < strlen($string); $j++){
+            if($alphabet[$i] == $string[$j]){
+                $arr[] = $i + 1;
+            }
+        }
+    }
+    $res = '';
+    for($i = 0; $i< count($arr); $i++){
+        if($array[$i] != $arr[$i]){
+            $res .= "false\n";
+        } else{
+            $res .= "true\n";
+        }
+    }
+    return $res;
+} echo match_alphabet_index($string, $array) . "\n";
+
+// bilangan genap di 3
+for($i = 1; $i < 10; $i++){
+    if(($i * 3) % 2 == 0){
+        echo $i * 3 . " ";
+    }
+} echo "\n";
+
+// ceasar
+$string = "ba ca"; $n = 98;
+$n = $n % 26;
+$ceaser_alpha = [];
+$alphabet = range('a', 'z');
+echo "Original Alphabet: " . join("", $alphabet) . "\n";
+for($i = 0; $i < count($alphabet); $i++){
+    $diff = $i + $n;
+    if($diff > 25){
+        $diff -= 26;
+    }
+    $ceasar_alpha[] = $alphabet[$diff];
+} 
+$str_ceasar = join("", $ceasar_alpha);
+echo "Rotation'd Alphabet: $str_ceasar\n";
+
+for($i = 0; $i < strlen($string); $i++){
+    for($j = 0; $j < count($alphabet); $j++){
+        if($string[$i] == $alphabet[$j]){
+            $str_index[] = $j;
+        }
+    }
+}
+$res = '';
+for($i = 0; $i < count($str_index); $i++){
+    for($j = 0; $j < count($ceasar_alpha); $j++){
+        if($str_index[$i] == $j){
+            $res .= $ceasar_alpha[$str_index[$i]];
+        }
+    }
+}
+echo $res . "\n";
+
+
+
+// tali
+$z = 5; $x = 1; $res = 0;
+while($z != $x){
+    $z = round($z / 2);
+    $res+=2;
+}
+echo $res . "\n";
+
+
+
 ?>

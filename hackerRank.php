@@ -1,16 +1,19 @@
 <?php
 //Warmup
 // 01. Solve Me First
-function solveMeFirst($a, $b){
+function solveMeFirst($a, $b)
+{
     return $a + $b;
 }
 // 02. Time Conversion
-function timeConversion($s){
+function timeConversion($s)
+{
     $strToTime = strtotime($s);
     return date('H:i:s', $strToTime);
 }
 // 03. Simple Array Sum
-function simpleArraySum($ar){
+function simpleArraySum($ar)
+{
     $sum = 0;
     $count = count($ar);
 
@@ -21,7 +24,8 @@ function simpleArraySum($ar){
     return $sum;
 }
 // 04. Diagonal Difference
-function diagonalDifference($arr){
+function diagonalDifference($arr)
+{
     $length = count($arr);
     $diagonalAwal = 0;
     $diagonalKedua = 0;
@@ -40,7 +44,8 @@ function diagonalDifference($arr){
     return $nilai;
 }
 // 05. Plus Minus
-function plusMinus($arr){
+function plusMinus($arr)
+{
     $length = count($arr);
     $numbers = [0, 0, 0];
 
@@ -62,7 +67,8 @@ function plusMinus($arr){
     }
 }
 // 06. Staircase
-function staircase($n){
+function staircase($n)
+{
     $totalSteps = $n;
     $staircase = [];
 
@@ -91,7 +97,8 @@ function staircase($n){
     }
 }
 // 07. Mini-Max Sum
-function miniMaxSum($arr){
+function miniMaxSum($arr)
+{
     $maxSumTempArr = $arr;
     $minSumTempArr = $arr;
 
@@ -104,7 +111,8 @@ function miniMaxSum($arr){
     echo array_sum($minSumArr) . ' ' . array_sum($maxSumArr);
 }
 //08. Birthday Cake Candles
-function birthdayCakeCandles($ar){
+function birthdayCakeCandles($ar)
+{
     $candles = array_count_values($ar);
     sort($candles);
     $jumlah = array_values($candles);
@@ -112,7 +120,8 @@ function birthdayCakeCandles($ar){
     return $jumlah[$count - 1];
 }
 //09. A Very Big Sum
-function aVeryBigSum($ar){
+function aVeryBigSum($ar)
+{
     $x = 0;
     $count = count($ar);
 
@@ -124,7 +133,8 @@ function aVeryBigSum($ar){
     return $x;
 }
 //10. Compare the Triplets
-function compareTriplets($a, $b){
+function compareTriplets($a, $b)
+{
     $length = count($a);
     $aliceScore = 0;
     $bobScore = 0;
@@ -142,7 +152,8 @@ function compareTriplets($a, $b){
 
 //String
 //01. CamelCase
-function camelcase($s){
+function camelcase($s)
+{
     $wordCount = 1;
 
     for ($i = 0; $i < strlen($s); $i++) {
@@ -155,7 +166,8 @@ function camelcase($s){
     return $wordCount;
 }
 //02. Strong Password
-function minimumNumber($n, $password){
+function minimumNumber($n, $password)
+{
     $requiredChars = [
         'number' => "0123456789",
         'lower' => "abcdefghijklmnopqrstuvwxyz",
@@ -185,7 +197,8 @@ function minimumNumber($n, $password){
     return $length;
 }
 //03. Caesar Cipher
-function caesarCipher($s, $k){
+function caesarCipher($s, $k)
+{
     $k = $k % 26;
     $c = "";
 
@@ -210,7 +223,8 @@ function caesarCipher($s, $k){
     return $c;
 }
 //04. Mars Exploration
-function marsExploration($s){
+function marsExploration($s)
+{
     $count = 0;
     for ($x = 0, $l = strlen($s); $x < $l; $x++) {
         if ($x % 3 == 1) {
@@ -227,7 +241,8 @@ function marsExploration($s){
     return $count;
 }
 //05. HackerRank in a String!
-function hackerrankInString($s){
+function hackerrankInString($s)
+{
     $h = 'hackerrank';
     $i = 0;
     $l = strlen($s);
@@ -240,7 +255,8 @@ function hackerrankInString($s){
     return 'NO';
 }
 //06. Pangrams
-function pangrams($s){
+function pangrams($s)
+{
     $str = str_replace(" ", "", $s);
     $str = strtolower($str);
     $str = str_split($str, 1);
@@ -255,7 +271,7 @@ function pangrams($s){
 
         if ($char !== $karakterSebelumnya) {
             $karakterUnik .= $char;
-            $karakterSebelumnya= $char;
+            $karakterSebelumnya = $char;
         }
     }
 
@@ -268,7 +284,8 @@ function pangrams($s){
     }
 }
 //07. Separate the Numbers
-function separateNumbers($s) {
+function separateNumbers($s)
+{
     $length = strlen($s);
 
     if ($length == 1) {
@@ -299,7 +316,8 @@ function separateNumbers($s) {
     }
 }
 //08. Gemstones
-function gemstones($arr){
+function gemstones($arr)
+{
     $count = 0;
     $alphabet = range('a', 'z');
     $numAlphabet = count($alphabet);
@@ -312,6 +330,7 @@ function gemstones($arr){
         for ($i = 0; $i < $numStrings; $i++) {
             $stringArray = str_split($arr[$i]);
             $found = false;
+
 
             for ($j = 0; $j < count($stringArray); $j++) {
                 if ($stringArray[$j] === $c) {
@@ -334,7 +353,8 @@ function gemstones($arr){
     return $count;
 }
 //09. Making Anagram
-function makingAnagrams($s1, $s2){
+function makingAnagrams($s1, $s2)
+{
     $counts1 = [];
     for ($x = 0, $l = strlen($s1); $x < $l; $x++) {
         if (!isset($counts1[$s1[$x]])) {

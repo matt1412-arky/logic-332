@@ -488,6 +488,44 @@ z = 4 -> false
 z = 26 -> true
 z = 26 -> true
 */
+$string = 'abcdzzz';
+$array = [1, 2, 2, 4, 4, 26, 26];
+function match_alphabet_index($string, $array)
+{
+    $alphabet = (range('a', 'z'));
+    // constraint
+    $alph = range('A', 'Z');
+    for ($i = 0; $i < count($alph); $i++) {
+        $char = $alph[$i];
+        if (strpos($string, $char) !== false) {
+            return "Error Uppercase Detected";
+        }
+    }
+    if (count($array) > 100) {
+        return "Error Array Count 100";
+    }
+    // constraint end
+
+    print_r($alphabet);
+    for ($i = 0; $i < count($alphabet); $i++) {
+        for ($j = 0; $j < strlen($string); $j++) {
+            if ($alphabet[$i] == $string[$j]) {
+                $arr[] = $i + 1;
+            }
+        }
+    }
+    $res = '';
+    for ($i = 0; $i < count($arr); $i++) {
+        if ($array[$i] != $arr[$i]) {
+            $res .= "false\n";
+        } else {
+            $res .= "true\n";
+        }
+    }
+    return $res;
+}
+echo match_alphabet_index($string, $array) . "\n";
+
 
 print_r($b);
 //3
@@ -533,3 +571,101 @@ $encryptedString = alfabet($inputString, $n);
 
 echo "String Asli: $inputString\n";
 echo "String Terenkripsi: $encryptedString\n";
+
+
+// Input
+$tanggal_pemesanan = 25; // Tanggal pesanan
+$hari_pemesanan = "sabtu"; // Hari pemesanan
+$hari_libur_nasional = [26, 29]; // Hari libur nasional
+
+// Daftar nama hari dalam bahasa Indonesia
+$nama_hari = ["minggu", "senin", "selasa", "rabu", "kamis", "jumat", "sabtu"];
+
+// Mengonversi nama hari pemesanan ke urutan hari (0 untuk Minggu, 1 untuk Senin, dst.)
+$urutan_hari_pemesanan = 0;
+foreach ($nama_hari as $index => $nama) {
+    if (strtolower($nama) === $hari_pemesanan) {
+        $urutan_hari_pemesanan = $index;
+        break;
+    }
+}
+
+// Menambah 7 hari kerja untuk mendapatkan perkiraan kedatangan
+$hari_kerja = 0;
+while ($hari_kerja < 7) {
+    $tanggal_pemesanan++;
+    if ($tanggal_pemesanan > 31) {
+        $tanggal_pemesanan = 1; // Reset tanggal ke 1 jika melewati 31
+    }
+    if (!in_array($tanggal_pemesanan, $hari_libur_nasional)) {
+        $hari_kerja++;
+    }
+}
+
+// Menghitung tanggal perkiraan kedatangan di bulan berikutnya
+$tanggal_berikutnya = $tanggal_pemesanan + 7;
+if ($tanggal_berikutnya > 31) {
+    $tanggal_berikutnya -= 31;
+    $bulan_berikutnya = true;
+} else {
+    $bulan_berikutnya = false;
+}
+
+// Menampilkan output
+if ($bulan_berikutnya) {
+    echo "Tanggal $tanggal_berikutnya di bulan berikutnya \n";
+} else {
+    echo "Tanggal $tanggal_berikutnya \n";
+}
+
+/* 
+anda akan menggunting - gunting tali sepanjang z meter menjadi beberapa buah tali sepanjang x meter. berapakah kali sedikitnya anda akan menggunting tali tersebut?
+contoh z =4, x =1
+cukup menggunting 2 kali ( pertama, tali 4 meter dibagi menjadi 2 sama rata, akan didapatkan masing - masing 2m. kemudian kedua tali 2m itu dipotong bersama sama rata, akan dihasilkan 4 tali masing masing panjang 1m)
+*/
+function hitungNilaiX($z)
+{
+    $x = $z;
+    $pemotongan = 0;
+
+    while ($z % 2 == 0) {
+        $z = $z / 2;
+        $x = $z;
+        $pemotongan++;
+    }
+
+    return ['x' => $x, 'pemotongan' => $pemotongan];
+}
+
+$z = 4; // Misalnya, panjang tali awal (z meter)
+
+$hasil = hitungNilaiX($z);
+
+echo "Nilai x adalah " . $hasil['x'] . " dan potongan dilakukan sebanyak " . $hasil['pemotongan'] . " kali. \n";
+
+// 5
+$angka1 = 3;
+$angka2 = 7;
+
+// Andi
+function hitungKPK($a, $b)
+{
+    $kpk = max($a, $b);
+
+    while (true) {
+        if ($kpk % $a == 0 && $kpk % $b == 0) {
+            return $kpk;
+        }
+        $kpk++;
+    }
+}
+
+$kpk = hitungKPK($angka1, $angka2);
+
+$tanggal_awal = new DateTime('2018-03-05');
+
+$tanggal_berenang_bersama = $tanggal_awal->add(new DateInterval("P{$kpk}D"));
+
+$tanggal_hasil = $tanggal_berenang_bersama->format('d F Y');
+
+echo "Andi dan Budi akan kembali berenang bersama pada tanggal $tanggal_hasil.\n";
