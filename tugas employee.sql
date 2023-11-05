@@ -57,7 +57,7 @@ select
 concat(first_name,' ' ,last_name) as fullname,
 n.period,
 n.regular_qouta
-from b''iodata m
+from biodata m
 join employee_leave n on m.id=n.id 
 where n.period =2020;
 
@@ -110,12 +110,14 @@ limit 3;
 
 --11
 select
+	concat(first_name,' ' ,last_name) as fullname,
 	position.name as jabatan,
 	avg(salary) as average
 from employee_position
 left join employee on employee_id = employee.id
 left join position on position_id = position.id
-group by position.name 
+left join biodata on employee.biodata_id = biodata.id
+group by fullname,position.name 
 having position.name ilike 'staff';
 
 -- 12
@@ -129,15 +131,25 @@ join biodata on biodata_id = biodata.id
 group by marital_status;
 
 --13
-select
-	employee.id,
-	biodata.first_name,
-	(count(extract('day' from age(leave_request.end_date, leave_request.start_date))) + 
-	count(extract('day' from age(travel_request.end_date, travel_request.start_date)))) as total
-from employee
-left join leave_request on leave_request.employee_id = employee.id
-left join travel_request on travel_request.employee_id = employee.id
-left join biodata on biodata_id = biodata.id
-where extract(year from (leave_request.end_date)) =2020  and extract(year from (travel_request.end_date)) = 2020
-group by biodata.first_name, employee.id
-having first_name ilike 'raya%';
+select 
+  concat(first_name,' ' ,last_name) as fullname,
+  sum(total_days) as total
+from employee e
+left join biodata b on e.biodata_id = b.id
+left join (
+  select
+    employee_id,
+    sum(extract('days' from age(end_date, start_date)) ) as total_days
+  from leave_request
+  where extract('year' from end_date) = 2020
+  group by employee_id
+  union all
+  select
+    employee_id,
+    sum(extract('days' from age(end_date, start_date)) ) as total_days
+  from travel_request
+  where extract('year' from end_date) = 2020
+  group by employee_id
+) as totals on e.id = totals.employee_id
+where first_name ilike '%raya'
+group by fullname;

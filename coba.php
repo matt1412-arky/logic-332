@@ -429,3 +429,107 @@ function jeruk_pisang($str)
 
 $inputData = jeruk_pisang($str);
 readArray($inputData);
+
+
+/*
+jim berjalan melewati sebuah path ----0--0---0---
+jim berjalan dengan path          wwwjwjwwjwwjwww
+energi awal jim adalah 15
+jika melompat (j) energi jim berkurang 2
+jim harus melompat (j) jika melihat path (0)
+berapakah energi terakhir jim
+*/
+//1
+$a = "----o--o---o---";
+$ceka = strlen($a);
+$b = "wwwwjwwjwwwjwww";
+$cekb = strlen($b);
+$c = 15;
+$d = 2;
+
+if ($ceka != $cekb) {
+    echo "Panjangnya tidak sama";
+} elseif ($ceka == $cekb) {
+    for ($i = 0; $i < $ceka; $i++) {
+        if ($a[$i] == "o" && $b[$i] == "j") {
+            $c -= $d;
+        } else if ($a[$i] == "o" && $b[$i] != "j") {
+            echo "Jim Mati";
+        }
+    }
+    echo "Energi terakhir Jim: " . $c . "\n";
+}
+//2
+/*
+huruf alfabet dalam huruf kecil dibawah ini mengandung bobot yang ditentukan sebagai berikut
+a=1;b=2;c=3;d=4; sampai dengan z=26;
+tentukan apakah dalam sebuah inputan string sudah memiliki bobot yang sesuai
+
+constraint :
+- 0<=n<=100
+- string hanya mengandung huruf kecil
+
+input :
+string mengandung kata/kalimat
+array n : mengandung array yang harus dicocokkan terhadap string
+
+example
+string : abbcdzzz
+array : [1,2,2,4,4,26,26]
+
+output true, true, false, true, false, true, true
+
+explanation :
+a = 1 -> true
+b = 2 -> true
+c = 2 -> false
+d = 4 -> true
+z = 4 -> false
+z = 26 -> true
+z = 26 -> true
+*/
+
+print_r($b);
+//3
+$a = 3;
+for ($i = 1; $i <= 10; $i++) {
+    if (($i * 3) % 2 == 0) {
+        echo $i * 3 . " ";
+    }
+}
+echo "\n";
+
+//4
+function alfabet($string, $n)
+{
+    $alphabet = 'abcdefghijklmnopqrstuvwxyz';
+    $result = '';
+
+    for ($i = 0; $i < strlen($string); $i++) {
+        $char = $string[$i];
+        $isLowercase = ($char >= 'a' && $char <= 'z');
+
+        if ($isLowercase) {
+            $index = strpos($alphabet, $char);
+            if ($index !== false) {
+                $shiftedIndex = ($index + $n) % 26;
+                $shiftedChar = $alphabet[$shiftedIndex];
+                $result .= $shiftedChar;
+            } else {
+                $result .= $char;
+            }
+        } else {
+            $result .= $char;
+        }
+    }
+
+    return $result;
+}
+
+$z = range("a", "z");
+$inputString = join("", $z);
+$n = 3;
+$encryptedString = alfabet($inputString, $n);
+
+echo "String Asli: $inputString\n";
+echo "String Terenkripsi: $encryptedString\n";
