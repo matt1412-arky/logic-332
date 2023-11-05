@@ -91,15 +91,17 @@
                     $encryptedString .= $char;
                 }
             }
-            echo "Original Alfabet : abcdefghijklmnopqrstuvwxyz\n";
-            echo "Alfabet yang dirotasi: " . $rotatedAlfabet . "\n";
+            
         
             return $encryptedString;
         }
         
-        $inputString = "ba ca";
-        $rotation = 3;
-        $encryptedText = enkripsi($inputString, $rotation);
+        $inputString = readline("Masukan Data : ");
+        $n = readline("Masukan Nilai : ");
+        $encryptedText = enkripsi($inputString, $n);
+        echo "Original Alfabet : abcdefghijklmnopqrstuvwxyz\n";
+        $originalAlfabet = "abcdefghijklmnopqrstuvwxyz";
+        echo "Alfabet yang dirotasi: " . substr($originalAlfabet, $n) . substr($originalAlfabet, 0, $n) . "\n";
         echo "Hasil enkripsi : $encryptedText\n";
         echo "\n";
 
@@ -241,7 +243,7 @@
         }
         
         // Contoh penggunaan
-        $tanggalPemesanan = '2023-10-25'; // Misalnya, tanggal pemesanan adalah 25 Oktober
+        $tanggalPemesanan = '2022-10-25'; // Misalnya, tanggal pemesanan adalah 25 Oktober
         $hariLibur = [26, 29]; // Hari libur nasional
         
         $hasil = tanggalKedatangan($tanggalPemesanan, $hariLibur);
@@ -321,11 +323,26 @@
         // echo "Andi dan Budi akan berenang bersama lagi pada tanggal $tanggalBerikutnyaFormat \n";
         // echo "\n";
 
-        $tanggalAwal = new DateTime('2018-03-05');
-        $interval = new DateInterval('P21D');
-        $tanggalKembali = $tanggalAwal->add($interval);
-        echo "Mereka kembali berenang bersama pada tanggal " . $tanggalKembali->format('Y-m-d'). "\n";
-        echo "\n";
+        // $tanggalAwal = new DateTime('2018-03-05');
+        // $interval = new DateInterval('P21D');
+        // $tanggalKembali = $tanggalAwal->add($interval);
+        // echo "Mereka kembali berenang bersama pada tanggal " . $tanggalKembali->format('Y-m-d'). "\n";
+        // echo "\n";
+
+        // Tanggal awal
+            $tanggalAwal = strtotime('2018-03-05');
+
+            // KPK dari 3 dan 7
+            $kpk = 21;
+
+            // Hitung tanggal kapan mereka kembali berenang bersama
+            $tanggalKembali = strtotime("+$kpk days", $tanggalAwal);
+
+            // Format tanggal dalam format yang lebih mudah dibaca
+            $tanggalKembaliFormatted = date('d F Y', $tanggalKembali);
+
+            echo "Mereka akan kembali berenang bersama pada tanggal $tanggalKembaliFormatted\n";
+            echo "\n";
 
     /* Sekelompok orang ingin membeli es kopi susu dengan menggunakan promo diskon 50%(maksimal
     diskon RP. 100.000 minimal order RP. 40.000) ditambah cashback 10%(cashback dari harga akhir
