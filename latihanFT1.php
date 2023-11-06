@@ -12,9 +12,25 @@
       contoh : x=3 ,y=2, z=25 Februari 2020
       output : 8 Maret 2020 (jangan lupa tahun kabisat)
      */
-        // versi 1
+        // $tanggalAwal = new DateTime('2020-02-25');
+        // $interval = new DateInterval('P12D');
+        // $tanggalKembali = $tanggalAwal->add($interval);
+        // echo "Mereka kembali berlibur bersama pada tanggal " . $tanggalKembali->format('Y-m-d'). "\n";
+        // echo "\n";
 
-        //versi 2
+        $tanggalAwal = strtotime('2020-02-25');
+
+        // KPK dari 3 dan 7
+        $kpk = 6;
+
+        // Hitung tanggal kapan mereka kembali berenang bersama
+        $tanggalKembali = strtotime("+$kpk days", $tanggalAwal);
+
+        // Format tanggal dalam format yang lebih mudah dibaca
+        $tanggalKembaliFormatted = date('d F Y', $tanggalKembali);
+
+        echo "Mereka akan kembali berlibur bersama pada tanggal $tanggalKembaliFormatted\n";
+        echo "\n";
     
     /*
         Soal no 2
