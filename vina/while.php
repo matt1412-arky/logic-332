@@ -2,9 +2,8 @@
 
 /*
 while = selama; selama i lebih kecil dari 5 maka lakukan perintah
-
-
 //note : while melakukan loop sambil cek kondisi
+
 $i = 1;
 while ($i <= 5){
     echo($i. "\n");

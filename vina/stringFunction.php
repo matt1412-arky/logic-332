@@ -27,5 +27,48 @@ echo($str. " : ".trim($str)."\n");
 //str replace untuk mereplace karakter atau string dari suatu string
 echo str_replace(",", "+" , $kalimat . "\n");
 
+//str split string, banyaknya karakter (int) untuk memisahkan string menjadi 
+// satu atau lebih karakter
+echo("string split \n");
+$strArray = str_split($kalimat,5);
+print_r($strArray);
+echo"\n";
 
+//str repeat (Strin. banyaknya string yang diulangi) . untuk mengulang string menjadi beberapa sesuai dengan parameter ke 2.
+
+echo(str_repeat("hello", 5)."\n"); //output : hellohellohellohellohello
+
+//str pad (string, perubahan panjang string yang baru, string yang akan ditambahkan)
+echo(str_pad("Hello",10,"#")."\n");  //output : Hello##### (panjang 10)
+echo(str_pad("Hello",15,"#")."\n"); //output : Hello##########
+
+//strpos (string, string yang dicari), mencari substring dalam suatu string
+echo(strpos($kalimat,"s")."\n");  //perhitungan string dimulai dari indeks 0
+
+// number_format (string number, decimal, string separator sign, string decimal sign)
+echo(number_format("12000000",2)."\n");
+echo number_format("1000000",2,",",".")."\n";
+
+//strrev(string), untuk membalik string
+echo(strrev("Xsis Academy") ."\n");
+
+//join(separator, string array) . alias dari implode
+$strArray = array("Red","Green","Blue");
+echo(join("+", $strArray) . "\n");
+
+//strtolower(string) merubah string ke huruf kecil
+//strtoupper(string) merubah string ke huruf besar
+echo strtolower($kalimat."\n");
+echo strtoupper($kalimat."\n");
+
+//ucfirst(string); membuat upper case pada kalimat pertama dalam satu kalimat
+echo(ucfirst("php batch 332 xsis academy")."\n");
+// ucwords(String); membuat uppercase untuk karakter pertama dalam satu kata
+echo(ucwords("php batch 332 xsis academy")."\n");
+//md5(string) ; digunakan untuk mengkonvert string; hash string to md5 atau tipe
+echo(md5("password123")."\n");
+//sha1(String) ; hash string to sha format
+echo(sha1("password123")."\n");
+
+//mengecek 2 string sama atau tidak
 ?>

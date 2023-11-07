@@ -5,7 +5,7 @@
 makeOutWord("<<>>","Yay") -> "<<Yay>>"
 makeOutWord("<<>>","WooHoo") -> "<<WooHoo>>"
 makeOutWord("[[]]","word") -> "[[word]]"
-
+*/
 
 function makeOutWord($Out,$Word){
     $first = substr($Out,0,2);
@@ -16,7 +16,7 @@ function makeOutWord($Out,$Word){
 echo makeOutWord("<<>>","Yay")."\n";
 echo makeOutWord("<<>>","WooHoo")."\n";
 echo makeOutWord("[[]]","word")."\n";
-*/
+
 //======================================================
 
 //nomor 2
@@ -24,6 +24,7 @@ echo makeOutWord("[[]]","word")."\n";
 extraFront("Hello") -> HeHeHe
 extraFront("ab") -> ababab
 extraFront("H") -> HHH
+*/
 
 function extraFront($Front){
     $extra = substr($Front,0,2);
@@ -34,7 +35,7 @@ function extraFront($Front){
 echo extraFront("Hello")."\n";
 echo extraFront("ab")."\n";
 echo extraFront("H")."\n";
-*/
+
 
 //======================================================
 
@@ -44,7 +45,7 @@ echo extraFront("H")."\n";
 repeatEnd("Hello",3) -> "llollollo"
 repeatEnd("Hello",2) -> "lolo"
 repeatEnd("Hello",1) -> "o
-
+ */
 
  function repeatEnd($str, $n){
     $subString = substr($str,-$n);
@@ -58,7 +59,7 @@ repeatEnd("Hello",1) -> "o
 echo repeatEnd("Hello",3)."\n";
 echo repeatEnd("Hello",2)."\n";
 echo repeatEnd("Hello",1)."\n";
- */
+
 
  //======================================================
 
@@ -67,8 +68,7 @@ echo repeatEnd("Hello",1)."\n";
 maxEnd3([1,2,3])->[3,3,3]
 maxEnd3([11,5,9])->[11,11,11]
 maxEnd3([2,11,3])->[3,3,3]
-
-
+ */
  function maxEnd($arr){
     $awal = array($arr[0]);
     $akhir = array($arr[2]);
@@ -83,7 +83,7 @@ maxEnd3([2,11,3])->[3,3,3]
 print_r(maxEnd([1, 2, 3]));
 print_r(maxEnd([11,5,9]));
 print_r(maxEnd([2,11,3]));
- */
+
 
 //======================================================
 
@@ -94,7 +94,7 @@ cari nilai tertinggi array tersebut
 maxTriple([1,2,3]) -> 3
 maxTriple([1,5,3]) -> 5 
 maxTriple([5,2,3]) -> 5  
-
+*/
 function maxTriple($triple){
     if (count($triple) % 2 == 1){
         $result5 = max($triple);
@@ -106,7 +106,7 @@ echo"\n";
 print_r(maxTriple([1,5,3]));
 echo"\n";
 print_r(maxTriple([5,2,3]));
-*/
+
 
 
 //======================================================
@@ -133,4 +133,58 @@ print_r(swapEnds([1,2,3]));
 echo"\n";
 print_r(swapEnds([8,6,7,9,5]));
 echo"\n";
+
+//========================================================
+//Nomor 7
+//buat program untuk mengecek apakah suatu kata/kalimat termasuk palindrum atau buka palindrum
+
+$tes = "meja";
+function palindrum($tes){
+    if ($tes === strrev($tes)){
+        echo"kalimat ini palindrum";
+    } else {
+        echo "bukan palindrum ";
+    }
+
+}
+echo palindrum("$tes");
+
+//========================================================
+$strArray = array("X","S","I","S","a","c","a","d","m","y");
+print_r($strArray);
+sort($strArray);
+print_r($strArray);
+
+//Nomor 8
+//buat program untuk mengecek suatu kalimat ada beberapa huruf vokal dan huruf konsonan
+//input = "Xsis Academy" 
+//output = 4 huruf vokal - aaei 
+//          7 huruf konsonan - cdmssxy
+
+$tes8 = "Xsis Academy";         // klimat 
+function cekvonan($tes8){
+    $lower = strtolower(str_replace (' ', '', $tes8));
+    $strArray = str_split($lower);     //split
+    $av = [];
+    $ak = [];
+    $v = 0;
+    $k = 0;
+
+    for($i=0;$i<count($strArray);$i++){               
+        if ($strArray[$i] == "a" || $strArray[$i] == "i" || $strArray[$i] == "u" || $strArray[$i] == "e" || $strArray[$i] == "o"){
+            $av[] = $strArray[$i];
+            $v++;
+        } else {
+            $ak[] = $strArray[$i];
+            $k++;
+        }
+    }
+    sort($av);
+    sort($ak);
+    echo ($v) . " huruf vokal - " . (implode("", $av)) ."\n";
+    echo ($k) . " huruf konsonan - " . (implode("", $ak)) ."\n";
+
+}
+echo cekvonan($tes8); // output jgn gunakan print_r hasil harus sesuai dengan soal
+
 ?>
