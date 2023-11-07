@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Batch-332 Xsis Academy</title>
+  </head>
+  <body>
+    <table border="1" cellspacing="0" cellpadding="5">
+      <tr>
+        <td colspan="2">Profil Form</td>
+      </tr>
+      <tr>
+        <td>Nama</td>
+        <td><input type="text" id="nama" maxlength="50" size="50" /></td>
+      </tr>
+      <tr>
+        <td>Gender</td>
+        <td><input type="radio" name="gender" />Laki-laki <input type="radio" name="gender" />Perempuan</td>
+      </tr>
+      <tr>
+        <td>Alamat</td>
+        <td><textarea name="" id="alamat"></textarea></td>
+      </tr>
+      <tr>
+        <td>Kota</td>
+        <td>
+          <select name="" id="kota">
+            <option value="">-- Pilih --</option>
+            <option value="Cirebon">Cirebon</option>
+            <option value="Cibinong">Cibinong</option>
+            <option value="Depok">Depok</option>
+            <option value="Bogor">Bogor</option>
+            <option value="Tangerang">Tangerang</option>
+            <option value="Bekasi">Bekasi</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>Tanggal Lahir</td>
+        <td><input type="date" id="tgl_lahir" /></td>
+      </tr>
+      <tr>
+        <td>Pendidikan</td>
+        <td>
+          <input type="checkbox" name="pendidikan" value="SD" />SD <br />
+          <input type="checkbox" name="pendidikan" value="SMP" />SMP <br />
+          <input type="checkbox" name="pendidikan" value="SMA" />SMA <br />
+          <input type="checkbox" name="pendidikan" value="S1" />S1 <br />
+          <input type="checkbox" name="pendidikan" value="S2" />S2 <br />
+          <input type="checkbox" name="pendidikan" value="S3" />S3 <br />
+        </td>
+      </tr>
+      <tr>
+        <td>Pekerjaan</td>
+        <td>
+          <select name="" id="pekerjaan" size="4">
+            <option value="choose">-- Pilih --</option>
+            <option value="ANS">ANS</option>
+            <option value="TNI/POLRI">TNI/POLRI</option>
+            <option value="SWASTA">Swasta</option>
+        </td>
+      </tr>
+      <tr>
+        <td>Hobi</td>
+        <td>
+          <input type="checkbox" name="hobi" value="kulineran" />Kulineran <br />
+          <input type="checkbox" name="hobi" id="makan" />Makan <br />
+          <input type="checkbox" name="hobi" value="tidur" />Tidur <br />
+          <input type="checkbox" name="hobi" value="ngemil" />Ngemil <br />
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <input type="button" value="Baca data" onclick="bacaData()"/>
+          <button onclick="bacaData()">Baca data</button>
+        </td>
+      </tr>
+    </table>
+
+    <table border="1" cellspacing="0" cellpadding="5" width="60%">
+        <tr>
+            <td id="viewData"></td>
+        </tr>
+    </table>
+  </body>
+</html>
+
+<script>
+    //variable
+    var x = 5; // varible bebas seperti variable global tahun 1995-2015
+    let y = 3; // 2015 ditambahkan ke JS cakupan lebih sempit dibanding var
+    const z = 9; // 2015, merujuk sebagai konstanta (tidak bisa diubah)
+
+    let hasil = x * y;
+    console.log("Hasil : " + hasil);
+
+    // z = 18; // erorr: assigment to constant
+
+    var x = 7; // re-declare (var bisa di deklarasikan ulang)
+
+    let hasil1 = x * y;
+    console.log("Hasil1 : " + hasil1);
+
+    // let y = 9; let tidak bisa di re-declare
+    y = 13; // let bisa diassignment ulang
+
+    let hasil2 = x * y;
+    console.log("Hasil2 : " + hasil2);
+
+    const profil = {
+        nama: 'Hawk',
+        city:'Citayem'
+    }
+    console.log(profil);
+    console.log(profil.nama);
+    console.log(profil.city);
+
+    // Control statement ==================================
+    // Conditional
+    var angka = 9;
+    var tebak = 9;
+    if(tebak < angka){
+        console.log("Tebakan lebih kecil");
+    } else if (tebak > angka){
+        console.log("Tebakan kebesaran");
+    } else if (tebak == angka){
+        console.log("Tepat!");
+    }
+
+    // for loop
+    for(var i = 0; i < 10; i++){
+        console.log(i-1);
+    }
+    function bacaData(){
+        var nama = document.getElementById('nama').value;
+        var alamat = document.getElementById('alamat').value;
+        var kota = document.getElementById('kota').value;
+        var tgl_lahir = document.getElementById('tgl_lahir').value;
+        var pendidikan = document.getElementsByName('pendidikan');
+        var pend = "";
+        for (i=0; i < pendidikan.length; i++){
+            if(pendidikan[i].checked){
+                // console.log(pendidikan[i].value);
+                pend += pendidikan[i].value + ", ";
+            }
+        }
+        var hobi = document.getElementsByName('hobi');
+        var hob = "";
+        for(i = 0; i < hobi.length; i++) {
+            if(hobi[i].checked){
+                // console.log(hobi[i].value);
+                hob += hobi[i].value + ", ";
+            }
+        }
+        // console.log(pendidikan[1].value);
+        // console.log(nama);
+        let str = nama + "<br>" ;
+        str += alamat + "<br>";
+        str += kota + "<br>";
+        str += tgl_lahir + "<br>";
+        str += pend + "<br>";
+        str += hob + "<br>";
+
+        document.getElementById('viewData').innerHTML = str;
+    }
+</script>
