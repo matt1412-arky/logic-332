@@ -1,0 +1,13 @@
+{
+    "extensions.closeExtensionDetailsOnViewChange": false,
+    "editor.tokenColorCustomizations": {
+    
+    },
+    "workbench.colorCustomizations": {
+        
+        "activityBar.foreground": "#2390bc",
+        "activityBarBadge.background": "#772828",
+        "activityBarBadge.foreground": "#9e9010"
+
+    }
+}
