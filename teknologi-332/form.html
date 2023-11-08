@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Batch-332 Xsis Academy</title>
+        <link rel="stylesheet" href="css/mystyle.css">
+    </head>
+    <body>
+
+        <table class="tableForm">
+            <tr>
+                <td colspan="2" align="center" class="headerForm">Profil Form</td>
+            </tr>
+            <tr>
+                <td class="caption">Nama</td>
+                <td><input type="text" id="nama" maxlength="50" size="50"></td>
+            </tr>
+            <tr>
+                <td class="caption">Gender</td>
+                <td>
+                    <input type="radio" name="gender"> Laki-laki
+                    <input type="radio" name="gender"> Perempuan
+                </td>
+            </tr>
+            <tr>
+                <td class="caption">Alamat</td>
+                <td><textarea id="alamat"></textarea></td>
+            </tr>
+            <tr>
+                <td class="caption">Kota</td>
+                <td>
+                    <select id="kota">
+                        <option value="">-- Please Select --</option>
+                        <option value="Cirebon">Cirebon</option>
+                        <option value="Cibinong">Cibinong</option>
+                        <option value="Depok">Depok</option>
+                        <option value="Bogor">Bogor</option>
+                        <option value="Tanggerang">Tanggerang</option>
+                        <option value="Bekasi">Bekasi</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="caption">Tanggal Lahir</td>
+                <td><input type="date" id="tgl_lahir"></td>
+            </tr>
+            <tr>
+                <td class="caption">Pendidikan</td>
+                <td>
+                    <input type="checkbox" name="pendidikan" value="SD">SD<br>
+                    <input type="checkbox" name="pendidikan" value="SMP">SMP<br>
+                    <input type="checkbox" name="pendidikan" value="SMA">SMA<br>
+                    <input type="checkbox" name="pendidikan" value="S1">S1<br>
+                    <input type="checkbox" name="pendidikan" value="S2">S2<br>
+                    <input type="checkbox" name="pendidikan" value="S3">S3<br>
+                </td>
+            </tr>
+            <tr>
+                <td class="caption">Pekerjaan</td>
+                <td>
+                    <select id="pekerjaan" size="4">
+                        <option value="ASN">ASN</option>
+                        <option value="TNI/POLRI">TNI/POLRI</option>
+                        <option value="SWASTA">SWASTA</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="caption">Hobi</td>
+                <td>
+                    <input type="checkbox" name="hobi" value="Kulineran">Kulineran<br>
+                    <input type="checkbox" name="hobi" value="Makan">Makan<br>
+                    <input type="checkbox" name="hobi" value="Tidur">Tidur<br>
+                    <input type="checkbox" name="hobi" value="Ngemil">Ngemil<br>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="button" value="Baca data" onclick="bacaData()">
+                    <button onclick="bacaData()">Baca Data</button>
+                    <button onclick="bacaData()">Cek Data</button>
+                </td>
+            </tr>
+        </table>
+        <table border="1" cellspacing="0" cellpadding="5" width="60%">
+            <tr>
+                <td id="viewData"></td>
+            </tr>
+        </table>
+    </body>
+</html>
+
+<script>
+    //variable ====================================================================
+    var x = 5; // variable bebas seperti variable global dari tahun 1995-2015
+    let y = 3; // variable bebas seperti variable global dari tahun 2015 ditambahkan ke javascript cakupannya lebih sempit dibanding var
+    const z = 9; // variable bebas seperti variable global dari tahun 2015 merujuk sebagai konstanta (tidak bisa diubah)
+
+    let hasil = x * y;
+    // alert(hasil);
+    console.log("Hasil :" + hasil);
+    // z = 18; // error : assingment to constant
+
+    var x = 7; // re-declare (var bisa di deklarasikan ulang)
+  
+    let hasil2 = x * y;
+    console.log("Hasil2 : " + hasil2);
+
+    // let y = 19; let tidak bisa di re-declare
+    y = 13;// let bisa diassingment ulang
+    let hasil3 = x * y;
+    console.log("Hasil3 : " + hasil3);
+
+    const profil = {
+        nama : "Hawk",
+        city : "Citayem"
+    }
+    console.log(profil);
+    console.log(profil.nama);
+    console.log(profil.city);
+
+    //Control statement =======================================================
+    //conditional
+    var angka = 9;
+    var tebak = 9;
+
+    if(tebak < angka) {
+        console.log("Tebakan lebih kecil")
+    } else if(tebak > angka) {
+        console.log("Tebakan kebesaran")
+    } else if (tebak === angka) {
+        console.log("Tepat!");
+    }
+
+    // for loop
+    for (var i = 0; i<10; i++) {
+        console.log(i - 1);
+    }
+
+    function bacaData(){
+        var nama = document.getElementById('nama').value;
+        var alamat = document.getElementById('alamat').value;
+        var kota = document.getElementById('kota').value;
+        var tgl_lahir = document.getElementById('tgl_lahir').value;
+        var pendidikan = document.getElementsByName('pendidikan');
+        // console.log(pendidikan[1].value);
+
+        var pend = "";
+        for (i=0; i<pendidikan.length; i++) {
+            if(pendidikan[i].checked){
+                console.log(pendidikan[i].value);
+                pend += pendidikan[i].value + ", ";
+            }
+        }
+        // console.log(nama);
+        let str = nama + "<br>";
+        str += alamat + "<br>";
+        str += kota + "<br>";
+        str += tgl_lahir + "<br>";
+        str += pend + "<br>";
+
+        document.getElementById('viewData').innerHTML = str;
+    }
+    
+
+</script>
