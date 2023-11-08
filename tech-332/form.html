@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+<body>
+    <table border="1" cellspacing="0" cellpadding="5" width="100%">
+        <tr>
+            <td colspan="2">Profil Form</td>
+        </tr>
+        <tr>
+            <td>Nama</td>
+            <td><input type="text" id="nama" maxlength="50" size="100%"></td>
+        </tr>
+        <tr>
+            <td>Gender</td>
+            <td>
+                <input type="radio" name="gender">laki-laki
+                <input type="radio" name="gender">perempuan
+            </td>
+        </tr>
+        <tr>
+            <td>Alamat</td>
+            <td>
+                <textarea id="alamat"></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td>Kota</td>
+            <td>
+                <select id="kota">
+                    <option value="">           --pilih kota--</option>
+                    <option value="cirebon">    cirebon</option>
+                    <option value="cibinong">   cibinong</option>
+                    <option value="depok">      depok</option>
+                    <option value="bogor">      bogor</option>
+                    <option value="tangerang">  tangerang</option>
+                    <option value="bekasi">     bekasi</option>
+            </td>
+        </tr>
+        <tr>
+            <td>Tanggal Lahir</td>
+            <td>
+                <input type="date" id="tglLahir">
+            </td>
+
+        </tr>
+        <tr>
+            <td>Pendidikan</td>
+            <td>
+                <input type="checkbox" name="pendidikan" value="SD">SD<br>
+                <input type="checkbox" name="pendidikan" value="SMP">SMP<br>
+                <input type="checkbox" name="pendidikan" value="SMA">SMA<br>
+                <input type="checkbox" name="pendidikan" value="S1">S1<br>
+            </td>
+        </tr>
+        <tr>
+            <td>Pekerjaan</td>
+            <td>
+                <select id="pekerjaan" size="4">
+                    <option value="ASN">ASN</option>
+                    <option value="TNI/POLRI">TNI/POLRI</option>
+                    <option value="SWASTA">SWASTA</option>
+            </td>
+        </tr>
+        <tr>
+            <td>Hobi</td>
+            <td>
+                <input type="checkbox" name="hobi" value="kuliner">kuliner<br>
+                <input type="checkbox" name="hobi" value="makan">makan<br>
+                <input type="checkbox" name="hobi" value="nyemil">nyemil<br>
+                <input type="checkbox" name="hobi" value="tidur">tidur<br>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" align="middle">
+                <input type="button" value="Baca Data" onclick="baca_data()">
+                <button>Cancel</button>
+            </td>
+        </tr>
+    </table>
+    <table border="1" cellspacing="0" cellpadding="5" width="60%" align="center">
+        <tr>
+            <td id="viewData"></td>
+        </tr>
+    </table>
+
+
+
+</body>
+
+</html>
+<script>
+//variable
+var x   = 5; //variable bebas seperi variable global (dalam dan luar fungsi)
+let y   = 3; //variable dengan cakupan yang lebih sempit dibandingkan var
+const z = 9; //variavle berbentuk konstan (tidak dapat diubah)
+
+let hasil = x * y;
+alert(hasil);
+console.log("hasil          : " + hasil);
+
+// z = 10; //error : assignment to constant
+var x = 7;  //re-declare
+
+let hasil2 = x * y;
+console.log("hasil kedua    : " + hasil2);
+
+// let y = 19; // let tidak bisa di re-declare
+y = 13; // let bisa diassignment ulang
+
+let hasil3 = x - y;
+console.log("hasil ketiga   : " + hasil3);
+
+const profil = {
+    nama : "Hawk",
+    city : "citayem"
+}
+console.log(profil)
+console.log(profil.nama)
+console.log(profil.city)
+
+//control statement
+//  conditional
+var angka = 9;
+var tebak = 8;
+
+if(tebak < angka){
+    console.log("Tebakan lebih kecil dari angka");
+} else if(tebak > angka){
+    console.log("tebakan lebih besar dari angka");
+} else  if(tebak == angka){
+    console.log("tebakan tepat");
+}
+//switch sama dengan php
+
+//  for loop
+for(var i = 1; i < 10; i++){
+    console.log("looping ke " + i)
+}
+
+//ambil data dari form
+function baca_data(){
+    var nama = document.getElementById("nama").value
+    var alamat = document.getElementById("alamat").value
+    var kota = document.getElementById("kota").value
+    var tglLahir = document.getElementById("tglLahir").value
+    var pekerjaan = document.getElementById("pekerjaan").value
+
+    var pendidikan = document.getElementsByName("pendidikan")
+    var pendidikanString = ""
+    for(var i = 0; i < pendidikan.length; i++){
+        if(pendidikan[i].checked){
+            console.log(pendidikan[i].value)
+            pendidikanString += pendidikan[i].value + ", "
+        }
+    }
+
+    let str = nama + "<br>"
+    str += alamat + "<br>"
+    str += kota + "<br>"
+    str += tglLahir + "<br>"
+
+    str += pendidikanString + "<br>"
+
+    str += pekerjaan + "<br>"
+
+    console.log(str)
+
+    document.getElementById('viewData').innerHTML = str;
+}
+
+</script>

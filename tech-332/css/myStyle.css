@@ -1,0 +1,16 @@
+.headerForm{
+    background-color: black;
+
+    color: white;
+    font-weight: bolder;
+    font-size: larger;
+    padding: 10px;
+    border-bottom: 1px solid red;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.tableForm{
+    border: 1px solid lightgreen;
+    /* background-image: url("/image/Grojokan-Sewu-sialirahman.jpg"); */
+    font-family:'Courier New';
+}

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>bootstrap playground</title>
+        <link rel="stylesheet" href="css/bootstrap.min.5.3.css">
+        <link rel="stylesheet" href="css/myStyle.css">
+        
+        <script src="js/jquery-3.7.1.min.js"></script>
+        <script src="js/bootstrap.bundle.min.5.3.js"></script>
+        <script src="js/myjs.js"></script>
+    </head>
+    <body>
+    <table class="table table-striped"  align="center">
+        <thead class="table-warning">
+            <tr>
+                <td colspan="2" align="center"><h2><b>Profile Form</b></h2></td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Nama</td>
+                <td><input type="text" class="form-control" id="nama"></td>
+            </tr>
+            <tr>
+                <td>Gender</td>
+                <td>
+                    <input type="radio" class="form-check-input" name="gender"> 
+                    <label for="gender">laki-laki</label> 
+                    <input type="radio" class="form-check-input" name="gender"> perempuan
+                </td>
+            </tr>
+            <tr>
+                <td>Alamat</td>
+                <td>
+                    <textarea class="form-control" id="alamat"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>Kota</td>
+                <td>
+                    <select class="form-select" id="kota">
+                        <option value=""> -- pilih kota --</option>
+                        <option value="Cirebon">Cirebon</option>
+                        <option value="Cilegon">Cilegon</option>
+                        <option value="Cisarua">Cisarua</option>
+                        <option value="Cipanas">Cipanas</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Tanggal Lahir</td>
+                <td>
+                    <input type="date" class="form-control" id="tglLahir">
+                </td>
+            </tr>
+            <tr>
+                <td>Pendidikan</td>
+                <td>
+                    <input type="checkbox" name="pendidikan" value="SD"> SD <br>
+                    <input type="checkbox" name="pendidikan" value="SD"> SMP <br>
+                    <input type="checkbox" name="pendidikan" value="SD"> SMA <br>
+                    <input type="checkbox" name="pendidikan" value="SD"> S1 <br>
+                </td>
+            </tr>
+            <tr>
+                <td>Pekerjaan</td>
+                <td>
+                    <select class="form-select" id="pekerjaan" size="3">
+                        <option value="ASN">ASN</option>
+                        <option value="TNI/POLRI">TNI/POLRI</option>
+                        <option value="SWASTA">SWASTA</option>
+                        <option value="">--Other--</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Hobi</td>
+                <td>
+                    <input type="checkbox" name="hobi" value="Makan"> Makan <br>
+                    <input type="checkbox" name="hobi" value="Kuliner"> Minum <br>
+                    <input type="checkbox" name="hobi" value="Nyemil"> Nyemil <br>
+                    <input type="checkbox" name="hobi" value="Tidur"> Tidur <br>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                    <input class="btn btn-success" type="button" value="Baca Data (Native)" onclick="bacaData2()">
+                    <input class="btn btn-info" type="button" value="Baca Data (Modal)" onclick="bacaData3()">
+                    <input class="btn btn-primary" type="button" value="Baca Data (Ajax)" onclick="bacaData4()">
+                </td>
+            </tr>
+        </table>
+        <table border="1" cellspacing="0" cellpadding="5" width="60%" align="center">
+            <tr>
+                <td id="viewData"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <?php header('Access-Control-Allow-Origin);?>
+<!-- Modal Body -->
+        <div class="modal" tabindex="-1" id="myModal">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Modal title</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <p>Modal body text goes here.</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+              </div>
+            </div>
+          </div>
+    </body>
+</html>

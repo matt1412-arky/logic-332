@@ -1,0 +1,12 @@
+[
+    {
+        "nama":"Peter Parker",
+        "city":"New York",
+        "cellphone": "081312345678"
+    },
+    {
+        "nama":"Dr. David Banner",
+        "city":"Carson City",
+        "cellphone":"082123456789"
+    }
+]
