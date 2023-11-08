@@ -2,84 +2,112 @@
 <html>
     <head>
         <title>Batch-332 Xsis Academy</title>
-        <link rel="stylesheet" href="css/mystyle.css">
+        <!--<link rel="stylesheet" href="css/mystyle.css">-->
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+
+        <script src="js/jquery-3.7.1.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/myjs.js"></script>
     </head>
     <body>
 
-        <table class="tableForm">
-            <tr>
-                <td colspan="2" align="center" class="headerForm">Profil Form</td>
-            </tr>
-            <tr>
-                <td class="caption">Nama</td>
-                <td><input type="text" id="nama" maxlength="50" size="50"></td>
-            </tr>
-            <tr>
-                <td class="caption">Gender</td>
-                <td>
-                    <input type="radio" name="gender"> Laki-laki
-                    <input type="radio" name="gender"> Perempuan
-                </td>
-            </tr>
-            <tr>
-                <td class="caption">Alamat</td>
-                <td><textarea id="alamat"></textarea></td>
-            </tr>
-            <tr>
-                <td class="caption">Kota</td>
-                <td>
-                    <select id="kota">
-                        <option value="">-- Please Select --</option>
-                        <option value="Cirebon">Cirebon</option>
-                        <option value="Cibinong">Cibinong</option>
-                        <option value="Depok">Depok</option>
-                        <option value="Bogor">Bogor</option>
-                        <option value="Tanggerang">Tanggerang</option>
-                        <option value="Bekasi">Bekasi</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td class="caption">Tanggal Lahir</td>
-                <td><input type="date" id="tgl_lahir"></td>
-            </tr>
-            <tr>
-                <td class="caption">Pendidikan</td>
-                <td>
-                    <input type="checkbox" name="pendidikan" value="SD">SD<br>
-                    <input type="checkbox" name="pendidikan" value="SMP">SMP<br>
-                    <input type="checkbox" name="pendidikan" value="SMA">SMA<br>
-                    <input type="checkbox" name="pendidikan" value="S1">S1<br>
-                    <input type="checkbox" name="pendidikan" value="S2">S2<br>
-                    <input type="checkbox" name="pendidikan" value="S3">S3<br>
-                </td>
-            </tr>
-            <tr>
-                <td class="caption">Pekerjaan</td>
-                <td>
-                    <select id="pekerjaan" size="4">
-                        <option value="ASN">ASN</option>
-                        <option value="TNI/POLRI">TNI/POLRI</option>
-                        <option value="SWASTA">SWASTA</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td class="caption">Hobi</td>
-                <td>
-                    <input type="checkbox" name="hobi" value="Kulineran">Kulineran<br>
-                    <input type="checkbox" name="hobi" value="Makan">Makan<br>
-                    <input type="checkbox" name="hobi" value="Tidur">Tidur<br>
-                    <input type="checkbox" name="hobi" value="Ngemil">Ngemil<br>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <input type="button" value="Baca data" onclick="bacaData()">
-                    <button onclick="bacaData()">Baca Data</button>
-                    <button onclick="bacaData()">Cek Data</button>
-                </td>
-            </tr>
+        <div class="modal fade" id="mymodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  modal gue nihh broo
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        <table class="table table-light table-striped">
+            <thead>
+                <tr>
+                    <td colspan="2" align="center" class="headerForm">Profil Form</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="caption">Nama</td>
+                    <td><input type="text" id="nama" maxlength="50" size="50"></td>
+                </tr>
+                <tr>
+                    <td class="caption">Gender</td>
+                    <td>
+                        <input type="radio" name="gender" id="laki-laki"><label for ="laki-laki">&nbsp; Laki-laki </label>
+                        <input type="radio" name="gender" id="perempuan"><label for ="perempuan">&nbsp; Perempuan </label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="caption">Alamat</td>
+                    <td><textarea id="alamat" class="form-control"></textarea></td>
+                </tr>
+                <tr>
+                    <td class="caption">Kota</td>
+                    <td>
+                        <select id="kota" class="form-control">
+                            <option value="">-- Please Select --</option>
+                            <option value="Cirebon">Cirebon</option>
+                            <option value="Cibinong">Cibinong</option>
+                            <option value="Depok">Depok</option>
+                            <option value="Bogor">Bogor</option>
+                            <option value="Tanggerang">Tanggerang</option>
+                            <option value="Bekasi">Bekasi</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="caption">Tanggal Lahir</td>
+                    <td><input type="date" id="tgl_lahir" class="form-control"></td>
+                </tr>
+                <tr>
+                    <td class="caption">Pendidikan</td>
+                    <td>
+                        <input type="checkbox" name="pendidikan" id="sd" value="SD"><label for="sd">&nbsp;SD</label><br>
+                        <input type="checkbox" name="pendidikan" id="smp" value="SMP"><label for ="smp">&nbsp;SMP</label><br>
+                        <input type="checkbox" name="pendidikan" id="sma" value="SMA"><label for ="sma">&nbsp;SMA</label><br>
+                        <input type="checkbox" name="pendidikan" value="S1">S1<br>
+                        <input type="checkbox" name="pendidikan" value="S2">S2<br>
+                        <input type="checkbox" name="pendidikan" value="S3">S3<br>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="caption">Pekerjaan</td>
+                    <td>
+                        <select id="pekerjaan" size="4">
+                            <option value="ASN">ASN</option>
+                            <option value="TNI/POLRI">TNI/POLRI</option>
+                            <option value="SWASTA">SWASTA</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="caption">Hobi</td>
+                    <td>
+                        <input type="checkbox" name="hobi" value="Kulineran">Kulineran<br>
+                        <input type="checkbox" name="hobi" value="Makan">Makan<br>
+                        <input type="checkbox" name="hobi" value="Tidur">Tidur<br>
+                        <input type="checkbox" name="hobi" value="Ngemil">Ngemil<br>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <input type="button" class="btn btn-success" value="Baca data" onclick="bacaData()" >
+                        <button class="btn btn-primary" onclick="bacaData2()">Baca Data 2 (jquery)</button>
+                        <button class="btn btn-secondary" onclick="bacaData3()">Baca Data di modal</button>
+                        <button class="btn btn-danger" onclick="bacaData4()">Baca Data dengan Ajax</button>
+                    </td>
+                </tr>
+            </tbody>
         </table>
         <table border="1" cellspacing="0" cellpadding="5" width="60%">
             <tr>
@@ -141,7 +169,8 @@
         var alamat = document.getElementById('alamat').value;
         var kota = document.getElementById('kota').value;
         var tgl_lahir = document.getElementById('tgl_lahir').value;
-        var pendidikan = document.getElementsByName('pendidikan');
+        var pendidikan = document.getElementsByName('pendidikan').value;
+        var hobi = document.getElementsByName('hobi');
         // console.log(pendidikan[1].value);
 
         var pend = "";
@@ -151,12 +180,21 @@
                 pend += pendidikan[i].value + ", ";
             }
         }
+        
+        var hb = "";
+        for (i=0; i<hobi.length; i++) {
+            if(hobi[i].checked){
+                console.log(hobi[i].value);
+                hb += hobi[i].value + ", ";
+            }
+        }
         // console.log(nama);
         let str = nama + "<br>";
         str += alamat + "<br>";
         str += kota + "<br>";
         str += tgl_lahir + "<br>";
         str += pend + "<br>";
+        str += hb + "<br>";
 
         document.getElementById('viewData').innerHTML = str;
     }

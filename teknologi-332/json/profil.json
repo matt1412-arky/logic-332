@@ -1,0 +1,20 @@
+[
+    {
+            "nama" : "Peter Parker",
+            "city" : "New York",
+            "cellPhone" : "083821218292" 
+    },
+
+    {
+        "nama" : "Dr. David Banner",
+        "city" : "Chicago",
+        "cellPhone" : "081321919257" 
+    },
+
+    {
+        "nama" : "Loki",
+        "city" : "Asgard",
+        "cellPhone" : "081572075095" 
+    }
+
+]
