@@ -1,0 +1,43 @@
+.tableForm {
+    border: 1px solid lightgray;
+    font-family: 'arial';
+}
+
+.headerForm {
+    background-color: beige;
+    color:darkblue;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: bold;
+    font-size: larger;
+    padding: 10px;
+    border-bottom: 2px solid red;
+}
+
+#nama {
+    background-color: aliceblue;
+    color: darkslategray;
+    border: 1px solid deepskyblue;
+    padding: 5px;
+    font-size: large;
+    border-radius: 10px;
+}
+
+.caption {
+    padding: 5px;
+    border-bottom: 1px solid gainsboro;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+td {
+    border-bottom: 1px solid #d0d0d0;
+}
+
+button {
+    border: 1px solid red;
+    background-color: gold;
+    color: black;
+    border-radius: 10px;
+    padding: 10px;
+    font-weight: bold;
+}
