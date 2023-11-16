@@ -7,7 +7,7 @@ join employee j on m.id = j.id
 group by fullname;
 
 --2
-insert into biodata (first_name, last_name, dob, pob, address, marital_status) values 
+insert into biodata(first_name, last_name, dob, pob, address, marital_status) values 
 ('Aries', 'Solus', '1992-02-04', 'Bandung','Jl. Pohon Beringin, Bandung', false),
 ('Haris', 'Jaya', '1992-02-07', 'Bandung','Jl. Pohon Asam Jawa, Bandung', false),
 ('Ares', 'Kusuma', '1993-06-04', 'Bandung','Jl. Pohon Bambu, Bandung', true);
