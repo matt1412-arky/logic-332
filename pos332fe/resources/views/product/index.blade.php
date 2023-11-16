@@ -82,11 +82,11 @@
             contentType: 'html',
             success: function(varian) {
                 var selectData = '';
-                for (i = 0; i < category.length; i++) {
-                    selectData += `<option value="${category[i].id}">${category[i].name}</option>`
+                for (i = 0; i < varian.length; i++) {
+                    selectData += `<option value="${varian[i].id}">${varian[i].name}</option>`
                 }
 
-                $('#selectCategory').html(selectData);
+                $('#selectVarian').html(selectData);
             }
         });
     }
@@ -124,6 +124,7 @@
                 $('#btnUpdate').hide();
 
                 getSelectCategory();
+                getSelectVarian();
             }
         });
     }
@@ -182,16 +183,59 @@
                     type: 'get',
                     contentType: 'application/json',
                     success: function(product) {
+                        $.ajax({
+                            url: 'http://127.0.0.1:8000/api/varian',
+                            type: 'get',
+                            contentType: 'json',
+                            success: function(varian) {
+                                var selectData = '';
+                                for (let i = 0; i < varian.length; i++) {
+                                    var varian_id = varian[i].id === product.varian_id ? 'selected' : '';
+                                    selectData += `<option value="${varian[i].id}" ${varian_id}>${varian[i].name}</option>`;
+                                }
+                                $('#selectVarian').html(selectData);
+
+                                // Now fetch categories using product.category_id
+                                $.ajax({
+                                    url: 'http://127.0.0.1:8000/api/category',
+                                    type: 'get',
+                                    contentType: 'json',
+                                    success: function(categories) {
+                                        var selectCategoryData = '';
+                                        for (let i = 0; i < categories.length; i++) {
+                                            var category_id = categories[i].id === product.varian.category_id ? 'selected' : '';
+                                            selectCategoryData += `<option value="${categories[i].id}" ${category_id}>${categories[i].name}</option>`;
+                                        }
+                                        $('#selectCategory').html(selectCategoryData);
+                                    },
+                                    error: function(error) {
+                                        console.error("Error fetching categories:", error);
+                                    }
+                                });
+                            },
+                            error: function(error) {
+                                console.error("Error fetching varian:", error);
+                            }
+                        });
+
                         $('#initial').val(product.initial);
                         $('#name').val(product.name);
                         $('#description').val(product.description);
                         $('#price').val(product.price);
                         $('#stock').val(product.stock);
+                    },
+                    error: function(error) {
+                        console.error("Error fetching product:", error);
                     }
                 });
             }
         });
     }
+
+
+
+
+
 
     function update(id_product) {
         var varian_id = $('#selectVarian').val();
@@ -236,6 +280,7 @@
             contentType: 'application/json',
             success: function(product) {
                 var str = `
+                <span>Category :</span><span>${product.varian.category.name}</span><br>
                 <span>Varian :</span><span>${product.varian.name}</span><br>
                 <span>initial :</span><span>${product.initial}</span><br>
                 <span>Name :</span><span>${product.name}</span><br>
