@@ -50,8 +50,8 @@ let table = new DataTable('#tableProduct');
                     }
                 tableData += `<tr>
                     <td>${no++}</td>
-                    <td>${product[i].varian.category.name}</td>
-                    <td>${product[i].varian.name}</td>
+                    <td>${product[i].category_name}</td>
+                    <td>${product[i].varian_name}</td>
                     <td>${product[i].initial}</td>
                     <td>${product[i].name}</td>
                     <td>${product[i].description}</td>
@@ -204,7 +204,9 @@ let table = new DataTable('#tableProduct');
                     contentType:'application/json',
                     success:function(product) {
                         // console.log(product);
-                        $('#selectCategory').val(product.varian.category_id);
+                        product = product[0];
+                        // $('#selectCategory').val(product.varian.category_id);
+                        $('#selectCategory').val(product.category_id)
                         $('#selectVarian').val(product.varian_id);
                         $('#initial').val(product.initial);
                         $('#name').val(product.name);
@@ -267,9 +269,11 @@ let table = new DataTable('#tableProduct');
             type:'get',
             contentType:'application/json',
             success:function(product) {
+                // <span>Category : </span><span>${product.varian.category.name}</span><br>
                 var str =`
-                    <span>Category : </span><span>${product.varian.category.name}</span><br>
-                    <span>Varian : </span><span>${product.varian.name}</span><br>
+                    
+                    <span>Category : </span><span>${product.category_name}</span><br>
+                    <span>Varian : </span><span>${product.varian_name}</span><br>
                     <span>Initial : </span><span>${product.initial}</span><br>
                     <span>Product : </span><span>${product.name}</span><br>
                     <span>Description : </span><span>${product.description}</span><br>

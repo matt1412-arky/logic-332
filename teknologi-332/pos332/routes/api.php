@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\CatergoryController;
+use App\Http\Controllers\OrderDetailController;
+use App\Http\Controllers\OrderHeaderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\VarianController;
 use App\Models\Product;
@@ -45,9 +47,16 @@ Route::post('/product', [ProductController::class, 'simpan']);
 Route::put('/product/{id}', [ProductController::class, 'edit']);
 Route::delete('/product/{id}', [ProductController::class, 'hapus']);
 
-//ini untuk yang order
+//ini untuk yang order header
 // Route::get('/order', [OrderController::class, 'index']);
-// Route::get('/order/{id}', [OrderController::class, 'getById']);
-// Route::post('/order', [OrderController::class, 'simpan']);
+Route::get('/orderheader/{id}', [OrderHeaderController::class, 'getById']);
+Route::post('/orderheader', [OrderHeaderController::class, 'simpan']);
 // Route::put('/order/{id}', [OrderController::class, 'edit']);
 // Route::delete('/order/{id}', [OrderController::class, 'hapus']);
+
+//ini untuk yang order detail
+Route::get('/orderdetail', [OrderDetailController::class, 'index']);
+Route::get('/orderdetail/{id}', [OrderDetailController::class, 'getById']);
+Route::post('/orderdetail', [OrderDetailController::class, 'simpan']);
+// Route::put('/order/{id}', [OrderController::class, 'edit']);
+Route::delete('/orderdetail/{id}', [OrderDetailController::class, 'hapus']);

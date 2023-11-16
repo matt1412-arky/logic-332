@@ -34,5 +34,5 @@ Route::get('/product', [App\Http\Controllers\ProductController::class, 'index'])
 Route::get('/product/form', [App\Http\Controllers\ProductController::class, 'form'])->name('form');
 
 // bagian order
-// Route::get('/order', [App\Http\Controllers\OrderController::class, 'index'])->name('index');
-// Route::get('/order/form', [App\Http\Controllers\OrderController::class, 'form'])->name('form');
+Route::get('/order', [App\Http\Controllers\OrderController::class, 'index'])->name('index');
+Route::get('/order/form', [App\Http\Controllers\OrderController::class, 'form'])->name('form');

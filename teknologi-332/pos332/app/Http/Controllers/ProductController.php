@@ -4,16 +4,50 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
     public function index() {
-        return Product::with('varian.category')->get();
+        $product = DB::select("
+        SELECT
+        c.id AS category_id,
+        c.name AS category_name,
+        v.id AS varian_id,
+        v.name AS varian_name,
+        p.id,
+        p.initial,
+        p.name,
+        p.description,
+        p.price,
+        p.stock
+        FROM products p
+        JOIN varians v ON p.varian_id=v.id
+        JOIN categories c ON v.category_id=c.id
+    ");
+    return response()->json($product, 200);
+        // return Product::with('varian.category')->get();
     }
 
     public function getById($id) {
         if(Product::where('id', $id)->exists()) {
-            $product = Product::with('varian.category')->find($id);
+            $product = DB::select("
+            SELECT
+            c.id AS category_id,
+            c.name AS category_name,
+            v.id AS varian_id,
+            v.name AS varian_name,
+            p.id,
+            p.initial,
+            p.name,
+            p.description,
+            p.price,
+            p.stock
+            FROM products p
+            JOIN varians v ON p.varian_id=v.id
+            JOIN categories c ON v.category_id=c.id
+            WHERE p.id = " . $id);
+            // $product = Product::with('varian.category')->find($id);
             return response()->json($product, 200);
         }
     }
