@@ -46,6 +46,8 @@ Route::get('/product/{id}', [ProductController::class, 'getById']);
 Route::post('/product', [ProductController::class, 'simpan']);
 Route::put('/product/{id}', [ProductController::class, 'edit']);
 Route::delete('/product/{id}', [ProductController::class, 'hapus']);
+Route::get('/product/reduceStock/{id}/{number}', [ProductController::class, 'reduceStock']);
+Route::get('/product/increaseStock/{id}/{number}', [ProductController::class, 'increaseStock']);
 
 //ini untuk yang order header
 // Route::get('/order', [OrderController::class, 'index']);
@@ -60,3 +62,4 @@ Route::get('/orderdetail/{id}', [OrderDetailController::class, 'getById']);
 Route::post('/orderdetail', [OrderDetailController::class, 'simpan']);
 // Route::put('/order/{id}', [OrderController::class, 'edit']);
 Route::delete('/orderdetail/{id}', [OrderDetailController::class, 'hapus']);
+Route::get('/orderdetail/getByHeaderId/{id}', [OrderDetailController::class, 'getByHeaderId']);

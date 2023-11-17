@@ -50,8 +50,8 @@ let table = new DataTable('#tableProduct');
                     }
                 tableData += `<tr>
                     <td>${no++}</td>
-                    <td>${product[i].category_name}</td>
-                    <td>${product[i].varian_name}</td>
+                    <td>${product[i].varian.category.name}</td>
+                    <td>${product[i].varian.name}</td>
                     <td>${product[i].initial}</td>
                     <td>${product[i].name}</td>
                     <td>${product[i].description}</td>

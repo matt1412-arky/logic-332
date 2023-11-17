@@ -9,9 +9,9 @@
 <table class="table table-striped">
         <tr>
             <td>
-                <button class="btn btn-primary" onclick="newOrder()">New Order</button>
-                <button class="btn btn-secondary">Paymen</button>
-                <button class="btn btn-success" onclick="newTrans()">New Trans</button>
+                <button class="btn btn-primary" onclick="newOrder()" disabled id="newOrder">New Order</button>
+                <button class="btn btn-secondary" disabled id="payment">Paymen</button>
+                <button class="btn btn-success" onclick="newTrans()" id="newTrans">New Trans</button>
                 <input type="text" id="header_id" size="5" style="float:right">
                 <input type="text" id="reference" size="15" style="float:right">
             </td>
@@ -23,11 +23,11 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>Product</th>
-                            <th>Price</th>
-                            <th>Quantity</th>
-                            <th>Amount</th>
-                            <th>Remove</th>
+                            <td>Product</td>
+                            <td align="right">Price</td>
+                            <td align="right">Quantity</td>
+                            <td align="right">Amount</td>
+                            <td align="right">Remove</td>
                         </tr>
                     </thead>
                     <tbody id="orderData">
@@ -58,6 +58,61 @@
                 $('#header_id').val(orderheader.id);
             }
         });
+
+        $('#newOrder').attr('disabled', false);
+        $('#payment').attr('disabled', false);
+        $('#newTrans').attr('disabled', true);
+    }
+
+    function getProductName(id) {
+        var name = '';
+        $.ajax({
+            url:'http://localhost:8000/api/product/'+id,
+            type:'get',
+            contentType:'application/json',
+            async:false,
+            success:function(product) {
+                console.log(product);
+                name =  product.name;
+            }
+        });
+        return name;
+    }
+
+    function loadOrderDetail() {
+        $.ajax({
+            url:'http://localhost:8000/api/orderdetail/getByHeaderId/'+$('#header_id').val(),
+            type:'get',
+            contentType:'application/json',
+            success:function(orderdetail) {
+                var orderData = '';
+                var qtyTemp = 1;
+                var totalBelanja = 0; 
+                for(i=0; i<orderdetail.length; i++){
+                    qtyTemp = orderdetail[i].price * orderdetail[i].quantity;
+                    orderData += `
+                        <tr>
+                            <td>${getProductName(orderdetail[i].product_id)}</td>
+                            <td align="right">${formatter.format(orderdetail[i].price)}</td>
+                            <td align="right">${orderdetail[i].quantity}</td>
+                            <td align="right">${formatter.format(qtyTemp)}</td>
+                            <td><button class="btn btn-danger"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+  <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z"/>
+</svg></button></td>
+                        </tr>    
+                    `;
+                    totalBelanja += qtyTemp;
+                }
+                orderData += `
+                    <tr>
+                        <td>Total belanja</td>
+                        <td colspan ="3" align="right">${formatter.format(totalBelanja)}</td>
+                        <td></td>
+                    </tr>
+                `;
+                $('#orderData').html(orderData);
+            }
+        });
     }
     
     function newOrder() {
@@ -68,19 +123,23 @@
             contentType:'application/json',
             success:function(product) {
                 console.log(product);
-                var str = `<table class="table">
+                var str = `
+                <span>Quantity : </span><span><input type ="text" class="form-control" id="qty" value="1"></span>
+                <table class="table">
                     <tr>
-                        <th>Select</th>
-                        <th>Initial</th>
-                        <th>Product</th>
-                        <th>Price</th>
-                        <th>Stock</th>
+                        <td>Select</td>
+                        <td>Initial</td>
+                        <td>Product</td>
+                        <td>Price</td>
+                        <td>Stock</td>
                     </tr>
                 `;
                 for(i=0; i<product.length; i++) {
                     str += `
                         <tr>
-                            <td><button class="btn btn-warning"><<</button></td>
+                            <td><button class="btn btn-warning" value="${product[i].id}_${product[i].price}" onclick="addOrder(this.value)"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-check-fill" viewBox="0 0 16 16">
+  <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm-1.646-7.646-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L8 8.293l2.646-2.647a.5.5 0 0 1 .708.708z"/>
+</svg></button></td>
                             <td>${product[i].initial}</td>
                             <td>${product[i].name}</td>
                             <td>${product[i].price}</td>
@@ -94,6 +153,63 @@
                 $('.modal-body').html(str);
             }
         });
+    }
+
+    function reduceStock(id, qty) {
+        $.ajax({
+            url:'http://localhost:8000/api/product/reduceStock/'+id+'/'+qty,
+            type:'get',
+            contentType:'application/json',
+            success:function(product) {
+                console.log(product);
+            }
+        });   
+    
+    }
+
+    function increaseStock(id, qty) {
+        $.ajax({
+            url:'http://localhost:8000/api/product/increaseStock/'+id+'/'+qty,
+            type:'get',
+            contentType:'application/json',
+            success:function(product) {
+                console.log(product);
+            }
+        });   
+    
+    }
+
+    function addOrder(id_price) {
+        var splitIdPrice = id_price.split("_");
+        console.log(splitIdPrice);
+        var qty = $('#qty').val();
+        // var price = $('#quantity').val() * splitIdPrice([1]);
+        var header_id = $('#header_id').val();
+
+        const dataOrder = {
+            header_id: header_id,
+            product_id: splitIdPrice[0],
+            quantity: qty,
+            price: splitIdPrice[1],
+            create_by: 1,
+            updated_by: 1
+        };
+        console.log(dataOrder);
+        
+        $.ajax({
+            url:'http://localhost:8000/api/orderdetail',
+            type:'post',
+            dataType:'json',
+            data:dataOrder,
+            success:function(orderdetail) {
+                console.log(orderdetail);
+                reduceStock(orderdetail.product_id, orderdetail.quantity);
+            },error:function(e){
+                console.log(orderdetail);
+            }
+        });
+
+        loadOrderDetail();
     }
 </script>
 

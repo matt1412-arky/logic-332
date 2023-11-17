@@ -122,5 +122,11 @@
             @yield('content')
         </main>
     </div>
+    <script>
+        const formatter = new Intl.NumberFormat('id-ID',{
+            style: 'currency',
+            currency: 'IDR',
+        });
+    </script>
 </body>
 </html>
