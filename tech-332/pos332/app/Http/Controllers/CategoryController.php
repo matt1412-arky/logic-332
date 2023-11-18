@@ -12,6 +12,14 @@ class CategoryController extends Controller
         return Category::all();
     }
 
+    public function getById($id)
+    {
+        if (Category::where('id', $id)->exists()) {
+            $category = Category::find($id);
+            return response()->json($category, 200);
+        }
+    }
+
     public function simpan(Request $request)
     {
         $category = Category::create($request->all());

@@ -12,6 +12,22 @@ class VariantController extends Controller
         return Variant::with('category')->get();
     }
 
+    public function getById($id)
+    {
+        if (Variant::where('id', $id)->exists()) {
+            $variant = Variant::with('category')->find($id);
+            return response()->json($variant, 200);
+        }
+    }
+
+    public function getByCatId($cat_id)
+    {
+        if (Variant::where('category_id', $cat_id)->exists()) {
+            $variant = Variant::where('category_id', $cat_id)->with('category')->get();
+            return response()->json($variant, 200);
+        }
+    }
+
     public function simpan(Request $request)
     {
         $variant = Variant::create($request->all());
