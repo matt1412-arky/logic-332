@@ -29,7 +29,7 @@
     </tbody>
 </table>
 <script>
-let table = new DataTable('#tableProduct');
+// let table = new DataTable('#tableProduct');
 
     loadData();
     // openForm();
@@ -69,6 +69,20 @@ let table = new DataTable('#tableProduct');
                 </tr>`;
               }
               $('#productData').html(tableData);
+              new DataTable('#tableProduct', {
+                    info: true,
+                    ordering: false,
+                    paging: true,
+                    searching: false,
+                    language : {
+                        info : "Menampilkan _START_ sampai _END_ dari total _TOTAL_",
+                        paginate : {
+                            "previous": "sebelumnya",
+                            "next": "selanjutnya"
+                        }
+                    },
+                    lengthMenu:[3,6,9,12]
+                });
             }
         });
     }
@@ -149,34 +163,62 @@ let table = new DataTable('#tableProduct');
         var price = $('#price').val();
         var stock = $('#stock').val();
         
+        if (!varian_id) {
+            $('#varianMessage').html('Varian harus dipilih');
+        } else if(initial.length < 3 || initial.length > 5 ) {
+            // termasuk require, min max kata
+            console.log("initial message");
+            $('#initialMessage').html('Initial Harus Diisi min 3 char & max 5 char');
+        } else if (name.length < 5 || name.length > 30) {
+            $('#nameMessage').html('Nama Harus Diisi min 5 char & max 30 char');
+        } else if (description.length < 10 || description.length > 50) {
+            $('#descMessage').html('Description Harus Diisi min 10 char & max 50 char');
+        } else if (!price) {
+            $('#priceMessage').html('Price harus diisi');
+        } else if (!stock) {
+            $('#stockMessage').html('Stock harus diisi');
+        } else {
+        
+            const product = {
+                varian_id:varian_id,
+                initial:initial,
+                name:name,
+                description:description,
+                price:price,
+                stock:stock,
+                create_by : 1,
+                updated_by : 1
+            }
+            // console.log(product);
+            Swal.fire({
+                title: "Do you want to save the changes?",
+                showDenyButton: true,
+                showCancelButton: true,
+                confirmButtonText: "Save",
+                denyButtonText: `Don't save`
+                }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url:'http://localhost:8000/api/product',
+                        type:'post',
+                        dataType :'json',
+                        data:product,
+                        success:function(product) {
+                            location.reload(1);
+                        },
+                        error:function(e) {
+                            console.log(e.responseText);
+                        }   
+                    });
 
-        const product = {
-            varian_id:varian_id,
-            initial:initial,
-            name:name,
-            description:description,
-            price:price,
-            stock:stock,
-            create_by : 1,
-            updated_by : 1
-        }
-        // console.log(product);
-           
-
-        $.ajax({
-            url:'http://localhost:8000/api/product',
-            type:'post',
-            dataType :'json',
-            data:product,
-            success:function(product) {
-                location.reload(1);
-            },
-            error:function(e) {
-                console.log(e.responseText);
-            }   
-        });
+                    Swal.fire("Saved!", "", "success");
+                } else if (result.isDenied) {
+                    Swal.fire("Changes are not saved", "", "info");
+                }
+                });
+      }
     }
-
     function edit(id_product) {
         // console.log("" + id_product)
         $.ajax({
@@ -204,9 +246,9 @@ let table = new DataTable('#tableProduct');
                     contentType:'application/json',
                     success:function(product) {
                         // console.log(product);
-                        product = product[0];
-                        // $('#selectCategory').val(product.varian.category_id);
-                        $('#selectCategory').val(product.category_id)
+                        // product = product[0];
+                        $('#selectCategory').val(product.varian.category_id);
+                        // $('#selectCategory').val(product.category_id)
                         $('#selectVarian').val(product.varian_id);
                         $('#initial').val(product.initial);
                         $('#name').val(product.name);

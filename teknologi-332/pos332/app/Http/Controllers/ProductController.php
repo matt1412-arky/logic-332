@@ -107,4 +107,13 @@ class ProductController extends Controller
             return response()->json(["message" => "data tidak ditemukan"], 200);
         }
     }
+
+    public function search($textSearch) {
+        $product = DB::select("
+            SELECT * FROM products WHERE 
+            name ILIKE '%".$textSearch."%'
+            or description ILIKE '%".$textSearch."%'
+        ");
+        return response()->json($product);
+    }
 }

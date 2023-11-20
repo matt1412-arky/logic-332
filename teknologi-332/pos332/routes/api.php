@@ -48,18 +48,17 @@ Route::put('/product/{id}', [ProductController::class, 'edit']);
 Route::delete('/product/{id}', [ProductController::class, 'hapus']);
 Route::get('/product/reduceStock/{id}/{number}', [ProductController::class, 'reduceStock']);
 Route::get('/product/increaseStock/{id}/{number}', [ProductController::class, 'increaseStock']);
+Route::get('/product/search/{textSearch}', [ProductController::class, 'search']);
 
 //ini untuk yang order header
-// Route::get('/order', [OrderController::class, 'index']);
 Route::get('/orderheader/{id}', [OrderHeaderController::class, 'getById']);
 Route::post('/orderheader', [OrderHeaderController::class, 'simpan']);
-// Route::put('/order/{id}', [OrderController::class, 'edit']);
-// Route::delete('/order/{id}', [OrderController::class, 'hapus']);
+Route::put('/orderheader/{id}', [OrderHeaderController::class, 'edit']);
+
 
 //ini untuk yang order detail
 Route::get('/orderdetail', [OrderDetailController::class, 'index']);
 Route::get('/orderdetail/{id}', [OrderDetailController::class, 'getById']);
 Route::post('/orderdetail', [OrderDetailController::class, 'simpan']);
-// Route::put('/order/{id}', [OrderController::class, 'edit']);
 Route::delete('/orderdetail/{id}', [OrderDetailController::class, 'hapus']);
 Route::get('/orderdetail/getByHeaderId/{id}', [OrderDetailController::class, 'getByHeaderId']);

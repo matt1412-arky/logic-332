@@ -8,31 +8,37 @@
         </td>
     </tr>
     <tr>
-        <td>Varian</td>
+        <td>Varian *)</td>
         <td>
-            <select class="form-select" id="selectVarian" onclick="getSelectCategory(this.value)">
+            <select class="form-select" id="selectVarian"> <!--onclick="getSelectCategory(this.value)"-->
             </select>
+            <span id="varianMessage" class="valid"></span>
         </td>
     </tr>
     <tr>
-        <td>Initial</td>
+        <td>Initial *)</td>
         <td><input type="text" id="initial" class="form-control" maxlength="5"></td>
+        <span id="initialMessage" class="valid"></span>
     </tr>
     <tr>
-        <td>Name</td>
+        <td>Name *)</td>
         <td><input type="text" id="name" class="form-control" maxlength="30"></td>
+        <span id="nameMessage" class="valid"></span>
     </tr>
     <tr>
         <td>Description</td>
         <td><input type="text" id="description" class="form-control" maxlength="30"></td>
+        <span id="descMessage" class="valid"></span>
     </tr>
     <tr>
         <td>Price</td>
         <td><input type="number" id="price" class="form-control" maxlength="30"></td>
+        <span id="priceMessage" class="valid"></span>
     </tr>
     <tr>
         <td>Stock</td>
         <td><input type="number" id="stock" class="form-control" maxlength="30"></td>
+        <span id="stockMessage" class="valid"></span>
     </tr>
     
     <tr>
