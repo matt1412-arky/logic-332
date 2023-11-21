@@ -22,11 +22,14 @@ return new class extends Migration
             $table->integer('role_id');
             $table->rememberToken();
             $table->integer('create_by');
-            $table->integer('update_by');
+            $table->integer('update_by')->nullable();
             $table->timestamps();
-            $table->integer('delete_by');
-            $table->dateTime('deleted_on');
+            $table->integer('delete_by')->nullable();
+            $table->dateTime('deleted_on')->nullable();
             $table->boolean('is_delete')->default(false);
+
+            $table->index('role_id');
+            $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
         });
     }
 

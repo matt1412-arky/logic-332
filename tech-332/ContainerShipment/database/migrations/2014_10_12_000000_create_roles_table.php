@@ -17,11 +17,11 @@ return new class extends Migration
             $table->increments('id');
             $table->string('name');
             $table->integer('create_by');
-            $table->integer('update_by');
+            $table->integer('update_by')->nullable();
             $table->timestamps();
-            $table->integer('delete_by');
-            $table->dateTime('deleted_on');
-            $table->boolean('is_delete');
+            $table->integer('delete_by')->nullable();
+            $table->dateTime('deleted_on')->nullable();
+            $table->boolean('is_delete')->default(false);
         });
     }
 
