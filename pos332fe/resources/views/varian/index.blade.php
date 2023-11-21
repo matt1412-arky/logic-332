@@ -209,9 +209,9 @@
             url: 'http://127.0.0.1:8000/api/varian/' + id_varian,
             type: 'get',
             contentType: 'application/json',
-            success: function(varian, category) {
+            success: function(varian) {
                 var str = `
-                <span>Category Name :</span><span>${varian.category_id}</span><br>
+                <span>Category Name :</span><span>${varian.category.name}</span><br>
                 <span>initial :</span><span>${varian.initial}</span><br>
                 <span>Name :</span><span>${varian.name}</span><br>
                 <span>active :</span><span>${varian.active}</span><br>

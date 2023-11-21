@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -14,7 +15,7 @@ class ProductController extends Controller
     public function getByID($id)
     {
         if (Product::where('id', $id)->exists()) {
-            $product = Product::with('varian')->find($id);
+            $product = Product::with('varian.category')->find($id);
             return response()->json($product, 200);
         }
     }
@@ -42,5 +43,27 @@ class ProductController extends Controller
     public function index()
     {
         return Product::with('varian.category')->get();
+    }
+
+    public function reduceStock($id, $number)
+    {
+        if ($product = Product::find($id)) {
+            $product->decrement('stock', $number);
+        }
+    }
+
+    public function increasesStock($id, $number)
+    {
+        if ($product = Product::find($id)) {
+            $product->increment('stock', $number);
+        }
+    }
+
+    public function search($textSearch){
+        $product = DB::select("
+            select * from products where
+            name ilike '%".$textSearch."%' or description ilike '%".$textSearch."%'
+        ");
+        return response()->json($product);
     }
 }

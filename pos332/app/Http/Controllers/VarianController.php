@@ -14,7 +14,7 @@ class VarianController extends Controller
     public function getByID($id)
     {
         if (Varian::where('id', $id)->exists()) {
-            $varian = Varian::find($id);
+            $varian = Varian::with('category')->find($id);
             return response()->json($varian, 200);
         }
     }

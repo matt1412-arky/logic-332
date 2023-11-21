@@ -54,7 +54,20 @@
                 </tr>`;
                 }
                 $('#varianData').html(tableData);
-                new DataTable('#tableVarian');
+                new DataTable('#tableVarian', {
+                    info: false,
+                    ordering: false,
+                    paging: true,
+                    searching: false,
+                    language: {
+                        info: "menampilkan _START_sampai_END_dari_total_TOTAL_",
+                        paginate: {
+                            "previous": "sebelumnya",
+                            "next": "selanjutnya"
+                        }
+                    },
+                    lengthMenu: [3, 6, 9, 12]
+                })
             }
         });
     }
@@ -122,6 +135,7 @@
 
                 $('#btnSimpan').show();
                 $('#btnUpdate').hide();
+                $('#btnDelete').hide();
 
                 getSelectCategory();
                 getSelectVarian();
@@ -136,9 +150,24 @@
         var description = $('#description').val();
         var price = $('#price').val();
         var stock = $('#stock').val();
+        $('#btnSimpan').show();
+        $('#btnUpdate').hide();
+        $('#btnDelete').hide();
         // var create_by = 1;
         // var updated_by = 1;
-
+        // if (!varian_id) {
+        //     $('#varianMessage').html('Varian harus di isi');
+        // } else if (initial.length < 3 || initial.length > 5) {
+        //     $('#iniMessage').html('initial harus di isi')
+        // } else if (name.length < 3 || name.length > 30) {
+        //     $('#namMessage').html('Nama harus di isi')
+        // } else if (description.length < 10 | description.length > 50) {
+        //     $('#desMessage').html('initial harus di isi')
+        // } else if (price.length < 3 || price.length > 50) {
+        //     $('#priMessage').html('initial harus di isi')
+        // } else if (stock.length < 0 || stock.length > 5) {
+        //     $('#stoMessage').html('initial harus di isi')
+        // } else {}
         const product = {
             varian_id: varian_id,
             initial: initial,
@@ -156,7 +185,38 @@
             data: JSON.stringify(product),
             contentType: 'application/json',
             success: function(product) {
-                location.reload();
+                let timerInterval;
+                Swal.fire({
+                    title: "Berhasil di Save",
+                    text: "You clicked the button!",
+                    icon: "success",
+                    html: "I will close in <b></b> milliseconds.",
+                    timer: 2000,
+                    timerProgressBar: true,
+                    didOpen: () => {
+                        Swal.showLoading();
+                        const timer = Swal.getPopup().querySelector("b");
+                        timerInterval = setInterval(() => {
+                            timer.textContent = `${Swal.getTimerLeft()}`;
+                        }, 100);
+                    },
+                    willClose: () => {
+                        clearInterval(timerInterval);
+                        location.reload();
+                    }
+                }).then((result) => {
+                    /* Read more about handling dismissals below */
+                    if (result.dismiss === Swal.DismissReason.timer) {
+                        console.log("I was closed by the timer");
+                    }
+                });
+                // Swal.fire({
+
+                //     timer: 2000,
+                //     timerProgressBar: true,
+                // });
+                // 
+
             },
         });
     }
@@ -183,6 +243,7 @@
                     type: 'get',
                     contentType: 'application/json',
                     success: function(product) {
+                        console.log(product.responseText)
                         $.ajax({
                             url: 'http://127.0.0.1:8000/api/varian',
                             type: 'get',
@@ -231,10 +292,6 @@
             }
         });
     }
-
-
-
-
 
 
     function update(id_product) {
@@ -297,15 +354,34 @@
     }
 
     function hapus(id_product) {
-        $.ajax({
-            url: 'http://127.0.0.1:8000/api/product/' + id_product,
-            type: 'delete',
-            contentType: 'application/json',
-            success: function(varian) {
-                location.reload(1);
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Show another Swal.fire before the ajax call
+                Swal.fire({
+                    title: "Deleted!",
+                    text: "Your file has been deleted.",
+                    icon: "success"
+                }).then(() => {
+                    // Make the AJAX call to delete the product
+                    $.ajax({
+                        url: 'http://127.0.0.1:8000/api/product/' + id_product,
+                        type: 'delete',
+                        contentType: 'application/json',
+                        success: function(varian) {
+                            location.reload(1);
+                        }
+                    });
+                });
             }
         });
-
     }
 </script>
 
