@@ -21,4 +21,18 @@ class OrderHeaderController extends Controller
         $orderHeader = OrderHeader::create($request->all());
         return response()->json($orderHeader, 201);
     }
+
+    public function updateOrderHeader(Request $request, $id)
+    {
+        $orderHeader = OrderHeader::find($id);
+
+        if (!$orderHeader) {
+            return response()->json(['message' => 'Order header not found'], 404);
+        }
+
+        $orderHeader->amount = $request->input('amount');
+        $orderHeader->save();
+
+        return response()->json(['message' => 'Order header updated successfully', 'data' => $orderHeader], 200);
+    }
 }

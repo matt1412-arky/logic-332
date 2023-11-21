@@ -19,32 +19,57 @@ use App\Http\Controllers\VariantController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    });
 });
-Route::get('/category', [CategoryController::class, 'index']);
-Route::get('/category/{id}', [CategoryController::class, 'getById']);
-Route::post('/category', [CategoryController::class, 'simpan']);
-Route::put('/category/{id}', [CategoryController::class, 'update']);
-Route::delete('/category/{id}', [CategoryController::class, 'delete']);
 
-Route::get('/variant', [VariantController::class, 'index']);
-Route::get('/variant/{id}', [VariantController::class, 'getById']);
-Route::get('/variant/getByCatId/{cat_id}', [VariantController::class, 'getByCatId']);
-Route::post('/variant', [VariantController::class, 'simpan']);
-Route::put('/variant/{id}', [VariantController::class, 'update']);
-Route::delete('/variant/{id}', [VariantController::class, 'delete']);
+// Routes for Category
+Route::prefix('category')->group(function () {
+    Route::get('/', [CategoryController::class, 'index']);
+    Route::get('/{id}', [CategoryController::class, 'getById']);
+    Route::post('/', [CategoryController::class, 'simpan']);
+    Route::put('/{id}', [CategoryController::class, 'update']);
+    Route::delete('/{id}', [CategoryController::class, 'delete']);
+});
 
-Route::get('/product', [ProductController::class, 'index']);
-Route::get('/product/{id}', [ProductController::class, 'getById']);
-Route::post('/product', [ProductController::class, 'simpan']);
-Route::put('/product/{id}', [ProductController::class, 'update']);
-Route::delete('/product/{id}', [ProductController::class, 'delete']);
+// Routes for Variant
+Route::prefix('variant')->group(function () {
+    Route::get('/', [VariantController::class, 'index']);
+    Route::get('/{id}', [VariantController::class, 'getById']);
+    Route::get('/getByCatId/{cat_id}', [VariantController::class, 'getByCatId']);
+    Route::post('/', [VariantController::class, 'simpan']);
+    Route::put('/{id}', [VariantController::class, 'update']);
+    Route::delete('/{id}', [VariantController::class, 'delete']);
+});
 
-Route::get('/orderheader/{id}', [OrderHeaderController::class, 'getById']);
-Route::post('/orderheader', [OrderHeaderController::class, 'simpan']);
+// Routes for Product
+Route::prefix('product')->group(function () {
+    Route::get('/', [ProductController::class, 'index']);
+    Route::get('/{id}', [ProductController::class, 'getById']);
+    Route::post('/', [ProductController::class, 'simpan']);
+    Route::put('/{id}', [ProductController::class, 'update']);
+    Route::delete('/{id}', [ProductController::class, 'delete']);
+    // Route::get('/search/{term}', [ProductController::class, 'search']);
 
-Route::get('/orderdetail', [OrderDetailController::class, 'index']);
-Route::get('/orderdetail/{id}', [OrderDetailController::class, 'getById']);
-Route::post('/orderdetail', [OrderDetailController::class, 'simpan']);
-Route::delete('/orderdetail/{id}', [OrderDetailController::class, 'delete']);
+    // Routes to reduce and increase product stock
+    Route::patch('/{id}/reduceStock/{qty}', [ProductController::class, 'reduceStock']);
+    Route::patch('/{id}/increaseStock/{qty}', [ProductController::class, 'increaseStock']);
+});
+
+// Routes for Order Header
+Route::prefix('orderheader')->group(function () {
+    Route::get('/{id}', [OrderHeaderController::class, 'getById']);
+    Route::post('/', [OrderHeaderController::class, 'simpan']);
+    Route::patch('/{id}', [OrderHeaderController::class, 'updateOrderHeader']);
+});
+
+// Routes for Order Detail
+Route::prefix('orderdetail')->group(function () {
+    Route::get('/', [OrderDetailController::class, 'index']);
+    Route::get('/{id}', [OrderDetailController::class, 'getById']);
+    Route::get('/getbyheaderid/{id}', [OrderDetailController::class, 'getByHeaderId']);
+    Route::post('/', [OrderDetailController::class, 'simpan']);
+    Route::delete('/{id}', [OrderDetailController::class, 'delete']);
+});

@@ -16,23 +16,38 @@
     </tr>
     <tr>
         <td>Initial</td>
-        <td><input type="text" id="initial" class="form-control" maxlength="5"></td>
+        <td>
+            <input type="text" id="initial" class="form-control" maxlength="5">
+            {{-- <span id="initialMsg" class="valid"></span> --}}
+        </td>
     </tr>
     <tr>
         <td>Name</td>
-        <td><input type="text" id="name" class="form-control" maxlength="30"></td>
+        <td>
+            <input type="text" id="name" class="form-control" maxlength="30">
+            {{-- <span id="nameMsg" class="valid"></span> --}}
+        </td>
     </tr>
     <tr>
         <td>Description</td>
-        <td><input type="text" id="description" class="form-control"></td>
+        <td>
+            <input type="text" id="description" class="form-control">
+            {{-- <span id="descMsg" class="valid"></span> --}}
+        </td>
     </tr>
     <tr>
         <td>Price</td>
-        <td><input type="number" id="price" class="form-control" maxlength="8"></td>
+        <td>
+            <input type="number" id="price" class="form-control" maxlength="8">
+            {{-- <span id="priceMsg" class="valid"></span> --}}
+        </td>
     </tr>
     <tr>
         <td>Stock</td>
-        <td><input type="number" id="stock" class="form-control"></td>
+        <td>
+            <input type="number" id="stock" class="form-control">
+            {{-- <span id="stockMsg" class="valid"></span> --}}
+        </td>
     </tr>
     <tr>
         <td colspan="2" align="right">

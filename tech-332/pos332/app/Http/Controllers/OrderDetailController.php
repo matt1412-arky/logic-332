@@ -20,6 +20,14 @@ class OrderDetailController extends Controller
         }
     }
 
+    public function getByHeaderId($id)
+    {
+        if (OrderDetail::where('header_id', $id)->exists()) {
+            $orderDetail = OrderDetail::where('header_id', $id)->get();
+            return response()->json($orderDetail, 200);
+        }
+    }
+
     public function simpan(Request $request)
     {
         $orderDetail = OrderDetail::create($request->all());

@@ -20,7 +20,6 @@ class ProductController extends Controller
         }
     }
 
-
     public function simpan(Request $request)
     {
         $product = Product::create($request->all());
@@ -54,4 +53,42 @@ class ProductController extends Controller
             return response()->json(['message' => 'data tidak ditemukan'], 200);
         }
     }
+
+    public function reduceStock($productId, $qty)
+    {
+        $product = Product::find($productId);
+        if ($product) {
+            if ($product->stock >= $qty) {
+                $product->stock -= $qty;
+                $product->save();
+                return response()->json(['message' => 'Stock reduced successfully'], 200);
+            } else {
+                return response()->json(['message' => 'Insufficient stock'], 400);
+            }
+        }
+        return response()->json(['message' => 'Product not found'], 404);
+    }
+
+    public function increaseStock($productId, $qty)
+    {
+        $product = Product::find($productId);
+        if ($product) {
+            $product->stock += $qty;
+            $product->save();
+            return response()->json(['message' => 'Stock increased successfully'], 200);
+        }
+        return response()->json(['message' => 'Product not found'], 404);
+    }
+
+    // public function search(Request $request)
+    // {
+    //     $searchTerm = $request->input('term');
+    //     $products = Product::where(function ($query) use ($searchTerm) {
+    //         $query->where('name', 'LIKE', "%$searchTerm%")
+    //             ->orWhere('description', 'LIKE', "%$searchTerm%");
+    //     })
+    //         ->get();
+
+    //     return response()->json($products);
+    // }
 }

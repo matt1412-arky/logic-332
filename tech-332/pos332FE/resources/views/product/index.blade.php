@@ -56,7 +56,25 @@
                         </tr>`;
                     }
                     $('#productData').html(tableData);
-                    $('#tableProduct').DataTable();
+                    // Periksa apakah DataTable sudah diinisialisasi sebelumnya
+                    if ($.fn.DataTable.isDataTable('#tableProduct')) {
+                        // Hapus inisialisasi DataTable sebelumnya
+                        $('#tableProduct').DataTable().destroy();
+                    }
+                    $('#tableProduct').DataTable({
+                        info: true,
+                        ordering: true,
+                        paging: true,
+                        searching: true,
+                        language: {
+                            info: "Menampilkan _START_ sampai _END_ dari total _TOTAL_",
+                            paginate: {
+                                previous: "Sebelumnya",
+                                next: "Selanjutnya"
+                            }
+                        },
+                        lengthMenu: [5, 10, 15, 20]
+                    });
                 }
             });
         }
@@ -127,28 +145,87 @@
             var price = $('#price').val();
             var stock = $('#stock').val();
 
-            $.ajax({
-                url: 'http://127.0.0.1:8000/api/product',
-                type: 'POST',
-                data: {
-                    variant_id: variant,
-                    category_id: category,
-                    initial: initial,
-                    name: name,
-                    description: description,
-                    price: price,
-                    stock: stock
-                },
-                success: function() {
-                    loadData();
+            // if (initial.length > 5) {
+            //     $('#initialMsg').html('Initial harus diisi');
+            // } else if (name.length > 30) {
+            //     $('#nameMsg').html('Name harus diisi');
+            // } else if (description === '') {
+            //     $('#descMsg').html('Description harus diisi');
+            // } else if (price === '') {
+            //     $('#priceMsg').html('Price harus diisi');
+            // } else if (stock === '') {
+            //     $('#stockMsg').html('Stock harus diisi');
+            // } else {
+            //     $('#initialMsg').html('');
+            //     $('#nameMsg').html('');
+            //     $('#descMsg').html('');
+            //     $('#priceMsg').html('');
+            //     $('#stockMsg').html('');
+            if (initial === '' || name === '' || description === '' || price === '' || stock === '') {
+                alert('Semua kolom harus diisi.');
+                return;
+            }
 
-                    alert('Successfully Add Data');
-                    $('#mymodal').modal('hide');
-                },
-                error: function() {
-                    alert('Failed Add Data');
+            // Validasi lainnya seperti cek panjang karakter, tipe data, dll
+            if (initial.length > 5) {
+                alert('Panjang inisial harus kurang dari atau sama dengan 5 karakter.');
+                return;
+            }
+
+            if (name.length > 30) {
+                alert('Panjang nama harus kurang dari atau sama dengan 30 karakter.');
+                return;
+            }
+
+            if (isNaN(price)) {
+                alert('Harga harus berupa angka.');
+                return;
+            }
+
+            if (isNaN(stock)) {
+                alert('Stok harus berupa angka.');
+                return;
+            }
+
+            Swal.fire({
+                title: "Are you sure want add data?",
+                showDenyButton: true,
+                showCancelButton: true,
+                confirmButtonText: "Add",
+                denyButtonText: `Don't add`
+            }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: 'http://127.0.0.1:8000/api/product',
+                        type: 'POST',
+                        data: {
+                            variant_id: variant,
+                            category_id: category,
+                            initial: initial,
+                            name: name,
+                            description: description,
+                            price: price,
+                            stock: stock
+                        },
+                        success: function() {
+                            loadData();
+
+                            // alert('Successfully Add Data');
+                            $('#mymodal').modal('hide');
+                        },
+                        error: function() {
+                            alert('Failed Add Data');
+                        }
+                    });
+                    Swal.fire("Successfully Add Data", "", "success");
+                } else if (result.isDenied) {
+                    Swal.fire("Changes are not saved", "", "info");
                 }
             });
+
+
+            // }
         }
 
         function edit(id) {
@@ -179,7 +256,8 @@
                                     var option = '';
                                     for (var i = 0; i < variantData.length; i++) {
                                         var selected = (variantData[i].id ===
-                                                productData.variant_id) ? 'selected' :
+                                                productData.variant_id) ?
+                                            'selected' :
                                             '';
                                         option +=
                                             `<option value="${variantData[i].id}" ${selected}>${variantData[i].name}</option>`;
@@ -193,13 +271,16 @@
                                             url: 'http://127.0.0.1:8000/api/category',
                                             type: 'GET',
                                             contentType: 'application/json',
-                                            success: function(categoryData) {
+                                            success: function(
+                                                categoryData) {
                                                 var option = '';
                                                 for (var i = 0; i <
-                                                    categoryData.length; i++
-                                                    ) {
+                                                    categoryData
+                                                    .length; i++
+                                                ) {
                                                     var selected = (
-                                                            categoryData[i]
+                                                            categoryData[
+                                                                i]
                                                             .id ===
                                                             productData
                                                             .variant
@@ -210,12 +291,13 @@
                                                     option +=
                                                         `<option value="${categoryData[i].id}" ${selected}>${categoryData[i].name}</option>`;
                                                 }
-                                                $('#category').html(option);
+                                                $('#category').html(
+                                                    option);
                                             },
                                             error: function() {
                                                 console.error(
                                                     'Failed to load categories'
-                                                    );
+                                                );
                                             }
                                         });
                                     }
@@ -250,6 +332,16 @@
             var description = $('#description').val();
             var price = $('#price').val();
             var stock = $('#stock').val();
+
+            if (isNaN(price)) {
+                alert('Harga harus berupa angka.');
+                return;
+            }
+
+            if (isNaN(stock)) {
+                alert('Stok harus berupa angka.');
+                return;
+            }
 
             $.ajax({
                 url: 'http://127.0.0.1:8000/api/product/' + id,

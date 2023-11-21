@@ -62,41 +62,91 @@
                 contentType: 'application/json',
                 success: function(data) {
                     var option = ` 
-                    <span>Quantity : </span> 
-                    <span>
-                        <input type="text" id="qty" value="1">
-                    </span>
-                    <table class="table table-hover table-dark">
-                        <tr>
-                            <th>Select</th>
-                            <th>Initial</th>
-                            <th>Product</th>
-                            <th>Price</th>
-                            <th>Stock</th>
-                        </tr>
-                        `;
+                                    <span>Quantity : </span> 
+                                    <span>
+                                        <input type="text" id="qty" value="1" size="1">
+                                    </span>
+                                    <table class="table table-hover table-dark" id="productTable">
+                                        <thead>
+                                            <tr>
+                                                <th>Select</th>
+                                                <th>Initial</th>
+                                                <th>Product</th>
+                                                <th>Price</th>
+                                                <th>Stock</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                 `;
+
                     for (var i = 0; i < data.length; i++) {
                         option += `
-                        <tr>
-                            <td>
-                                <button class="btn btn-success" 
-                                value="${data[i].id}_${data[i].price}" onclick="addOrder(this.value)">
-                                <i class="bi bi-star"></i></button>
-                            </td>
-                            <td>${data[i].initial}</td>
-                            <td>${data[i].name}</td>
-                            <td>${data[i].price}</td>
-                            <td>${data[i].stock}</td>
-                        </tr>
-                        `;
+                                    <tr>
+                                        <td>
+                                            <button class="btn btn-success" 
+                                            value="${data[i].id}_${data[i].price}" onclick="addOrder(this.value)">
+                                            <i class="bi bi-star"></i></button>
+                                        </td>
+                                        <td>${data[i].initial}</td>
+                                        <td>${data[i].name}</td>
+                                        <td>${data[i].price}</td>
+                                        <td>${data[i].stock}</td>
+                                    </tr>
+                                  `;
                     }
-                    option += `</table>`;
+
+                    option += `</tbody></table>`;
                     $('#mymodal').modal('show');
                     $('.modal-title').html('New Order');
                     $('.modal-body').html(option);
+                    $('#productTable').DataTable({
+                        "searching": true,
+                        "paging": false,
+                        "info": false,
+                        "ordering": false
+                    });
                 }
             })
         }
+
+        // function search(term) {
+        //     $.ajax({
+        //         url: 'http://127.0.0.1:8000/api/product/search/' + term,
+        //         type: 'GET',
+        //         contentType: 'application/json',
+        //         success: function(data) {
+        //             var option = '';
+
+        //             for (var i = 0; i < data.length; i++) {
+        //                 option += `
+    //             <tr>
+    //                 <td>
+    //                     <button class="btn btn-success" 
+    //                     value="${data[i].id}_${data[i].price}" onclick="addOrder(this.value)">
+    //                     <i class="bi bi-star"></i></button>
+    //                 </td>
+    //                 <td>${data[i].initial}</td>
+    //                 <td>${data[i].name}</td>
+    //                 <td>${data[i].price}</td>
+    //                 <td>${data[i].stock}</td>
+    //             </tr>
+    //         `;
+        //             }
+
+        //             $('#productTable tbody').html(option);
+        //         },
+        //         error: function(error) {
+        //             console.log(error);
+        //         }
+        //     });
+        // }
+
+        // // Ketika nilai input pencarian berubah, panggil fungsi search()
+        // $('#search').on('input', function() {
+        //     var term = $(this).val();
+        //     search(term);
+        // });
+
 
         function getProductName(id) {
             var name = '';
@@ -143,10 +193,22 @@
                         `
                             <tr>
                                 <td colspan="3"><strong>Total Belanja</strong></td>
-                                <td><strong>${formatCurrency.format(totalBelanja)}</strong></td>
+                                <td>
+                                    <strong>${formatCurrency.format(totalBelanja)}</strong>
+                                    <input type="hidden" id="totalBelanja" value="${totalBelanja}">
+                                </td>
                             </tr>
                         `;
                     $('#orderData').html(option);
+
+                    // Periksa jumlah item setelah perubahan
+                    if (data.length === 0) {
+                        // Sembunyikan elemen total belanja jika tidak ada item
+                        $('#orderData tr:last-child').hide();
+                    } else {
+                        // Tampilkan kembali elemen total belanja jika ada 1 lebih dari satu item
+                        $('#orderData tr:last-child').show();
+                    }
                 }
             })
         }
@@ -211,7 +273,87 @@
         }
 
         function newPayment() {
+            var reference = $('#reference').val();
+            var header_id = $('#header_id').val();
+            var amount = $('#totalBelanja').val();
+            var form = `
+                                Reference : 
+                                <input type="text" class="form-control" id="reference" value="${reference}" disabled>
+                            
+                                Amount : 
+                                <input type="text" class="form-control" id="amount" value="${amount}" disabled>
+                        
+                                Pay Money : 
+                                <input type="text" class="form-control" id="payMoney" onchange="change()">
+                            
+                                Change Money :
+                                <input type="text" class="form-control" id="changeMoney" disabled> <br>
+                            <button class="btn btn-success btn-block" onclick="pay()">Pay!</button>
+                       `;
 
+            $('#mymodal').modal('show');
+            $('.modal-title').html('Payment');
+            $('.modal-body').html(form);
+        }
+
+        function change() {
+            var amount = parseFloat($('#amount').val().replace(/[^\d.-]/g, ''));
+            var pay = parseFloat($('#payMoney').val().replace(/[^\d.-]/g, ''));
+
+            if (!isNaN(amount) && !isNaN(pay)) {
+                var change = pay - amount;
+                if (change >= 0) {
+                    $('#changeMoney').val(change);
+                } else {
+                    $('#changeMoney').val('');
+                    alert('Jumlah pembayaran tidak mencukupi.');
+                }
+            } else {
+                $('#changeMoney').val('');
+                alert('Silakan masukkan jumlah pembayaran yang valid.');
+            }
+        }
+
+        function pay() {
+            var reference = $('#reference').val();
+            var header_id = $('#header_id').val();
+            var amount = $('#amount').val();
+            var payMoney = $('#payMoney').val();
+            var changeMoney = $('#changeMoney').val();
+
+            var form = `
+                            Reference : 
+                            <input type="text" class="form-control" id="reference" value="${reference}" disabled>
+                            Amount : 
+                            <input type="text" class="form-control" id="amount" value="${formatCurrency.format(amount)}" disabled>
+                            Pay Money : 
+                            <input type="text" class="form-control" id="payMoney" value="${formatCurrency.format(payMoney)}" disabled>
+                            Change Money :
+                            <input type="text" class="form-control" id="changeMoney" value="${formatCurrency.format(changeMoney)}" disabled> <br>
+                            <button class="btn btn-success btn-block">Close</button>
+                       `;
+
+            $('#mymodal').modal('show');
+            $('.modal-title').html('Payment: Terimakasih!');
+            $('.modal-body').html(form);
+            // Melakukan update ke dalam tabel orderheader hanya untuk amount
+            $.ajax({
+                url: 'http://127.0.0.1:8000/api/orderheader/' + header_id,
+                type: 'PATCH',
+                dataType: 'json',
+                data: {
+                    amount: amount
+                },
+                success: function(data) {
+                    // Berhasil melakukan update, bisa ditambahkan pesan atau tindakan lanjutan
+                    location.reload(1);
+                    alert('Payment Success.');
+                },
+                error: function(e) {
+                    alert('Failed to update order header.');
+                    // console.log(e.responseText);
+                }
+            });
         }
     </script>
 @endsection
