@@ -17,10 +17,8 @@ return new class extends Migration
             $table->increments('id');
             $table->string('name', 30);
             $table->string('email', 200)->unique();
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password', 256);
             $table->integer('role_id');
-            $table->rememberToken();
             $table->integer('create_by');
             $table->integer('update_by')->nullable();
             $table->timestamps();
