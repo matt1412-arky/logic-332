@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MenuRestController;
 use App\Http\Controllers\RoleRestController;
 use App\Http\Controllers\UserRestController;
 use Illuminate\Http\Request;
@@ -23,3 +24,6 @@ Route::get('/role', [RoleRestController::class, 'getAll']);
 
 Route::post('/user', [UserRestController::class, 'create']);
 Route::post('/login', [UserRestController::class, 'login']);
+
+Route::get('/parentmenu', [MenuRestController::class, 'parentMenu']);
+Route::get('/childmenu/{parent_id}', [MenuRestController::class, 'childMenu']);
