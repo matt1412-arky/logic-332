@@ -21,4 +21,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::get('/role', [RoleRestController::class, 'getAll']);
 
-Route::post('/user', [UserRestController::class, 'simpan']);
+Route::post('/user', [UserRestController::class, 'create']);
+Route::post('/login', [UserRestController::class, 'login']);

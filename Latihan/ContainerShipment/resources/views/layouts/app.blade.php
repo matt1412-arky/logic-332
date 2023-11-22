@@ -194,7 +194,10 @@
                         <div class="col-sm-6 clearfix">
                             <div class="user-profile pull-right">
                                 <img class="avatar user-thumb" src="/assets/images/author/avatar.png" alt="avatar">
-                                <h4 class="user-name dropdown-toggle" data-toggle="dropdown">Kumkum Rai <i class="fa fa-angle-down"></i></h4>
+                                <span id="user_name">
+                                    <h4 class="user-name dropdown-toggle" data-toggle="dropdown">Kumkum Rai <i class="fa fa-angle-down"></i></h4>
+                                </span>
+
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item" href="#">Message</a>
                                     <a class="dropdown-item" href="#">Settings</a>
@@ -421,6 +424,10 @@
             <!-- others plugins -->
             <script src="/assets/js/plugins.js"></script>
             <script src="/assets/js/scripts.js"></script>
+            <script>
+                $('#user_name').html(localStorage.getItem('user_name'));
+            </script>
+
 </body>
 
 </html>

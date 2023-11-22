@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="assets/css/default-css.css">
     <link rel="stylesheet" href="assets/css/styles.css">
     <link rel="stylesheet" href="assets/css/responsive.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"> -->
     <!-- modernizr css -->
     <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
@@ -37,7 +37,7 @@
                     <div class="login-area">
                         <div class="container">
                             <div class="login-box ptb--10">
-                                <form>
+                                <form autocomplete="off">
                                     <div class="login-form-head">
                                         <h4>Sign up</h4>
                                         <p>Hello there, Sign up and Join with Us</p>
@@ -45,25 +45,25 @@
                                     <div class="login-form-body">
                                         <div class="form-gp">
                                             <label for="name">Full Name</label>
-                                            <input type="text" id="name">
+                                            <input type="text" id="name" autocomplete="off">
                                             <i class="ti-user"></i>
                                             <div class="text-danger"></div>
                                         </div>
                                         <div class="form-gp">
                                             <label for="email">Email address</label>
-                                            <input type="email" id="email">
+                                            <input type="text" id="email" autocomplete="off">
                                             <i class="ti-email"></i>
                                             <div class="text-danger"></div>
                                         </div>
                                         <div class="form-gp">
                                             <label for="password">Password</label>
-                                            <input type="password" id="password">
+                                            <input type="password" id="password" autocomplete="off">
                                             <i class="ti-lock"></i>
                                             <div class="text-danger"></div>
                                         </div>
                                         <div class="form-gp">
                                             <label for="pass-con">Password Confirm</label>
-                                            <input type="password" id="pass-con">
+                                            <input type="password" id="pass-con" autocomplete="off">
                                             <i class="ti-lock"></i>
                                             <div class="text-danger"></div>
                                         </div>
@@ -74,9 +74,6 @@
                                         </div>
                                         <div class="submit-btn-area">
                                             <button id="form_submit_register" onclick="simpan()">Submit <i class="ti-arrow-right"></i></button>
-                                        </div>
-                                        <div class="form-footer text-center mt-5">
-                                            <p class="text-muted">Don't have an account? <a href="login.html">Sign in</a></p>
                                         </div>
                                     </div>
                                 </form>
@@ -99,21 +96,21 @@
     <div class="login-area">
         <div class="container">
             <div class="login-box ptb--100">
-                <form>
+                <form autocomplete="off">
                     <div class="login-form-head">
                         <h4>Sign In</h4>
                         <p>Hello there, Sign in and start managing your Admin Template</p>
                     </div>
                     <div class="login-form-body">
                         <div class="form-gp">
-                            <label for="exampleInputEmail1">Email address</label>
-                            <input type="email" id="exampleInputEmail1">
+                            <label for="emailLogin">Email address</label>
+                            <input type="email" id="emailLogin" autocomplete="off">
                             <i class="ti-email"></i>
                             <div class="text-danger"></div>
                         </div>
                         <div class="form-gp">
-                            <label for="exampleInputPassword1">Password</label>
-                            <input type="password" id="exampleInputPassword1">
+                            <label for="passwordLogin">Password</label>
+                            <input type="password" id="passwordLogin" autocomplete="off">
                             <i class="ti-lock"></i>
                             <div class="text-danger"></div>
                         </div>
@@ -129,21 +126,14 @@
                             </div>
                         </div>
                         <div class="submit-btn-area">
-                            <button id="form_submit" type="submit">Submit <i class="ti-arrow-right"></i></button>
-                            <div class="login-other row mt-4">
-                                <div class="col-6">
-                                    <a class="fb-login" href="#">Log in with <i class="fa fa-facebook"></i></a>
-                                </div>
-                                <div class="col-6">
-                                    <a class="google-login" href="#">Log in with <i class="fa fa-google"></i></a>
-                                </div>
-                            </div>
+                            <button id="form_submit" type="submit" onclick="login()">Login <i class="ti-arrow-right"></i></button>
                         </div>
                         <div class="form-footer text-center mt-5">
-                            <p class="text-muted">Don't have an account? <a href="" onclick="register()">Sign up</a></p>
+                            <p class="text-muted">Don't have an account? <a href="#" onclick="register()">Sign up</a></p>
                         </div>
                     </div>
                 </form>
+
             </div>
         </div>
     </div>
@@ -160,11 +150,12 @@
     <script src="/assets/js/metisMenu.min.js"></script>
     <script src="/assets/js/jquery.slimscroll.min.js"></script>
     <script src="/assets/js/jquery.slicknav.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script> -->
 
     <!-- others plugins -->
     <script src="assets/js/plugins.js"></script>
     <script src="assets/js/scripts.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
         function register() {
@@ -178,7 +169,7 @@
             success: function(role) {
                 var str = "";
                 for (var i = 0; i < role.length; i++) {
-                    str += `<option value="${role[i].id}">${role[i].name}</option>`;
+                    str += `<option value="${role[i].id}" autocomplete="off">${role[i].name}</option>`;
                 }
                 $('#role_id').html(str);
             }
@@ -195,6 +186,7 @@
                 name: name,
                 email: email,
                 password: password,
+                password_confirm: password_confirm,
                 role_id: role_id,
                 create_by: 1
             }
@@ -204,21 +196,64 @@
                     type: 'post',
                     dataType: 'json',
                     data: userdata,
-                    contentType: 'application/json',
                     success: function(user) {
                         console.log(user);
-                        // location.replace('/');
+                        switch (parseInt(role_id)) {
+                            case 1:
+                                location.replace('/index');
+                                break;
+                            case 2:
+                                location.replace('/');
+                                break;
+                            case 3:
+                                location.replace('/index');
+                                break;
+                            default:
+                                location.replace('/');
+                        }
                     },
                     error: function(e) {
-                        console.log(e.responseText)
+                        console.log(e.responseText);
                     }
                 });
             } else {
-                console.log("password salah")
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Password Anda Tidak sama",
+                });
             }
 
         }
+
+        function login() {
+            var user_email = $('#emailLogin').val();
+            var user_password = $('#passwordLogin').val();
+
+            const userdata = {
+                email: user_email,
+                password: user_password
+            }
+            $.ajax({
+                url: 'http://127.0.0.1:8000/api/login',
+                type: 'post',
+                dataType: 'json',
+                data: userdata,
+                success: function(user) {
+                    console.log(user);
+                    localStorage.setItem('user_id', user[0].id)
+                    localStorage.setItem('user_name', user[0].name)
+                    localStorage.setItem('user_password', user[0].email)
+                    localStorage.setItem('role_id', user[0].role_id)
+                    location.replace('/index')
+                },
+                error: function(e) {
+                    console.log(e.responseText);
+                }
+            });
+        }
     </script>
+
 </body>
 
 </html>
