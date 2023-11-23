@@ -9,13 +9,13 @@ class MenuRestController extends Controller
 {
     public  function parentMenu()
     {
-        $menu = Menu::Select('id', 'menu', 'link')->where('parent_id', 0)->get();
+        $menu = Menu::Select('id', 'menu', 'link', 'role_id')->where('parent_id', 0)->get();
         return response()->json($menu, 200);
     }
 
     public  function childMenu($parent_id)
     {
-        $menu = Menu::select('id', 'parent_id', 'menu', 'link')->where('parent_id', $parent_id)->get();
+        $menu = Menu::select('id', 'parent_id', 'menu', 'link', 'role_id')->where('parent_id', $parent_id)->get();
         return response()->json($menu, 200);
     }
 }

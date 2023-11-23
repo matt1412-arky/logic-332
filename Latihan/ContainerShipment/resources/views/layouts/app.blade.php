@@ -1,3 +1,8 @@
+<script>
+    if (localStorage.getItem('user_id') == 0 || localStorage.getItem('user_id') == '') {
+        location.replace('/')
+    }
+</script>
 <!doctype html>
 <html class="no-js" lang="en">
 
@@ -46,6 +51,14 @@
                 <div class="menu-inner">
                     <nav id="menuData">
                         <ul class="metismenu menuData" id="menu">
+                            <li class="active">
+                                <a href="javascript:void(0)" aria-expanded="true"><i class="ti-dashboard"></i><span id="">Home</span></a>
+                                <ul class="collapse">
+                                    <li class="active"><a href="index.html">ICO dashboard</a></li>
+                                    <li><a href="index2.html">Ecommerce dashboard</a></li>
+                                    <li><a href="index3.html">SEO dashboard</a></li>
+                                </ul>
+                            </li>
                             <div id=DataMenu>
                                 <!-- <li class="active">
                                     <a href="javascript:void(0)" aria-expanded="true"><i class="ti-dashboard"></i><span id="">@yield('page-title')</span></a>
@@ -198,15 +211,14 @@
                         <div class="col-sm-6 clearfix">
                             <div class="user-profile pull-right">
                                 <img class="avatar user-thumb" src="/assets/images/author/avatar.png" alt="avatar">
-                                <span id="user_name">
-                                    <h4 class="user-name dropdown-toggle" data-toggle="dropdown">Kumkum Rai <i class="fa fa-angle-down"></i></h4>
+                                <span>
+                                    <h4 class="user-name dropdown-toggle" data-toggle="dropdown" id="user_name">Kumkum Rai <i class="fa fa-angle-down"></i></h4>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="#">Message</a>
+                                        <a class="dropdown-item" href="#">Settings</a>
+                                        <a class="dropdown-item" href="/logout">Log Out</a>
+                                    </div>
                                 </span>
-
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="#">Message</a>
-                                    <a class="dropdown-item" href="#">Settings</a>
-                                    <a class="dropdown-item" href="#">Log Out</a>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -440,14 +452,17 @@
                     success: function(parentmenu) {
                         var menu = '';
                         for (i = 0; i < parentmenu.length; i++) {
-                            menu += `
-                            
+                            if (parentmenu[i].role_id == localStorage.getItem('role_id')) {
+                                menu += `
+
                             <li class="active">
                                 <a href="javascript:void(0)" aria-expanded="true"><i class="ti-dashboard"></i><span>${parentmenu[i].menu}</span></a>
                                 <ul class="collapse">
                                 </ul>
                             </li>
                       `;
+                            }
+
                             $.ajax({
                                 url: 'http://127.0.0.1:8000/api/childmenu/' + parentmenu[i].id,
                                 type: 'GET',
@@ -455,7 +470,10 @@
                                 async: false,
                                 success: function(childmenu) {
                                     for (j = 0; j < childmenu.length; j++) {
-                                        menu += `<li><a href="${childmenu[j].link}">${childmenu[j].menu}</a></li>`;
+                                        if (childmenu[j].role_id == localStorage.getItem('role_id')) {
+                                            menu += `<li><a href="${childmenu[j].link}">${childmenu[j].menu}</a></li>`;
+                                        }
+
                                     }
                                 }
 
