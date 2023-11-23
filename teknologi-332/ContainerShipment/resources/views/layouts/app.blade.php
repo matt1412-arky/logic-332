@@ -1,3 +1,7 @@
+<script>
+    if(localStorage.getItem('user_name') ==0) {
+         location.replace('/') }
+</script>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -38,56 +42,34 @@
                 <div class="sidebar-brand-text mx-3">CONTAINER SHIPMENT</div>
             </a>
 
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
-
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
-                <a class="nav-link" href="index.html">
-                   <!-- <i class="fas fa-fw fa-tachometer-alt"></i> -->
-                    <span>Dashboard</span></a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
             <!-- Heading -->
             <div class="sidebar-heading">
-                Interface
+                SHIPMENT
             </div>
 
-            <!-- Nav Item - Pages Collapse Menu -->
-            <div id="menuData"></div>
+           
 
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-                    aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span>Utilities</span>
-                </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Utilities:</h6>
-                        <a class="collapse-item" href="utilities-color.html">Colors</a>
-                        <a class="collapse-item" href="utilities-border.html">Borders</a>
-                        <a class="collapse-item" href="utilities-animation.html">Animations</a>
-                        <a class="collapse-item" href="utilities-other.html">Other</a>
-                    </div>
-                </div>
+                <a class="nav-link" href="/index">
+                    <i class="fas fa-fw fa-home"></i>
+                    <span>Home</span></a>
+
             </li>
 
+             <!-- Nav Item - Pages Collapse Menu -->
+             <div id="menuData"></div>
+             
             <!-- Divider -->
             <hr class="sidebar-divider">
 
             <!-- Heading -->
-            <div class="sidebar-heading">
+           <!-- <div class="sidebar-heading">
                 Addons
-            </div>
+            </div>-->
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
+            <!--<li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
                     aria-expanded="true" aria-controls="collapsePages">
                     <i class="fas fa-fw fa-folder"></i>
@@ -105,24 +87,21 @@
                         <a class="collapse-item" href="blank.html">Blank Page</a>
                     </div>
                 </div>
-            </li>
+            </li>-->
 
             <!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="charts.html">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Charts</span></a>
             </li>
 
             <!-- Nav Item - Tables -->
-            <li class="nav-item">
+            <!--<li class="nav-item">
                 <a class="nav-link" href="tables.html">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Tables</span></a>
-            </li>
+            </li>-->
 
             <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
+            <!--<hr class="sidebar-divider d-none d-md-block">-->
 
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
@@ -286,7 +265,7 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <a class="btn btn-primary" href="../logout" >Logout</a>
                 </div>
             </div>
         </div>
@@ -311,7 +290,7 @@
 
 <script>
 
-    $('#user_name').html(localStorage.getItem('user_name'));
+    $('#user_name').html(localStorage.getItem('user_name') + '<br>' + localStorage.getItem('role_id'));
 
     $.ajax({
         url:'http://127.0.0.1:8000/api/parentmenu',
@@ -321,44 +300,77 @@
         success:function(parentmenu) {
             var menu = '';
             for(i=0; i<parentmenu.length; i++) {
+                if(parentmenu[i].role_id == localStorage.getItem('role_id')) {
                 menu += `
                 <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse${parentmenu[i].id}"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>${parentmenu[i].menu}</span>
-                </a>
-                <div id="collapse${parentmenu[i].id}" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom ${parentmenu[i].menu}:</h6>`
-                        var urlchild = 'http://127.0.0.1:8000/api/childmenu/'+parentmenu[i].id;
-                        console.log(urlchild);
-                        $.ajax({
-                            url:urlchild,
-                            type:'get',
-                            contentType:'application/json',
-                            async:false,
-                            success:function(childmenu) {
-                                for(j=0; j<childmenu.length; j++) {
-                                    menu += `<a class="collapse-item" href="${childmenu[j].link}">${childmenu[j].menu}</a>`;
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse${parentmenu[i].id}"
+                        aria-expanded="true" aria-controls="collapseTwo">
+                        <i class="fas fa-fw fa-cog"></i>
+                        <span>${parentmenu[i].menu}</span>
+                    </a>
+                    <div id="collapse${parentmenu[i].id}" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Custom ${parentmenu[i].menu}:</h6>`
+                            var urlchild = 'http://127.0.0.1:8000/api/childmenu/'+parentmenu[i].id;
+                            // console.log(urlchild);
+                            $.ajax({
+                                url:urlchild,
+                                type:'get',
+                                contentType:'application/json',
+                                async:false,
+                                success:function(childmenu) {
+                                    for(j=0; j<childmenu.length; j++) {
+                                        // console.log(childmenu[j].role_id + '/' + localStorage.getItem('role_id'))
+                                        if(childmenu[j].role_id == localStorage.getItem('role_id')) {
+                                            menu += `<a class="collapse-item" href="${childmenu[j].link}">${childmenu[j].menu}</a>`;
+                                        }
+                                    }
+                                },
+                                error:function(e) {
+                                    console.log(e.responseText);
                                 }
-                            },
-                            error:function(e) {
-                                console.log(e.responseText);
-                            }
-                        });
-
-                        menu +=`;
-                        
-                        
+                            });
+                    
+                            menu +=`;
+                            
+                        </div>
                     </div>
-                </div>
-            </li>
+                </li>
                 `;
+              }
             }
             $('#menuData').html(menu);
         }
     });
+
+    function cekLogout() {
+        var user_email = $('#user_email').val();
+        var user_password = $('#user_password').val();
+
+        const userData={
+            email:user_email,
+            password:user_password
+        }
+
+
+        $.ajax ({
+            url:'http://127.0.0.1:8000/api/login',
+            type:'post',
+            dataType:'json',
+            data:userData,
+            success:function(user) {
+                    console.log(user);
+                    localStorage.setItem('user_id', user[0].id);
+                    localStorage.setItem('user_name', user[0].name);
+                    localStorage.setItem('user_password', user[0].password);
+                    localStorage.setItem('role_id', user[0].role_id);
+                    
+                    location.replace('/')
+                },error:function(e) {
+                console.log(e.responseText);
+                }
+            });
+    }
 
 </script>
 

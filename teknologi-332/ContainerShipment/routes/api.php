@@ -29,7 +29,7 @@ Route::get('/role', [RoleRestController::class, 'getAll']);
 Route::post('/user', [UserRestController::class, 'simpan']);
 Route::post('/create', [UserRestController::class, 'create']);
 Route::post('/login', [UserRestController::class, 'login']);
-Route::get('/logout', [UserRestController::class, 'logout']);
+Route::post('/logout', [UserRestController::class, 'logout']);
 
 // untuk bagian menu
 Route::get('/parentmenu',[MenuRestController::class, 'parentMenu']);
