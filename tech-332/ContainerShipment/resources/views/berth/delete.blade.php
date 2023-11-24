@@ -13,13 +13,13 @@
                             @csrf
                             <input type="hidden" name="id" value="{{ $data->id }}">
                             <div class="mb-3 row">
-                                <label class="col-sm-3 col-form-label">Berth Number : </label>
+                                <label class="col-sm-3 col-form-label">Berth Number</label>
                                 <div class="col-sm-9">
                                     {{ $data->berth_no }}
                                 </div>
                             </div>
                             <div class="mb-3 row">
-                                <label class="col-sm-3 col-form-label">Length : </label>
+                                <label class="col-sm-3 col-form-label">Length</label>
                                 <div class="col-sm-9">
                                     {{ $data->length }}
                                 </div>
