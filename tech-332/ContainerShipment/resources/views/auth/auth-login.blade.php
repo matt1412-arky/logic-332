@@ -7,9 +7,10 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <meta name="format-detection" content="telephone=no">
         <title>Login</title>
-        {{-- <link href='/support/images/avatar/logo.jpeg' rel="support/shortcut icon" type="image/jpeg" /> --}}
-        @include('layout.template.style-css')
-        {{-- <link rel="stylesheet" href="{{ asset('support/css/style.css') }}"> --}}
+        {{-- @include('layout.template.style-css') --}}
+        <link rel="stylesheet" href="{{ asset('support/css/style.css') }}">
+        <link href='/support/vendor/sweetalert2/dist/sweetalert2.min.css' rel="stylesheet">
+
     </head>
 
     <body>

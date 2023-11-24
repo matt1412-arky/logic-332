@@ -1,5 +1,5 @@
 <link href='/support/vendor/datatables/css/jquery.dataTables.min.css' rel="stylesheet">
-<link href='/support/images/avatar/logo.jpeg' rel="support/shortcut icon" type="image/jpeg" />
+{{-- <link href='/support/images/' rel="support/shortcut icon" type="image/jpeg" /> --}}
 <link href='/support/vendor/sweetalert2/dist/sweetalert2.min.css' rel="stylesheet">
 <link href='/support/vendor/jquery-nice-select/css/nice-select.css' rel="stylesheet" />
 <link href='/support/vendor/select2/css/select2.min.css' rel="stylesheet" />
@@ -12,3 +12,5 @@
     href="https://cdnjs.cloudflare.com/ajax/libs/datatables.net-buttons-bs5/2.3.3/buttons.bootstrap5.min.css"
     integrity="sha512-vWTrt2A9iAn2pK8hNZS26YZRDDUvLiOfyL+MmBEXJizrigtxnpLuLrLOOMm+pcrUJFzGssUwoS6Gofp+TT2deQ=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
+{{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"> --}}

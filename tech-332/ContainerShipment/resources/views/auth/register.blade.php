@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="format-detection" content="telephone=no">
-    <link href='/support/images/avatar/logo.jpeg' rel="support/shortcut icon" type="image/jpeg" />
     <title>Register</title>
     <link rel="stylesheet" href="{{ asset('support/css/style.css') }}">
     <link href='/support/vendor/sweetalert2/dist/sweetalert2.min.css' rel="stylesheet">
