@@ -1,18 +1,18 @@
 @extends('layouts.app')
 
-@section('title', 'Berth')
-@section('page-title', 'Hapus Data Berth')
+@section('title', 'Cargo')
+@section('page-title', 'Delete Data Cargo')
 @section('content')
 
-@foreach($berth as $data)
-<form action="/berth/delete" method="post">
+@foreach($cargo as $data)
+<form action="/cargo/delete" method="post">
     {{ csrf_field() }}
     <input type="hidden" name="id" size="5" maxlength="5" value="{{$data->id}}">
     <table class="table table-dark">
         <tr>
             <td>Berth Number</td>
                 <td>
-                    {{$data->berth_no}}
+                    {{$data->cargo}}
                 </td>
         </tr>
         <tr>

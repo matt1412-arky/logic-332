@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
-@section('title', 'Berth')
-@section('page-title', 'Edit Data Berth')
+@section('title', 'Cargo')
+@section('page-title', 'Edit Data Cargo')
 @section('content')
 
 @foreach($berth as $data)
-<form action="/berth/editSave/{{$data->id}}" method="post">
+<form action="/carfo/editSave/{{$data->id}}" method="post">
     {{ csrf_field() }}
     <input type="hidden" name="id" size="5" maxlength="5" value="{{$data->id}}">
     <table class="table table-dark">
@@ -24,7 +24,7 @@
         </tr>
         <tr>
             <td colspan="2"> 
-                <button type="submit" class="btn btn-success">Update</button>
+                <button type="submit" class="btn btn-success">Save</button>
             </td>
         </tr>
     </table>

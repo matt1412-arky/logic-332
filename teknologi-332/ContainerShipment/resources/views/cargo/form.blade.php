@@ -1,24 +1,24 @@
 @extends('layouts.app')
 
-@section('title', 'Berth')
-@section('page-title', 'Form Isian Berth')
+@section('title', 'Cargo')
+@section('page-title', 'Form Data Cargo')
 @section('content')
 
-<form action="/berth/create" method="post">
+<form action="/cargo/create" method="post">
     {{ csrf_field() }}
     <table class="table table-dark">
         <tr>
-            <td>Berth Number</td>
+            <td>Cargo</td>
                 <td>
-                    <input type="text" name="berth_no" size="5" maxlength="5" class="form-control">
+                    <input type="text" name="cargo" size="5" maxlength="5" class="form-control">
                     <input type="hidden" id="create_by" name="create_by" class="form-control" >
                     <input type="hidden" id="update_by" name="update_by" class="form-control" >
                 </td>
         </tr>
         <tr>
-            <td>Length</td>
+            <td>ConstMatl</td>
                 <td>
-                    <input type="text" name="length" size="10" maxlength="10" class="form-control"></td>
+                    <input type="text" name="constmatl" size="10" maxlength="10" class="form-control"></td>
         </tr>
         <tr>
             <td colspan="2"> 

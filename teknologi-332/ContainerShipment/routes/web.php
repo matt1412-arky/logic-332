@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\BerthController;
+use App\Http\Controllers\UserAddressController;
+use App\Http\Controllers\CargoController;
+use App\Models\Cargo;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,3 +38,16 @@ Route::get('/berth/editForm/{id}', [BerthController::class, 'editForm']);
 Route::post('/berth/editSave/{id}', [BerthController::class, 'editSave']);
 Route::get('/berth/deleteform/{id}', [BerthController::class, 'deleteForm']);
 Route::post('/berth/delete', [BerthController::class, 'delete']);
+
+// untuk bagian user
+Route::get('/address', [UserAddressController::class, 'index']);
+Route::get('/address/form', [UserAddressController::class, 'form']);
+
+// untuk bagian cargo
+Route::get('/cargo', [CargoController::class, 'index']);
+Route::get('/cargo/form', [CargoController::class, 'form']);
+Route::post('/cargo/create', [CargoController::class, 'create']);
+Route::get('/cargo/editForm/{id}', [CargoController::class, 'editForm']);
+Route::post('/cargo/editSave/{id}', [CargoController::class, 'editSave']);
+Route::get('/cargo/deleteform/{id}', [CargoController::class, 'deleteForm']);
+Route::post('/cargo/delete', [CargoController::class, 'delete']);

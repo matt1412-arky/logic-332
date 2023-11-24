@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\MenuRestController;
 use App\Http\Controllers\RoleRestController;
+use App\Http\Controllers\UserAddressRestController;
 use App\Http\Controllers\UserRestController;
 use App\Models\Role;
 use Illuminate\Http\Request;
@@ -34,3 +35,6 @@ Route::post('/logout', [UserRestController::class, 'logout']);
 // untuk bagian menu
 Route::get('/parentmenu',[MenuRestController::class, 'parentMenu']);
 Route::get('/childmenu/{parent_id}', [MenuRestController::class, 'childMenu']);
+
+// untuk bagian user address
+Route::post('/useraddress/create/{user_id}', [UserAddressRestController::class, 'create']);
