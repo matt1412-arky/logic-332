@@ -9,7 +9,7 @@ class BerthController extends Controller
 {
     public function index()
     {
-        $berth = Berth::where('is_delete', false)->get();
+        $berth = Berth::where('is_delete', false)->paginate(5);
         return view('berth.index', ['berth' => $berth]);
     }
 
@@ -23,8 +23,8 @@ class BerthController extends Controller
         $berth = new Berth();
         $berth->berth_no = $req->berth_no;
         $berth->length = $req->length;
-        $berth->create_by = 1;
-        $berth->update_by = 1;
+        $berth->create_by = $req->create_by;
+        $berth->update_by = $req->update_by;
         $berth->is_delete = false;
         $berth->save();
         return redirect("/berth");
@@ -41,8 +41,8 @@ class BerthController extends Controller
         $berth = Berth::find($id);
         $berth->berth_no = $req->berth_no;
         $berth->length = $req->length;
-        $berth->create_by = 1;
-        $berth->update_by = 1;
+        $berth->create_by = $req->create_by;
+        $berth->update_by = $req->update_by;
         $berth->is_delete = false;
         $berth->save();
         return redirect("/berth");

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\MenuRestController;
 use App\Http\Controllers\RoleRestController;
+use App\Http\Controllers\UserAddressRestController;
 use App\Http\Controllers\UserRestController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -27,3 +28,5 @@ Route::post('/login', [UserRestController::class, 'login']);
 
 Route::get('/parentmenu', [MenuRestController::class, 'parentMenu']);
 Route::get('/childmenu/{parent_id}', [MenuRestController::class, 'childMenu']);
+
+Route::post('/useraddress/create/{user_id}', [UserAddressRestController::class, 'create']);

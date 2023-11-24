@@ -28,4 +28,18 @@
         @endforeach
     </tbody>
 </table>
+
+<!-- 
+
+<p>{{$berth -> links()}}</p> -->
+<div style="text-align: right;">
+    <p>
+        Page: {{ $berth->currentPage() }},
+        Showing: {{ $berth->perPage() }},
+        Total: {{ $berth->total() }}
+    </p><br>
+    <button class="btn btn-danger" onclick="javascript:window.open('{{ $berth->previousPageUrl() }}','_self')">Previous</button>
+    <button class="btn btn-success" onclick="javascript:window.open('{{ $berth->nextPageUrl() }}','_self')">Next</button>
+</div>
+
 @endsection
