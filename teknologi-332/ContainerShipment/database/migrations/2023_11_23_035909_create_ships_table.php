@@ -16,9 +16,10 @@ return new class extends Migration
         Schema::create('ships', function (Blueprint $table) {
             $table->increments('id');
             $table->string('ship_name', 50);
-            $table->float('grt');//groos register tonmage
+            $table->float('grt');// groos register tonmage
             $table->float('nrt');// neet register tonmage
-            $table->float('loa');//length overall
+            $table->float('loa');// length overall
+            $table->string('image', 200);// image file name
             $table->integer('create_by');
             $table->integer('update_by');
             $table->boolean('is_delete')->default(false);

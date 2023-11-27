@@ -4,8 +4,8 @@
 @section('page-title', 'Edit Data Cargo')
 @section('content')
 
-@foreach($berth as $data)
-<form action="/carfo/editSave/{{$data->id}}" method="post">
+@foreach($cargo as $data)
+<form action="/cargo/editSave/{{$data->id}}" method="post">
     {{ csrf_field() }}
     <input type="hidden" name="id" size="5" maxlength="5" value="{{$data->id}}">
     <table class="table table-dark">

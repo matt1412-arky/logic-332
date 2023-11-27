@@ -3,7 +3,9 @@
 use App\Http\Controllers\BerthController;
 use App\Http\Controllers\UserAddressController;
 use App\Http\Controllers\CargoController;
+use App\Http\Controllers\ShipController;
 use App\Models\Cargo;
+use App\Models\Ship;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -51,3 +53,10 @@ Route::get('/cargo/editForm/{id}', [CargoController::class, 'editForm']);
 Route::post('/cargo/editSave/{id}', [CargoController::class, 'editSave']);
 Route::get('/cargo/deleteform/{id}', [CargoController::class, 'deleteForm']);
 Route::post('/cargo/delete', [CargoController::class, 'delete']);
+
+// untuk bagian ship
+Route::get('/ship', [ShipController::class, 'index']);
+Route::get('/ship/form', [ShipController::class, 'form']);
+Route::post('/ship/create', [ShipController::class, 'store']);
+Route::get('/ship/pdf', [ShipController::class, 'printPDF']);
+Route::get('/ship/sendemail', [ShipController::class, 'sendTextEmail']);
