@@ -19,6 +19,7 @@ return new class extends Migration
             $table->float('grt'); //gross register tonnage
             $table->float('nrt'); //net register tonnage
             $table->float('loa'); //length overall
+            $table->string('img', 200);
             $table->integer('create_by');
             $table->integer('update_by')->nullable();
             $table->timestamps();

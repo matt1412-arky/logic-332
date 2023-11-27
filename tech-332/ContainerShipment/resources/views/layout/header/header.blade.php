@@ -36,6 +36,18 @@
 
 <script>
     function logoutConfirmation() {
-        window.location.href = '{{ route('home.logout') }}';
+        Swal.fire({
+            title: 'Logout Confirmation',
+            text: 'Are you sure you want to logout?',
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Logout'
+        }).then((function) => {
+            if (result.isConfirmed) {
+                window.location.href = '{{ route('home.logout') }}';
+            }
+        });
     }
 </script>

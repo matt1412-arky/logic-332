@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\BerthController;
 use App\Http\Controllers\CargoController;
+use App\Http\Controllers\ShipController;
+use App\Http\Controllers\UserAddressController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,7 +33,6 @@ Route::group([
 ], function () {
     Route::view('dashboard', 'dashboard')->name('dashboard');
     Route::get('logout', function () {
-        // No server-side session, so simply redirect to the homepage after "logout"
         return view('logout');
     })->name('logout');
 
@@ -53,5 +54,22 @@ Route::group([
         Route::post('/update', [CargoController::class, 'update'])->name('update-cargo');
         Route::get('/deleteForm/{id}', [CargoController::class, 'deleteForm'])->name('deleteForm-cargo');
         Route::post('/delete', [CargoController::class, 'delete'])->name('delete-cargo');
+    });
+
+    Route::prefix('address')->group(function () {
+        Route::get('/', [UserAddressController::class, 'index'])->name('address');
+        Route::get('/form', [UserAddressController::class, 'form'])->name('form-address');
+    });
+
+    Route::prefix('ship')->group(function () {
+        Route::get('/', [ShipController::class, 'index'])->name('ship');
+        Route::get('/form', [ShipController::class, 'form'])->name('form-ship');
+        Route::post('/create', [ShipController::class, 'store'])->name('create-ship');
+        Route::get('/edit/{id}', [ShipController::class, 'edit'])->name('edit-ship');
+        Route::post('/update', [ShipController::class, 'update'])->name('update-ship');
+        Route::get('/deleteForm/{id}', [ShipController::class, 'deleteForm'])->name('deleteForm-ship');
+        Route::post('/delete', [ShipController::class, 'delete'])->name('delete-ship');
+        Route::get('/pdf', [ShipController::class, 'printPDF'])->name('printpdf-ship');
+        Route::get('/sendemail', [ShipController::class, 'sendTextEmail'])->name('sendemail-ship');
     });
 });
